@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>생성형 AI 실무 활용 — 한국전력공사 특강 · 조성호</title>
+<script src="lib/anime.min.js"></script>
+<style>
+/* ===================================================================
+   생성형 AI 실무 활용 — 한국전력공사 특강 (500명 / 2시간)
+   테마: corporate-clean  ·  설계공간 1600x900
+   외부 의존 없음. lib/anime.min.js 만 로컬 참조.
+   =================================================================== */
+
+:root{
+  --bg:#F6F6F3;
+  --surface:#FFFFFF;
+  --ink:#131519;
+  --ink-2:#4B525B;
+  --ink-3:#8B9199;
+  --line:#DCDCD4;
+  --line-2:#EDEDE7;
+
+  --accent:#12467E;
+  --accent-2:#2E6FB7;
+  --accent-soft:#E8EFF8;
+
+  --warn:#AE3E1C;
+  --warn-soft:#FBECE6;
+  --ok:#1D6547;
+  --ok-soft:#E6F1EB;
+
+  /* 타이포 — 핵심은 크게, 보조는 작게 */
+  --t-mega:172px;
+  --t-hero:126px;
+  --t-h1:74px;
+  --t-h2:50px;
+  --t-h3:38px;
+  --t-body:34px;
+  --t-small:26px;
+  --t-meta:21px;
+  --t-code:27px;
+
+  --sans:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic",system-ui,sans-serif;
+  --mono:"D2Coding","Cascadia Mono",Consolas,"SFMono-Regular",Menlo,monospace;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#0C0D10}
+body{font-family:var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+/* ---------- 무대: 1600x900을 화면에 맞춰 스케일 ---------- */
+#stage{
+  position:absolute;left:50%;top:50%;
+  width:1600px;height:900px;
+  transform-origin:center center;
+  background:var(--bg);
+  overflow:hidden;
+}
+
+/* ---------- 슬라이드 ---------- */
+.slide{
+  position:absolute;inset:0;
+  display:none;
+  flex-direction:column;
+  padding:84px 104px 96px;
+  background:var(--bg);
+  color:var(--ink);
+  /* 한글은 단어 중간에서 끊지 않는다 */
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+.slide.is-active{display:flex}
+.notes{display:none}
+
+/* ---------- 상단 러너 ---------- */
+.runner{
+  position:absolute;top:38px;left:104px;right:104px;
+  display:flex;align-items:center;gap:16px;
+  font-size:var(--meta,19px);
+  color:var(--ink-3);
+  letter-spacing:.02em;
+}
+.runner .blk{font-weight:700;color:var(--accent)}
+.runner .sep{width:1px;height:14px;background:var(--line)}
+.runner .clock{margin-left:auto;font-variant-numeric:tabular-nums}
+
+/* ---------- 하단 진행 ---------- */
+#progress{
+  position:absolute;left:0;bottom:0;height:5px;width:0;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  z-index:40;
+}
+.pagenum{
+  position:absolute;right:104px;bottom:40px;
+  font-size:20px;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;letter-spacing:.06em;
+}
+
+/* ---------- 공통 타이포 ---------- */
+.eyebrow{
+  font-size:var(--t-meta);font-weight:700;letter-spacing:.16em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:26px;
+}
+.eyebrow.warn{color:var(--warn)}
+h1.title{font-size:var(--t-h1);font-weight:800;line-height:1.16;letter-spacing:-.02em}
+h2.sub{font-size:var(--t-h2);font-weight:700;line-height:1.24;letter-spacing:-.015em}
+.hero{font-size:var(--t-hero);font-weight:800;line-height:1.1;letter-spacing:-.035em}
+.mega{font-size:var(--t-mega);font-weight:800;line-height:1.04;letter-spacing:-.04em}
+.body{font-size:var(--t-body);line-height:1.6;color:var(--ink-2);font-weight:500}
+.small{font-size:var(--t-small);line-height:1.62;color:var(--ink-2)}
+.meta{font-size:var(--t-meta);line-height:1.6;color:var(--ink-3)}
+.k{color:var(--ink);font-weight:800}
+.kw{color:var(--warn);font-weight:800}
+.ka{color:var(--accent);font-weight:800}
+
+/* ---------- 레이아웃 ---------- */
+.mid{margin:auto 0;display:flex;flex-direction:column}
+.rows{display:flex;flex-direction:column;gap:22px}
+.rows.tight{gap:14px}
+.rows.loose{gap:34px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.split.v{align-items:stretch}
+.rule{height:1px;background:var(--line);margin:14px 0}
+.rule.strong{height:2px;background:var(--ink);opacity:.14}
+
+/* ---------- 구(句) 단위 리스트 ---------- */
+.phr{display:flex;flex-direction:column;gap:20px}
+.phr li{list-style:none;display:flex;gap:20px;align-items:baseline;font-size:var(--t-body);color:var(--ink-2);font-weight:500;line-height:1.45}
+.phr li .bul{flex:none;width:9px;height:9px;border-radius:50%;background:var(--accent);transform:translateY(-6px)}
+.phr li.warn .bul{background:var(--warn)}
+.phr.big li{font-size:var(--t-h3);color:var(--ink);font-weight:700}
+
+/* ---------- 카드 ---------- */
+.card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:34px 38px;
+}
+.card.accent{border-color:var(--accent);background:var(--accent-soft)}
+.card.warn{border-color:var(--warn);background:var(--warn-soft)}
+.card.ok{border-color:var(--ok);background:var(--ok-soft)}
+.card .ct{font-size:var(--t-meta);font-weight:800;letter-spacing:.1em;color:var(--ink-3);margin-bottom:14px;text-transform:uppercase}
+.card.accent .ct{color:var(--accent)}
+.card.warn .ct{color:var(--warn)}
+.card.ok .ct{color:var(--ok)}
+.card .cb{font-size:var(--t-small);line-height:1.6;color:var(--ink-2)}
+.card .cbig{font-size:var(--t-h3);font-weight:800;color:var(--ink);line-height:1.35}
+
+/* ---------- 번호 ---------- */
+.numrow{display:flex;gap:26px;align-items:flex-start}
+.num{
+  flex:none;width:58px;height:58px;border-radius:50%;
+  background:var(--accent);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:29px;font-weight:800;
+}
+.num.warn{background:var(--warn)}
+.num.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+
+/* ---------- 인용 ---------- */
+.quote{
+  font-size:52px;font-weight:700;line-height:1.34;color:var(--ink);
+  letter-spacing:-.02em;padding-left:34px;border-left:5px solid var(--line);
+}
+.quote.mute{color:var(--ink-2);font-weight:600}
+
+/* ---------- 코드/모노 ---------- */
+.mono{font-family:var(--mono);font-size:var(--t-code);line-height:1.65;color:var(--ink)}
+.codeblock{
+  background:#15181D;color:#E8EAED;border-radius:12px;
+  padding:30px 34px;font-family:var(--mono);font-size:var(--t-code);
+  line-height:1.62;white-space:pre;overflow:hidden;
+}
+.codeblock .c{color:#7F8B99}
+.codeblock .s{color:#9ECB8A}
+.codeblock .f{color:#7FB4E8}
+.promptbox{
+  background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);
+  border-radius:10px;padding:26px 30px;
+  font-family:var(--mono);font-size:25px;line-height:1.62;color:var(--ink-2);white-space:pre-wrap;
+}
+.promptbox.bad{border-left-color:var(--warn)}
+.rawbox{
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;
+  padding:28px 34px;font-family:var(--mono);font-size:25px;line-height:1.78;color:var(--ink-2);
+  white-space:pre-wrap;word-break:keep-all;
+}
+.rawbox .hl{color:var(--warn);font-weight:700}
+
+/* ---------- 고지 ---------- */
+.disc{
+  position:absolute;left:104px;bottom:40px;
+  font-size:19px;color:var(--ink-3);letter-spacing:.01em;
+}
+.disc::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink-3);margin-right:10px;transform:translateY(-3px)}
+
+/* ---------- 채우기 지시 ---------- */
+.fillbar{
+  display:flex;align-items:center;gap:22px;
+  background:var(--accent);color:#fff;border-radius:12px;padding:26px 34px;
+}
+.fillbar .tag{
+  flex:none;font-size:19px;font-weight:800;letter-spacing:.12em;
+  background:rgba(255,255,255,.2);padding:8px 14px;border-radius:6px;
+}
+.fillbar .txt{font-size:31px;font-weight:700;line-height:1.35}
+</style>
+</head>
+<body>
+<style>
+/* ---------- 흐름도 (슬라이드 18) ---------- */
+.flow{display:flex;align-items:stretch;gap:0;width:100%}
+.flow .node{
+  flex:1;background:var(--surface);border:2px solid var(--line);border-radius:14px;
+  padding:26px 24px;text-align:center;
+}
+.flow .node.out{border-color:var(--warn);background:var(--warn-soft)}
+.flow .node.safe{border-color:var(--ok);background:var(--ok-soft)}
+.flow .node .nt{font-size:20px;font-weight:800;letter-spacing:.1em;color:var(--ink-3);margin-bottom:12px}
+.flow .node.out .nt{color:var(--warn)}
+.flow .node.safe .nt{color:var(--ok)}
+.flow .node .nb{font-size:28px;font-weight:700;color:var(--ink);line-height:1.35}
+.flow .node .ns{font-size:19px;color:var(--ink-3);margin-top:8px}
+.flow .arrow{
+  flex:none;width:64px;display:flex;align-items:center;justify-content:center;
+  font-size:30px;color:var(--ink-3);font-weight:700;
+}
+
+/* ---------- 대비 2단 (슬라이드 6·15) ---------- */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.versus > div{padding:40px 44px;background:var(--surface)}
+.versus > div + div{border-left:1px solid var(--line)}
+.versus .vt{font-size:24px;font-weight:800;letter-spacing:.1em;margin-bottom:20px}
+.versus .vb{font-size:var(--t-h3);font-weight:700;color:var(--ink);line-height:1.4}
+.versus .vs{font-size:var(--t-small);color:var(--ink-2);margin-top:16px;line-height:1.55}
+.versus .ok-side .vt{color:var(--ok)}
+.versus .warn-side{background:var(--warn-soft)}
+.versus .warn-side .vt{color:var(--warn)}
+
+/* ---------- 취소 표시 (슬라이드 14) ---------- */
+.strike{position:relative;display:inline-block}
+.strike .ln{
+  position:absolute;left:-6px;top:52%;height:5px;width:0;
+  background:var(--warn);border-radius:3px;
+}
+
+/* ---------- 강조 박스 (슬라이드 19) ---------- */
+.leak{
+  position:relative;display:inline-block;padding:2px 8px;
+  border:3px solid var(--warn);border-radius:7px;
+  color:var(--warn);font-weight:800;
+  clip-path:inset(0 100% 0 0);
+}
+
+/* ---------- 결과물 양식 (슬라이드 2·21) ---------- */
+.form{
+  background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:38px 42px;box-shadow:0 18px 44px rgba(19,21,25,.07);
+}
+.form .fh{font-size:29px;font-weight:800;color:var(--ink);line-height:1.35;margin-bottom:8px}
+.form .fs{font-size:20px;color:var(--ink-3);margin-bottom:26px}
+.form .frow{display:flex;gap:16px;align-items:baseline;padding:17px 0;border-bottom:1px dashed var(--line)}
+.form .frow:last-child{border-bottom:none}
+.form .fn{flex:none;width:30px;font-size:23px;font-weight:800;color:var(--accent)}
+.form .ft{font-size:24px;color:var(--ink-2);font-weight:600}
+.form .fl{flex:1;height:2px;background:var(--line-2);margin-left:8px;transform:translateY(-4px)}
+.form .frow.done .fl{background:var(--accent)}
+.form .frow.done .ft{color:var(--ink)}
+
+/* ---------- 발표자 모드 ---------- */
+#presenter{
+  display:none;position:fixed;inset:0;z-index:100;
+  background:#0F1115;color:#E9ECF0;
+  padding:44px 52px;
+  font-family:var(--sans);
+  overflow:hidden;
+}
+#presenter.on{display:grid;grid-template-rows:auto 1fr auto;gap:26px}
+#presenter .ph{display:flex;align-items:center;gap:20px}
+#presenter .ph .pnum{font-size:26px;font-weight:800;color:#5B9BE0;letter-spacing:.06em}
+#presenter .ph .ptitle{font-size:26px;font-weight:700;color:#E9ECF0}
+#presenter .ph .ptimer{
+  margin-left:auto;font-size:44px;font-weight:800;font-variant-numeric:tabular-nums;color:#fff;
+}
+#presenter .ph .pplan{font-size:22px;color:#8B94A3;font-variant-numeric:tabular-nums}
+#presenter .pnotes{
+  overflow-y:auto;font-size:25px;line-height:1.72;color:#C9D1DC;
+  background:#161A20;border:1px solid #262C36;border-radius:12px;padding:30px 34px;
+}
+#presenter .pnotes strong{color:#fff}
+#presenter .pf{display:flex;align-items:center;gap:28px;font-size:20px;color:#7C8593}
+#presenter .pf .nx{color:#B9C3D0}
+#presenter .pf .keys{margin-left:auto}
+#presenter .pf kbd{
+  background:#20262F;border:1px solid #333B47;border-radius:5px;
+  padding:3px 9px;font-family:var(--mono);font-size:18px;color:#C9D1DC;margin:0 3px;
+}
+
+/* ---------- 도움말 ---------- */
+#help{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);
+  z-index:60;display:flex;gap:18px;align-items:center;
+  background:rgba(19,21,25,.86);color:#E9ECF0;border-radius:10px;
+  padding:11px 20px;font-size:17px;font-family:var(--sans);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+}
+#help.show{opacity:1}
+#help kbd{
+  background:rgba(255,255,255,.14);border-radius:4px;padding:2px 8px;
+  font-family:var(--mono);font-size:16px;
+}
+
+/* ---------- 밀도 높은 슬라이드용 compact 변형 ---------- */
+.slide.compact .card{padding:24px 28px}
+.slide.compact .rows.loose{gap:24px}
+.slide.compact .rows{gap:16px}
+.slide.compact .rows.tight{gap:11px}
+.slide.compact .fillbar{padding:20px 28px}
+.slide.compact .fillbar .txt{font-size:28px}
+.slide.compact .form{padding:30px 34px}
+.slide.compact .form .frow{padding:13px 0}
+.slide.compact .versus > div{padding:30px 34px}
+.slide.compact .rule{margin:8px 0}
+
+/* ---------- 애니메이션 초기 상태 ---------- */
+[data-anim]{opacity:0}
+</style>
+
+<div id="progress"></div>
+<div id="help">
+  <span><kbd>&larr;</kbd><kbd>&rarr;</kbd> 이동</span>
+  <span><kbd>S</kbd> 발표자 모드</span>
+  <span><kbd>F</kbd> 전체화면</span>
+  <span><kbd>R</kbd> 타이머 초기화</span>
+  <span><kbd>?</kbd> 도움말</span>
+</div>
+
+<div id="presenter">
+  <div class="ph">
+    <span class="pnum">—</span>
+    <span class="ptitle">—</span>
+    <span class="pplan">—</span>
+    <span class="ptimer">00:00</span>
+  </div>
+  <div class="pnotes">—</div>
+  <div class="pf">
+    <span class="nx">—</span>
+    <span class="keys"><kbd>←</kbd><kbd>→</kbd> 이동 · <kbd>S</kbd> 닫기 · <kbd>R</kbd> 타이머 초기화</span>
+  </div>
+</div>
+
+<div id="stage">
+
+<!-- ============ 1 ============ -->
+<section class="slide" data-blk="오프닝" data-plan="00:00" data-title="타이틀">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>한국전력공사 특강 · 2시간</div>
+    <div class="mega" data-anim data-split>생성형 AI<br>실무 활용</div>
+    <div class="rule strong" data-anim></div>
+    <div class="body" data-anim>무엇을 맡기고, 무엇을 <span class="k">맡기지 않을 것인가</span></div>
+    <div class="meta" data-anim style="margin-top:18px">조성호 · KODE KOREA 대표 · 부산대학교 AI융합교육원 강사</div>
+  </div>
+  <aside class="notes">안녕하세요, <strong>조성호</strong>입니다. 부산에서 회사 하고 부산대에서 강의합니다. 연구도 하지만 기본적으로 <strong>제품 만들어 납품하는 개발자</strong>입니다. 그래서 오늘 내용은 논문이 아니라 <strong>제가 프로젝트에서 깨진 이야기</strong>입니다. 오늘 두 시간 동안 여러분 앞에서 AI를 몇 번 실패시킬 겁니다. 잘 되는 장면만 보시면 회사 가서 못 쓰시거든요.<br><br><strong>→ 바로 결과물 슬라이드로 넘어갑니다.</strong></aside>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="slide" data-blk="오프닝" data-plan="00:01" data-title="오늘 만들어 갈 것">
+  <div class="mid">
+    <div class="split" style="align-items:center;gap:70px">
+      <div class="rows loose">
+        <div class="eyebrow" data-anim>오늘 끝나면</div>
+        <h1 class="title" data-anim>여러분은 <span class="ka">종이 한 장</span>을<br>들고 나가십니다</h1>
+        <div class="body" data-anim>강의 중 <span class="k">세 번 멈춰서</span>, 세 칸을 채웁니다</div>
+        <div class="small" data-anim style="color:var(--ink-3)">제가 채워 드리지 않습니다.<br>저는 여러분 업무를 모르니까요.</div>
+      </div>
+      <div class="form" data-anim data-form>
+        <div class="fh">우리 팀 AI 사용 판단 기준</div>
+        <div class="fs">배포 자료 1쪽 · 강의 중 작성</div>
+        <div class="frow"><span class="fn">1</span><span class="ft">급한 일과 안 급한 일을 가르는 기준</span><span class="fl"></span></div>
+        <div class="frow"><span class="fn">2</span><span class="ft">원본과 대조해야 하는 업무</span><span class="fl"></span></div>
+        <div class="frow"><span class="fn">3</span><span class="ft">넣기 전에 지워야 하는 정보</span><span class="fl"></span></div>
+        <div class="frow"><span class="fn">4</span><span class="ft">다음 주 팀 회의에 가져갈 한 문장</span><span class="fl"></span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">오늘 뭘 들고 나가시는지부터 말씀드립니다. 이겁니다, <strong>종이 한 장</strong>. 지금 나눠 드린 자료 뒤쪽에 빈칸으로 들어 있습니다. <strong>"지금 한번 펴 보시겠습니까."</strong> 3초 기다립니다. 종이 넘기는 소리가 나야 합니다.<br><br>두 시간 동안 저 빈칸을 채우실 겁니다. <strong>제가 채워 드리지 않습니다.</strong> 저는 여러분 업무를 모르니까요. 끝나고 백지면 오늘은 실패입니다.</aside>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="slide" data-blk="오프닝" data-plan="00:03" data-title="오늘 하는 일 세 가지">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>학습목표</div>
+    <div class="rows loose" style="gap:40px">
+      <div class="numrow" data-anim><div class="num">1</div><div><div style="font-size:44px;font-weight:800;line-height:1.3">프롬프트 3종을 비교해 <span class="ka">판별한다</span></div><div class="small" style="margin-top:8px;color:var(--ink-3)">어느 쪽이 결재에 올릴 수 있는 결과인가</div></div></div>
+      <div class="numrow" data-anim><div class="num">2</div><div><div style="font-size:44px;font-weight:800;line-height:1.3">AI가 지어낸 규정을 <span class="ka">찾아낸다</span></div><div class="small" style="margin-top:8px;color:var(--ink-3)">오늘 가장 중요한 것</div></div></div>
+      <div class="numrow" data-anim><div class="num">3</div><div><div style="font-size:44px;font-weight:800;line-height:1.3">넣어도 되는 정보를 <span class="ka">적는다</span></div><div class="small" style="margin-top:8px;color:var(--ink-3)">넣으면 안 되는 것과 구분해서</div></div></div>
+    </div>
+    <div class="meta" data-anim style="margin-top:14px">세 개뿐입니다. 다른 걸 가져가시면 제가 잘못 가르친 겁니다.</div>
+  </div>
+  <aside class="notes">세 가지입니다. 첫째, 같은 지시를 세 방식으로 시켜 보고 어느 게 <strong>결재에 올릴 만한지</strong> 판별. 둘째, AI가 지어낸 규정과 숫자를 <strong>직접 찾아내기</strong>. 이게 오늘 제일 중요합니다. 셋째, 넣어도 되는 정보와 안 되는 정보를 구분해서 <strong>적기</strong>.<br><br>세 개뿐입니다. 다른 걸 가져가시면 제가 잘못 가르친 겁니다.</aside>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="slide" data-blk="오프닝" data-plan="00:05" data-title="오늘 여러분의 역할">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>오늘 여러분의 역할</div>
+    <div class="hero" data-anim data-split style="font-size:82px">여러분은 이 사업소에서<br>AI 도입을 <span class="ka">판단해야 하는 사람</span>입니다</div>
+    <div class="rule" data-anim></div>
+    <div class="split" style="gap:40px">
+      <div class="rows tight">
+        <div class="small" data-anim style="font-weight:700;color:var(--ink)">다음 주 월요일, 팀이 AI를 쓰기 시작한다</div>
+        <ul class="phr" style="gap:12px">
+          <li data-anim><span class="bul"></span>고객 정보가 있다</li>
+          <li data-anim><span class="bul"></span>규정 문서가 있다</li>
+          <li data-anim><span class="bul"></span>결재 라인이 있다</li>
+        </ul>
+      </div>
+      <div class="card warn" data-anim style="align-self:center">
+        <div class="ct">제약</div>
+        <div class="cbig">잘못되면 감사 대상이다</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">역할을 하나 드립니다. <strong>여러분은 오늘 AI 도입을 판단해야 하는 사람입니다.</strong> 다음 주 월요일 시작됩니다. 위에서 내려왔든 옆 팀이 먼저 쓰든요.<br><br>그런데 손에 고객 정보가 있고, 규정이 있고, 결재 라인이 있고, <strong>잘못되면 감사 대상</strong>입니다. <strong>3초 정지.</strong> 이 조건에서 뭘 허용하고 뭘 금지할 것인가. 저는 강사가 아니라 <strong>먼저 깨져 본 사람</strong>으로 왔습니다.<br><br><strong>→ 넘어가겠습니다.</strong></aside>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="slide" data-blk="문제 던지기" data-plan="00:08" data-title="써봤는데 별로던데요">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>제가 기업 교육에서 가장 많이 듣는 말</div>
+    <div class="rows loose" style="gap:36px">
+      <div class="quote mute" data-anim>"한번 써봤는데 뻔한 소리만 하더라고요"</div>
+      <div class="quote mute" data-anim>"그거 정리할 시간에 제가 쓰는 게 빨라요"</div>
+      <div class="quote mute" data-anim>"틀린 걸 하도 자신 있게 말해서 못 믿겠어요"</div>
+    </div>
+    <div class="rule strong" data-anim></div>
+    <div style="font-size:52px;font-weight:800;letter-spacing:-.02em" data-anim>셋 다 <span class="ka">맞는 말</span>입니다</div>
+  </div>
+  <aside class="notes">질문 드립니다, 손 드실 필요 없이 <strong>속으로만</strong>. AI 업무에 써 보신 분? <strong>3초.</strong> 써 보시고 그 뒤로 안 쓰시는 분? <strong>5초, 천천히 훑습니다.</strong><br><br>기업 교육 다니면 제일 많이 듣는 게 이 세 마디입니다. <strong>셋 다 맞는 말이고 저도 그렇게 생각합니다.</strong> 오늘 "아닙니다 잘 됩니다" 하러 온 게 아닙니다. <strong>왜 저 말이 나오는지</strong>를 구분해 드리러 왔습니다.</aside>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="slide" data-blk="문제 던지기" data-plan="00:13" data-title="고칠 수 있는 것 / 없는 것">
+  <div class="mid rows loose">
+    <div class="versus" data-anim>
+      <div class="ok-side">
+        <div class="vt">고칠 수 있다</div>
+        <div class="vb">뻔한 소리만 한다</div>
+        <div class="vs">→ 시연 ①에서 다룹니다</div>
+      </div>
+      <div class="warn-side">
+        <div class="vt">못 고친다. 줄일 뿐</div>
+        <div class="vb">틀린 걸 자신 있게 말한다</div>
+        <div class="vs">→ 시연 ②에서 다룹니다</div>
+      </div>
+    </div>
+    <div class="rule" data-anim></div>
+    <div style="font-size:46px;font-weight:800;letter-spacing:-.02em" data-anim>진짜 사고는 <span class="kw">잘 쓰는 것처럼 보일 때</span> 난다</div>
+    <div class="split" style="grid-template-columns:1fr 1fr 1fr;gap:22px">
+      <div class="card" data-anim><div class="ct">유형 1</div><div class="cbig" style="font-size:30px">그럴듯한 숫자</div><div class="cb" style="margin-top:8px">존재하지 않는 출처가 결재 두 단계를 올라갔다</div></div>
+      <div class="card" data-anim><div class="ct">유형 2</div><div class="cbig" style="font-size:30px">붙여넣기</div><div class="cb" style="margin-top:8px">"정리만 시킨 건데요" — 데이터는 이미 나갔다</div></div>
+      <div class="card" data-anim><div class="ct">유형 3</div><div class="cbig" style="font-size:30px">판단 위임</div><div class="cb" style="margin-top:8px">"AI가 이렇게 하라고 했습니다"가 근거가 된다</div></div>
+    </div>
+  </div>
+  <aside class="notes">이 구분이 오늘의 뼈대입니다. "뻔하다"는 <strong>고칠 수 있습니다.</strong> "틀린 걸 자신 있게 말한다"는 <strong>못 고칩니다. 줄일 수만 있습니다.</strong><br><br>그런데 "별로더라"는 사실 큰 문제가 아니에요, 안 쓰면 그만이니까. <strong>진짜 사고는 잘 쓰는 것처럼 보일 때 납니다.</strong> 세 유형 말씀드립니다. 회사 이름은 말 안 합니다.<br><br><strong>→ 각각 시연 ②, ③, 마지막 정리에서 다룹니다.</strong></aside>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="slide" data-blk="시연 ① 프롬프트 3종" data-plan="00:20" data-title="원자료">
+  <div class="mid rows">
+    <div class="eyebrow" data-anim>시연 ① · 오늘 오전 순시 메모</div>
+    <div class="rawbox" data-anim style="font-size:26px;line-height:1.85">3호 변압기 쪽 소리 좀 이상함. 웅- 하는게 평소보다 큼. 온도는 정상범위
+2번 게이트 옆 케이블 트레이 커버 하나 떨어져 있음. 지난달에도 같은 자리
+배전반 B-07 표시등 깜빡임. 껐다 켜니까 정상됨. <span class="hl">일단 넘어감</span>
+우수관 배수구 낙엽 막힘. 어제 비 와서 물 고임. 청소 필요
+순시 기록판 서명란 8월분 3일치 비어있음
+4호기 진동측정값 전달 예정이었는데 계측기 배터리 없어서 못 쟀음</div>
+    <div class="split" style="gap:34px;margin-top:8px">
+      <div class="small" data-anim>반말 · 약어 · 오탈자 · <span class="kw">판단이 섞여 있다</span></div>
+      <div class="small" data-anim style="text-align:right;color:var(--ink)"><span class="k">과제</span> — 팀장이 5분 안에 읽고<br>오늘 무엇을 결정할지 판단할 수 있는 보고 초안으로</div>
+    </div>
+  </div>
+  <div class="disc">교육용 가상 자료 — 실제 사업소 데이터 아님</div>
+  <aside class="notes">제가 만든 가상 순시 메모입니다. 실제 사업소 자료 아닙니다. <strong>근데 형태는 아실 겁니다.</strong> 뒷자리 안 보이실 테니 읽어 드립니다.<br><br>반말이고 약어 있고 판단이 섞여 있죠, "일단 넘어감" 같은 거요. 이걸 팀장님이 5분 안에 읽고 오늘 뭘 결정할지 판단할 수 있는 보고서로 바꾸는 게 과제입니다.<br><br><strong>→ 여기서 라이브 화면으로 넘어갑니다.</strong></aside>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="slide" data-blk="시연 ① 프롬프트 3종" data-plan="00:22" data-title="프롬프트 A — 이거 정리해줘">
+  <div class="mid rows loose">
+    <div class="eyebrow warn" data-anim>프롬프트 A</div>
+    <div class="promptbox bad" data-anim style="font-size:40px;font-weight:700;color:var(--ink)">이거 정리해줘.</div>
+    <div class="rule" data-anim></div>
+    <div class="split" style="grid-template-columns:1fr 1fr 1fr;gap:22px">
+      <div class="card" data-anim><div class="cbig" style="font-size:32px">길어졌다</div></div>
+      <div class="card" data-anim><div class="cbig" style="font-size:32px">정보량은 그대로</div></div>
+      <div class="card warn" data-anim><div class="cbig" style="font-size:32px">매번 다르게 나온다</div></div>
+    </div>
+    <div style="font-size:44px;font-weight:800;letter-spacing:-.02em" data-anim>이거 보고 <span class="kw">오늘 뭐부터 하실지</span> 아시겠습니까?</div>
+  </div>
+  <aside class="notes">제일 흔한 방법부터. "이거 정리해줘." 저도 급할 때 이렇게 씁니다. 출력 나오면 <strong>읽지 말고 스크롤만 내립니다.</strong> 반말이 존댓말 되고 문장이 완성됐죠.<br><br>그런데 <strong>"이거 보고 오늘 뭐부터 하실지 아시겠습니까?"</strong> <strong>3초 정지.</strong> 모르시죠. 원자료를 늘려 쓴 것뿐입니다. 그리고 지금 다시 돌리면 <strong>다른 게 나옵니다.</strong> 매번 다른 걸 업무에 어떻게 씁니까.<br><br><strong>자주 나는 사고</strong> — 출력이 예상보다 그럴듯하게 나올 때가 있다. 그때는 "우선순위"만 짚는다. 정리 품질이 아니라 <strong>판단 유무</strong>가 논점이다.</aside>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="slide compact" data-blk="시연 ① 프롬프트 3종" data-plan="00:25" data-title="프롬프트 B — 역할 + 형식">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>프롬프트 B</div>
+    <div class="split" style="grid-template-columns:1fr 1fr 1fr;gap:20px">
+      <div class="card accent" data-anim><div class="ct">역할</div><div class="cb" style="font-size:24px">설비 사업소 관리 담당자</div></div>
+      <div class="card accent" data-anim><div class="ct">과제</div><div class="cb" style="font-size:24px">상급자 보고용으로 정리</div></div>
+      <div class="card accent" data-anim><div class="ct">출력 형식</div><div class="cb" style="font-size:24px">개요 / 항목별 현황 / 조치 계획</div></div>
+    </div>
+    <div class="small" data-anim>형식은 갖춰졌다 — <span class="k">여기까지는 인정하고 갑시다</span></div>
+    <div class="rule strong" data-anim></div>
+    <div class="card warn" data-anim data-pulse>
+      <div class="ct">그런데 조치 계획 칸을 보면</div>
+      <div class="cbig" style="font-size:46px;line-height:1.3">낙엽 청소와 변압기 이상음이<br>같은 칸에, 같은 무게로 있다</div>
+    </div>
+    <div style="font-size:40px;font-weight:800;letter-spacing:-.02em" data-anim>형식은 줬는데, <span class="kw">판단 기준을 안 준 겁니다</span></div>
+  </div>
+  <aside class="notes">한 단계 올립니다. 보통 "프롬프트 잘 쓰는 법"에서 가르치는 게 이겁니다. 역할, 과제, 형식 세 개. 훨씬 낫습니다, <strong>이건 인정하고 갑시다.</strong><br><br>그런데 여기 보시죠. 조치 계획 칸에 <strong>낙엽 청소랑 변압기 이상음이 같은 크기로</strong> 들어가 있습니다. <strong>3초 정지.</strong> 낙엽은 다음 주에 치워도 되고, 변압기 소리는 오늘 봐야 하는 거죠.<br><br><strong>형식은 줬는데 판단 기준을 안 준 겁니다.</strong></aside>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="slide" data-blk="시연 ① 프롬프트 3종" data-plan="00:30" data-title="프롬프트 C — 판단 기준을 준다">
+  <div class="mid rows">
+    <div class="eyebrow" data-anim>프롬프트 C · B에서 더한 것만</div>
+    <div class="numrow" data-anim style="gap:20px"><div class="num ghost" style="width:46px;height:46px;font-size:23px">1</div><div><span style="font-size:34px;font-weight:800">읽는 사람을 특정</span><span class="small"> — 팀장, 순시 미동행, 오늘 우선순위 결정</span></div></div>
+    <div class="card accent" data-anim>
+      <div class="ct">2 · 분류 기준을 내가 정해서 준다</div>
+      <div style="display:flex;gap:16px;margin-top:6px">
+        <div style="flex:1"><span style="font-size:30px;font-weight:800;color:var(--warn)">[즉시]</span><div class="cb" style="font-size:21px">오늘 안에 고장·안전사고로 갈 수 있는 것</div></div>
+        <div style="flex:1"><span style="font-size:30px;font-weight:800;color:var(--accent)">[계획]</span><div class="cb" style="font-size:21px">이번 주 안에 처리하면 되는 것</div></div>
+        <div style="flex:1"><span style="font-size:30px;font-weight:800;color:var(--ink-3)">[기록]</span><div class="cb" style="font-size:21px">조치가 아니라 기록·관리 누락</div></div>
+      </div>
+    </div>
+    <div class="numrow" data-anim style="gap:20px"><div class="num ghost" style="width:46px;height:46px;font-size:23px">3</div><div><span style="font-size:34px;font-weight:800">안전장치</span><span class="small"> — 없는 수치·조항 만들지 마라 / 정보 부족은 [정보부족]으로</span></div></div>
+    <div class="numrow" data-anim style="gap:20px"><div class="num ghost" style="width:46px;height:46px;font-size:23px">4</div><div><span style="font-size:34px;font-weight:800">분량</span><span class="small"> — A4 반 장. 안 자르면 늘립니다</span></div></div>
+    <div class="rule" data-anim></div>
+    <div style="font-size:38px;font-weight:800;letter-spacing:-.02em" data-anim>변압기 소리가 급하다는 판단 — <span class="kw">그건 AI가 하는 게 아닙니다</span></div>
+  </div>
+  <aside class="notes">B에서 뭘 더했는지만 보시면 됩니다. 네 덩어리. <strong>두 번째가 오늘 시연 전체에서 제일 중요합니다.</strong><br><br>변압기 소리가 급하다는 판단, <strong>그건 AI가 하는 게 아닙니다.</strong> 여러분이 현장에서 배운 거죠. 그 기준을 문장으로 적어 주면 그때부터 AI가 그 기준으로 분류합니다. 세 번째 안전장치는 잠시 뒤 두 번째 시연에서 아주 아프게 보실 겁니다.<br><br><strong>결과 확인 후 반드시 한 군데를 짚어 "여기는 제가 고칠 겁니다"라고 말한다.</strong> 완벽하다고 말하지 않는다 — 오늘 "AI가 다 해줍니다"는 한 번도 안 나간다.<br><br><strong>자주 나는 사고</strong> — ① [정보부족] 칸이 비면 4호기 진동측정 건을 직접 짚어 실패로 다룬다. ② 결과가 너무 좋으면 근거 문장이 원문 반복인 항목을 찾아 짚는다.</aside>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="slide compact" data-blk="시연 ① 프롬프트 3종" data-plan="00:40" data-title="오늘의 문장 ①">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>오늘의 문장 ①</div>
+    <div class="hero" data-anim data-split style="font-size:102px">차이를 만든 건<br>AI 성능이 아니라,<br><span class="ka">내가 준 판단 기준</span>이다</div>
+    <div class="rule strong" data-anim></div>
+    <div class="split" style="grid-template-columns:1fr 1fr 1fr;gap:20px">
+      <div class="small" data-anim>같은 모델</div>
+      <div class="small" data-anim>같은 원자료</div>
+      <div class="small" data-anim style="color:var(--ink);font-weight:700">바뀐 건 문장 몇 줄</div>
+    </div>
+    <div class="fillbar" data-anim data-fill>
+      <span class="tag">지금 채우세요</span>
+      <span class="txt">1쪽 ① — 내 업무에서 급한 일과 안 급한 일을 가르는 기준</span>
+    </div>
+  </div>
+  <aside class="notes">B와 C를 나란히 띄우고 묻습니다. <strong>"어느 쪽을 결재에 올리시겠습니까. 무엇을 근거로 고르셨습니까?"</strong> <strong>5초 정지, 오늘 첫 결정 지점입니다. 절대 서두르지 않습니다.</strong><br><br>대부분 C를 고르셨겠지만 근거가 중요합니다. "좋아 보여서"가 아니라 <strong>"우선순위가 판단돼 있어서"</strong>여야 합니다. 그리고 그 우선순위를 판단한 건 제가 준 세 줄이죠.<br><br>배우실 건 AI 쓰는 법이 아니라 <strong>내 판단 기준을 문장으로 적는 법</strong>입니다.<br><br><strong>→ 1쪽 ①번 채우기 30초. 실제로 기다립니다. 아깝게 느껴져도 기다립니다.</strong><br><strong>→ 10분 휴식 안내. 55분 시작.</strong></aside>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="slide" data-blk="시연 ② 환각" data-plan="00:55" data-title="새벽 두 시">
+  <div class="mid rows loose">
+    <div class="eyebrow warn" data-anim>시연 ② · 상황</div>
+    <ul class="phr big" style="gap:26px">
+      <li data-anim><span class="bul"></span>야간 순시 중 · 새벽 두 시</li>
+      <li data-anim><span class="bul"></span>2등급 설비 이상 발견</li>
+      <li data-anim><span class="bul"></span>규정집은 사무실 캐비닛에 있다</li>
+    </ul>
+    <div class="rule strong" data-anim></div>
+    <div class="hero" data-anim data-split style="font-size:74px">주머니에 휴대폰이 있습니다.<br><span class="kw">물어보시겠습니까?</span></div>
+  </div>
+  <div class="disc">교육용 가상 상황</div>
+  <aside class="notes">상황 하나 드립니다. 야간 순시 중, 새벽 두 시. 설비 이상을 발견했는데 당장 터질 건 아니고 2등급 정도. <strong>언제까지 보고해야 합니까?</strong><br><br>규정집은 캐비닛에 있고 여러분은 현장에 있습니다. 전산도 못 들어갑니다. 그런데 주머니에 휴대폰이 있고 거기 AI가 있죠.<br><br><strong>"물어보시겠습니까?"</strong> <strong>3초 정지.</strong> 물어보실 겁니다. 저라도 물어봅니다. 그럼 물어보겠습니다.</aside>
+</section>
+
+<!-- ============ 13 ============ -->
+<section class="slide" data-blk="시연 ② 환각" data-plan="00:58" data-title="물어봤습니다">
+  <div class="mid rows loose">
+    <div class="eyebrow warn" data-anim>라이브 · 근거 문서를 주지 않고 물었다</div>
+    <div class="promptbox bad" data-anim style="font-size:26px">야간 순시(22시~06시) 중에 2등급 설비 이상을 발견했을 때,
+보고 시한이 어떻게 되는지 <span style="color:var(--warn);font-weight:700">근거 조항과 함께</span> 알려줘.
+그리고 야간 발견 건에 대한 별도 특례가 있으면 그것도 알려줘.</div>
+    <div class="rule strong" data-anim></div>
+    <div class="hero" data-anim data-split style="font-size:78px">여기서 틀린 곳이<br><span class="kw">몇 군데입니까?</span></div>
+    <div class="meta" data-anim>읽지 마시고, 보시기만 하세요</div>
+  </div>
+  <aside class="notes">함정 프롬프트를 입력합니다. 답이 나오면 <strong>절대 읽지 않습니다.</strong> 화면에 띄우고 물러섭니다.<br><br>"읽지 마시고 보시기만 하세요. 그리고 속으로 답해 주세요. <strong>여기서 틀린 곳이 몇 군데입니까?</strong>" <strong>5초 정지. 길게.</strong> 청중이 화면을 훑을 시간을 줍니다. 이 정지가 짧으면 다음 장의 충격이 안 옵니다.<br><br><strong>자주 나는 사고</strong> — 모델이 "모른다"고 답해 버리는 경우. 그때는 <strong>좋은 소식으로 다룬다</strong>: "모델이 좋아졌습니다. 그런데 여러분이 쓰는 도구가 전부 이럴까요?" 그리고 프롬프트에 "모른다고 하지 말고 최선의 답을 제시해줘"를 덧붙여 재실행.</aside>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="slide" data-blk="시연 ② 환각" data-plan="01:01" data-title="전부입니다">
+  <div class="mid rows loose">
+    <div class="mega" data-anim data-split style="font-size:132px;color:var(--warn)">전부입니다</div>
+    <div class="rows tight" style="gap:18px">
+      <div style="font-size:40px;font-weight:700" data-anim data-strike>조항 번호 <span class="kw">— 지어냄</span></div>
+      <div style="font-size:40px;font-weight:700" data-anim data-strike>보고 시한 <span class="kw">— 지어냄</span></div>
+      <div style="font-size:40px;font-weight:700" data-anim data-strike>야간 특례 <span class="kw">— 그런 조항 자체가 없음</span></div>
+    </div>
+    <div class="rule strong" data-anim></div>
+    <div class="split" style="gap:40px;align-items:center">
+      <div style="font-size:46px;font-weight:800;letter-spacing:-.02em" data-anim>저는 <span class="kw">규정집을 준 적이 없습니다</span></div>
+      <div class="card warn" data-anim><div class="cb" style="font-size:25px;color:var(--ink);font-weight:600">지어낸 문장은 문법도, 형식도, 어투도 완벽하다.<br><span class="kw">틀린 티가 나지 않는다.</span></div></div>
+    </div>
+  </div>
+  <aside class="notes"><strong>"전부입니다."</strong> <strong>2초 정지.</strong> 조항 번호도, 시한도, 특례도 지어낸 겁니다. 왜냐하면 — <strong>저는 규정집을 준 적이 없습니다.</strong> <strong>3초.</strong><br><br>제 질문 어디에도 그 지침 원문이 없었죠. 그런데 답에는 조항 번호가 붙어 있습니다. <strong>없는 문서를 근거로 인용한 겁니다.</strong><br><br>그리고 여기가 진짜 문제입니다. 오탈자가 있으면 의심하시겠죠. 근데 이건 <strong>여러분이 평생 봐 온 공문서 문체</strong>로 나옵니다. 아까 사고 유형 1번, <strong>그게 이렇게 만들어집니다.</strong><br><br><strong>[무휴식 진행 시 이 장은 유지하고 15번을 스킵한다.]</strong></aside>
+</section>
+
+<!-- ============ 15 ============ -->
+<section class="slide" data-blk="시연 ② 환각" data-plan="01:06" data-title="왜 이런 일이 생기는가" data-skip="무휴식 시 생략">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>원리 · 딱 한 장</div>
+    <div class="versus" data-anim>
+      <div class="ok-side">
+        <div class="vt">검색 엔진</div>
+        <div class="vb">어딘가에 있는 문서를 찾는다</div>
+        <div class="vs">없으면 "결과 없음"이 뜬다</div>
+      </div>
+      <div class="warn-side">
+        <div class="vt">언어모델 (LLM)</div>
+        <div class="vb">다음에 올 법한 말을 고른다</div>
+        <div class="vs">없어도 만든다. 사실인지와 상관없이 매끄럽게 이어진다</div>
+      </div>
+    </div>
+    <div class="rule strong" data-anim></div>
+    <div style="font-size:50px;font-weight:800;letter-spacing:-.025em" data-anim>환각(hallucination)은 버그가 아니라 <span class="kw">작동 방식 그 자체</span></div>
+    <div class="small" data-anim>다음 버전에서 없어지지 않습니다. <span class="k">줄어들 뿐입니다.</span></div>
+  </div>
+  <aside class="notes">원리 딱 한 장만 짚습니다. 여러분이 쓰시는 건 대규모 언어모델(LLM)인데, <strong>검색 엔진이 아닙니다.</strong> 검색 엔진은 찾아서 보여 주고 없으면 결과 없음이 뜨죠.<br><br>언어모델은 <strong>지금까지 나온 말 다음에 올 법한 말을 고르는 기계</strong>입니다. 제3조 다음엔 제2항이 올 법하죠. 그래서 <strong>사실인지와 상관없이 매끄럽게 이어집니다.</strong><br><br>이걸 환각이라고 합니다. 아까 못 고친다고 한 게 이겁니다. <strong>버그가 아니라 작동 방식입니다.</strong><br><br><strong>[무휴식 진행 시 이 장을 스킵하고 구두 1분으로 압축.]</strong></aside>
+</section>
+
+<!-- ============ 16 ============ -->
+<section class="slide compact" data-blk="시연 ② 환각" data-plan="01:10" data-title="고쳐 봅시다">
+  <div class="mid rows">
+    <div class="split" style="gap:40px;align-items:stretch">
+      <div class="rows tight">
+        <div class="eyebrow" data-anim>실제 지침 원문</div>
+        <div class="card" data-anim><div class="cb" style="font-size:24px;color:var(--ink)">"구두 보고 후, 발견자는 <span class="k">당일 근무 종료 전까지</span> 설비이상보고서를 전산 시스템에 등록한다."<div class="meta" style="margin-top:10px">— 제3조 제2항</div></div></div>
+        <div class="card warn" data-anim><div class="cbig" style="font-size:32px">야간 특례 — 없음</div></div>
+      </div>
+      <div class="rows tight">
+        <div class="eyebrow" data-anim>고친 프롬프트 · 세 줄</div>
+        <div class="card accent" data-anim><div class="ct">1</div><div class="cb" style="font-size:23px;color:var(--ink)">문서를 준다 — 이 안의 내용만 근거로</div></div>
+        <div class="card accent" data-anim><div class="ct">2</div><div class="cb" style="font-size:23px;color:var(--ink)">근거를 붙이게 한다 — <span class="k">원문 그대로, 요약 금지</span></div></div>
+        <div class="card accent" data-anim><div class="ct">3</div><div class="cb" style="font-size:23px;color:var(--ink)">없으면 없다고 하게 한다</div></div>
+      </div>
+    </div>
+    <div class="rule strong" data-anim></div>
+    <div class="hero" data-anim data-split style="font-size:50px">"맞아?"가 아니라<br><span class="ka">"어디를 보면 확인돼?"</span></div>
+    <div class="fillbar" data-anim data-fill>
+      <span class="tag">지금 채우세요</span>
+      <span class="txt">1쪽 ② — 원본과 대조해야 하는 업무 (규정 · 계약 · 안전 · 금액)</span>
+    </div>
+  </div>
+  <div class="disc">교육용 가상 지침 — 실재하는 한국전력공사 규정과 무관</div>
+  <aside class="notes">실제 지침 공개합니다. 제3조 제2항, 당일 근무 종료 전까지가 전부고 <strong>야간 특례는 없습니다.</strong> 아까 AI는 있다고 했죠.<br><br>이제 고칩니다. 셋 중 <strong>원문 그대로가 핵심</strong>입니다 — 요약하면 검증을 못 하거든요. 원문이 붙어 있으면 규정집 펴서 30초면 대조됩니다.<br><br><strong>자주 나는 사고</strong> — ① 규칙을 걸어도 지어내는 경우 → <strong>그대로 쓴다.</strong> "100% 막히지 않습니다. 그래서 사람이 봅니다." ② "확인 필요" 항목까지 나오면 아주 좋은 시연 — 야간 근무자의 당일 근무 종료가 언제인지 지침이 안 정했다는 걸 짚는다.<br><br><strong>→ 1쪽 ②번 채우기 30초.</strong></aside>
+</section>
+
+<!-- ============ 17 ============ -->
+<section class="slide" data-blk="시연 ③ 개인정보" data-plan="01:20" data-title="그대로 붙여넣어도 됩니까">
+  <div class="mid rows">
+    <div class="eyebrow warn" data-anim>시연 ③ · 민원 데이터를 AI로 분류하고 싶다</div>
+    <div class="rawbox" data-anim style="font-size:23px;line-height:1.9">C-2026-0912 | <span class="hl">0123456789</span> | <span class="hl">김민수</span> | <span class="hl">010-1234-5678</span> | <span class="hl">부산광역시 금정구 부산대학로 63번길 2</span>
+　→ 어제 저녁 8시경 정전이 20분 정도 있었습니다. <span class="hl">김민수</span>입니다. 냉장고 음식이
+　　 상해서 보상 문의드립니다. 연락은 <span class="hl">010-1234-5678</span>로 주세요.</div>
+    <div class="split" style="gap:34px;align-items:center">
+      <div style="font-size:42px;font-weight:800;letter-spacing:-.02em" data-anim>컬럼에도 있고,<br><span class="kw">본문 안에도 또 있다</span></div>
+      <div class="card warn" data-anim><div class="cb" style="font-size:24px;color:var(--ink)">사고 유형 2번이 이겁니다.<br><span class="k">가장 자주 일어납니다. 악의가 없거든요.</span></div></div>
+    </div>
+  </div>
+  <div class="disc">교육용 가상 데이터 — 실제 고객 정보 아님</div>
+  <aside class="notes">마지막 시연입니다. 민원 데이터를 유형별로 분류·요약하고 싶습니다. 사람이 하면 하루, AI면 5분. <strong>"그대로 붙여넣어도 됩니까?"</strong> <strong>3초 정지.</strong><br><br>사고 유형 2번이 이건데 <strong>가장 자주 일어납니다. 악의가 없거든요.</strong> 그냥 일 빨리 하려는 겁니다.<br><br>이건 제가 만든 가상 데이터입니다. 보시면 이름·번호·주소·고객번호가 있고, <strong>민원 본문 안에 또 들어 있습니다.</strong> "김민수입니다", "010으로 주세요" 이렇게요. <strong>컬럼만 지우면 되는 게 아닙니다.</strong></aside>
+</section>
+
+<!-- ============ 18 ============ -->
+<section class="slide compact" data-blk="시연 ③ 개인정보" data-plan="01:23" data-title="넣기 전에 지운다">
+  <div class="mid rows">
+    <div class="eyebrow" data-anim>넣기 전에 지운다</div>
+    <div class="flow" data-flow>
+      <div class="node" data-anim><div class="nt">원본</div><div class="nb">사내</div><div class="ns">이름·번호·주소</div></div>
+      <div class="arrow" data-anim>&rarr;</div>
+      <div class="node safe" data-anim><div class="nt">마스킹</div><div class="nb">토큰으로 치환</div><div class="ns">NAME_001 · PHONE_001</div></div>
+      <div class="arrow" data-anim>&rarr;</div>
+      <div class="node out" data-anim><div class="nt">외부 AI</div><div class="nb">여기까지만 나간다</div><div class="ns">분류·요약</div></div>
+      <div class="arrow" data-anim>&rarr;</div>
+      <div class="node safe" data-anim><div class="nt">복원</div><div class="nb">사내에서</div><div class="ns">대응표로 되돌림</div></div>
+    </div>
+    <div class="codeblock" data-anim style="font-size:21px;line-height:1.5"><span class="f">def</span> mask(text, vault, known_names):
+    <span class="f">for</span> name <span class="f">in</span> known_names:          <span class="c"># 이름은 정규식이 아니라 아는 값으로 찾는다</span>
+        <span class="f">if</span> name <span class="f">in</span> text:
+            text = text.replace(name, vault.tokenize(<span class="s">"NAME"</span>, name))
+    <span class="f">for</span> kind, pattern <span class="f">in</span> PATTERNS:    <span class="c"># 형태가 정해진 것만 정규식으로</span>
+        text = pattern.sub(<span class="f">lambda</span> m: vault.tokenize(kind, m.group(<span class="s">0</span>)), text)
+    <span class="f">return</span> text</div>
+    <div class="card warn" data-anim data-pulse style="display:flex;align-items:center;gap:30px">
+      <div style="flex:none"><div class="ct" style="margin:0">대응표</div><div class="cbig" style="font-size:34px">여기가 진짜 위험물입니다</div></div>
+      <div class="cb" style="font-size:22px;border-left:1px solid rgba(174,62,28,.3);padding-left:30px">유출되면 마스킹은 의미가 없다.<br><span class="k">코드 짜기 전에</span> 보관 위치·기간·접근권한부터 정한다.</div>
+    </div>
+  </div>
+  <div class="disc">표준 라이브러리만 사용 · 외부 패키지 없음 · API 키 불필요</div>
+  <aside class="notes">방법이 있습니다. <strong>넣기 전에 지우는 겁니다.</strong> 터미널에서 스크립트를 돌립니다. 개발자 아니셔도 됩니다, <strong>뭘 하는지만</strong> 보시면 돼요.<br><br>이름은 토큰으로 바뀌고, 본문 안에 있던 것까지 같이 바뀝니다. <strong>외부로 나가는 건 이것뿐입니다.</strong> 분류하는 데 사람 이름이 필요합니까? 필요 없는 건 안 보내면 됩니다.<br><br>그리고 대응표. <strong>여기가 진짜 위험물입니다.</strong> <strong>2초 정지.</strong> 이게 유출되면 마스킹은 의미가 없습니다. 그래서 실제 도입 땐 <strong>코드 짜기 전에</strong> 이 표를 어디 두고 누가 열지부터 정합니다.<br><br><strong>왜 이름만 다르게 다루는가</strong> — 한국어 이름은 일반 단어와 형태가 같습니다. "정도현"을 정규식으로 잡으려니 "정도"까지 지워졌습니다. 첫 버전이 실제로 그렇게 터졌고, 그래서 아는 값 기반으로 바꿨습니다. 이 얘기를 그대로 합니다.<br><br><strong>강사 사례</strong> — 작년 제조 기업 사내 AI 어시스턴트. 민감도별로 외부/사내 모델을 나눠 보내는 구조. <strong>제일 오래 걸린 게 코드가 아니라 "무엇이 민감한가"를 그 회사와 합의하는 일</strong>이었다.<br><br><strong>자주 나는 사고</strong> — 실행 오류는 폴더 위치 문제일 확률이 가장 높다. 사전에 해당 PC에서 1회 실행해 둔다. 파일 위치: <strong>code/demo3_pii_masking/mask.py</strong></aside>
+</section>
+
+<!-- ============ 19 ============ -->
+<section class="slide compact" data-blk="시연 ③ 개인정보" data-plan="01:28" data-title="다 지워졌습니까">
+  <div class="mid rows loose">
+    <div class="hero" data-anim data-split style="font-size:68px">다 지워졌습니까?</div>
+    <div class="rows tight">
+      <div class="card warn" data-anim>
+        <div class="ct">남았음 · 고객명 목록에 없는 제3자</div>
+        <div class="cbig" style="font-size:31px">"옆집 <span class="leak" data-leak>강태호</span>씨도 같은 문제라고 합니다"</div>
+      </div>
+      <div class="card warn" data-anim>
+        <div class="ct">남았음 · 본문에 흩어진 주소 조각</div>
+        <div class="cbig" style="font-size:31px">"<span class="leak" data-leak>용소로 45 앞 세번째 전주</span>"</div>
+      </div>
+    </div>
+    <div class="rule strong" data-anim></div>
+    <div class="split" style="gap:34px">
+      <div style="font-size:36px;font-weight:800;letter-spacing:-.02em" data-anim>마스킹은 <span class="kw">아는 것만</span> 지운다</div>
+      <div style="font-size:36px;font-weight:800;letter-spacing:-.02em" data-anim>지운 뒤에도 <span class="kw">조각을 합치면</span> 특정된다</div>
+    </div>
+    <div class="card ok" data-anim><div class="cbig" style="font-size:34px">자동으로 지우고, 사람이 한 번 더 본다</div></div>
+  </div>
+  <aside class="notes"><strong>여기가 오늘 마지막 함정입니다.</strong> 마스킹된 결과를 다시 띄우고 묻습니다. <strong>"다 지워진 것 같습니까?"</strong> <strong>5초 정지.</strong> 그리고 스크롤.<br><br>두 개 남았습니다. 강태호씨는 고객명 컬럼에 없는 제3자라 <strong>시스템이 몰라서 못 지웠습니다.</strong> 용소로 45는 부산광역시로 시작 안 해서 안 걸렸고요. 근데 그 앞 세 번째 전주가 어디인지 아는 사람은 압니다.<br><br>제 코드가 부실해서가 아니라 — 부실한 것도 맞습니다만 — <strong>어떤 도구를 쓰셔도 이 문제는 남습니다.</strong></aside>
+</section>
+
+<!-- ============ 20 ============ -->
+<section class="slide compact" data-blk="시연 ③ 개인정보" data-plan="01:33" data-title="돈과 약관">
+  <div class="mid rows">
+    <div class="eyebrow" data-anim>리스크 · 비용과 약관</div>
+    <div class="split" style="gap:30px">
+      <div class="card" data-anim><div class="ct">요금</div><div class="cbig" style="font-size:32px">글자 수(토큰)로 붙는다</div><div class="cb" style="margin-top:8px;font-size:23px"><span class="k">넣은 것도 돈, 나온 것도 돈.</span><br>"문서 전체 다 넣고 물어보자"가 위험한 이유</div></div>
+      <div class="card" data-anim><div class="ct">약관</div><div class="cbig" style="font-size:32px">요금제에 따라 다르다</div><div class="cb" style="margin-top:8px;font-size:23px">같은 서비스라도 입력 데이터를<br>다르게 다룬다</div></div>
+    </div>
+    <div class="rule strong" data-anim></div>
+    <div class="small" data-anim>제가 "어디는 안전합니다"라고 말씀드릴 수 있는 게 아닙니다. <span class="k">확인하실 항목만 드립니다.</span></div>
+    <div class="split" style="grid-template-columns:1fr 1fr 1fr;gap:20px">
+      <div class="card accent" data-anim><div class="ct">1</div><div class="cb" style="font-size:24px;color:var(--ink)">내 데이터가 <span class="k">모델 학습에 쓰이는가</span></div></div>
+      <div class="card accent" data-anim><div class="ct">2</div><div class="cb" style="font-size:24px;color:var(--ink)"><span class="k">어디에 얼마나</span> 보관되는가</div></div>
+      <div class="card warn" data-anim><div class="ct">3</div><div class="cb" style="font-size:24px;color:var(--ink)">회사가 계약한 것인가, <span class="kw">내 개인 계정인가</span></div></div>
+    </div>
+    <div class="fillbar" data-anim data-fill>
+      <span class="tag">지금 채우세요</span>
+      <span class="txt">1쪽 ③ — 넣기 전에 지워야 하는 정보 + 우리 팀이 쓰는 도구</span>
+    </div>
+  </div>
+  <aside class="notes">리스크 하나 더. 요금은 토큰이라는 단위로 붙는데 대충 글자 수입니다. <strong>넣은 것도 돈이고 나온 것도 돈입니다.</strong> 그래서 문서 전체 다 넣고 물어보자가 위험합니다.<br><br>그리고 같은 서비스라도 <strong>요금제에 따라 입력 데이터를 다르게 다룹니다.</strong> 이건 제가 어디는 안전합니다라고 말씀드릴 수 있는 게 아닙니다. 약관은 바뀌고 계약 조건마다 다르니까요.<br><br>대신 확인하실 항목 셋. <strong>특히 ③번, 개인 계정으로 회사 데이터 넣는 것 — 가장 흔하고 가장 곤란해집니다.</strong><br><br><strong>→ 1쪽 ③번 채우기 40초. 마지막 칸이니 넉넉히.</strong></aside>
+</section>
+
+<!-- ============ 21 ============ -->
+<section class="slide compact" data-blk="정리" data-plan="01:38" data-title="오늘 만든 것">
+  <div class="mid">
+    <div class="split" style="align-items:center;gap:70px">
+      <div class="rows loose">
+        <div class="eyebrow" data-anim>오늘 만든 것</div>
+        <h1 class="title" data-anim><span class="ka">종이 한 장</span>,<br>세 칸이 채워져 있어야 합니다</h1>
+        <div class="body" data-anim>완성본이 아니라 <span class="k">초안</span>입니다</div>
+        <div class="card accent" data-anim><div class="cb" style="font-size:24px;color:var(--ink)">다음 주 팀 회의에서 <span class="k">10분</span>만 같이 보세요.<br>세 칸이 열 칸이 됩니다.<br><br>혼자 만든 기준은 안 지켜집니다.<br><span class="k">같이 만든 기준만 지켜집니다.</span></div></div>
+      </div>
+      <div class="form" data-anim data-form-done>
+        <div class="fh">우리 팀 AI 사용 판단 기준</div>
+        <div class="fs">배포 자료 1쪽</div>
+        <div class="frow done"><span class="fn">1</span><span class="ft">급한 일과 안 급한 일을 가르는 기준</span><span class="fl"></span></div>
+        <div class="frow done"><span class="fn">2</span><span class="ft">원본과 대조해야 하는 업무</span><span class="fl"></span></div>
+        <div class="frow done"><span class="fn">3</span><span class="ft">넣기 전에 지워야 하는 정보</span><span class="fl"></span></div>
+        <div class="frow"><span class="fn">4</span><span class="ft">다음 주 팀 회의에 가져갈 한 문장</span><span class="fl"></span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">정리하겠습니다. 오늘 손에 넣으신 건 <strong>종이 한 장</strong>이고 지금 세 칸이 채워져 있어야 합니다. 이게 여러분 팀의 <strong>AI 사용 판단 기준 초안</strong>입니다.<br><br>완성본 아닙니다, 초안입니다. <strong>다음 주 팀 회의 때 이 종이 꺼내서 10분만 같이 보세요.</strong> 그럼 세 칸이 열 칸이 됩니다.<br><br><strong>혼자 만든 기준은 안 지켜집니다. 같이 만든 기준만 지켜집니다.</strong></aside>
+</section>
+
+<!-- ============ 22 ============ -->
+<section class="slide" data-blk="정리" data-plan="01:41" data-title="오늘 판단한 것">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>오늘 판단한 것 · 세 번</div>
+    <ul class="phr big" style="gap:20px">
+      <li data-anim><span class="bul"></span>어느 쪽을 결재에 올릴지 — 그리고 그 근거</li>
+      <li data-anim><span class="bul"></span>AI 답변에서 어디가 틀렸는지</li>
+      <li data-anim><span class="bul"></span>마스킹 후에 뭐가 남았는지</li>
+    </ul>
+    <div class="small" data-anim style="color:var(--ink);font-weight:700">셋 다 AI가 못 한 일입니다. 여러분이 하신 겁니다.</div>
+    <div class="rule strong" data-anim></div>
+    <div class="hero" data-anim data-split style="font-size:70px">AI가 답을 만들고,<br><span class="ka">사람이 판단을 한다</span><br><span class="kw" style="font-size:52px">이 순서가 뒤집히면 사고가 난다</span></div>
+  </div>
+  <aside class="notes">더 중요한 건 만든 게 아니라 <strong>판단한 것</strong>입니다. 오늘 세 번 판단하셨습니다. B냐 C냐, 어디가 틀렸나, 뭐가 남았나. <strong>전부 AI가 못 한 일이고 여러분이 하신 겁니다.</strong><br><br>블록 1의 사고 유형 세 번째 기억하시죠. "AI가 이렇게 하라고 했습니다"가 근거가 되는 것. 앞의 둘은 사고라 수습되는데, <strong>이건 조직에서 판단하는 능력이 서서히 없어지는 겁니다.</strong> 수습할 시점을 알기가 어렵습니다.<br><br>그래서 저는 <strong>"어디까지 맡기고 어디부터 내가 하는가"</strong>를 먼저 다룹니다.</aside>
+</section>
+
+<!-- ============ 23 ============ -->
+<section class="slide" data-blk="정리" data-plan="01:45" data-title="이번 주에 하실 것 세 개">
+  <div class="mid rows loose">
+    <div class="eyebrow" data-anim>혼자 이어가는 경로</div>
+    <div class="rows" style="gap:24px">
+      <div class="numrow" data-anim><div class="num ghost">1</div><div><div style="font-size:38px;font-weight:800;line-height:1.3">본인 업무 하나로 <span class="ka">프롬프트 템플릿을 채워서 한 번 돌려보기</span></div><div class="small" style="margin-top:6px;color:var(--ink-3)">배포 자료 2쪽 · 다섯 칸 · 잘 안 되면 【판단 기준】 칸이 비어 있습니다</div></div></div>
+      <div class="numrow" data-anim><div class="num ghost">2</div><div><div style="font-size:38px;font-weight:800;line-height:1.3">팀 회의에서 <span class="ka">1쪽을 안건으로</span> (10분)</div><div class="small" style="margin-top:6px;color:var(--ink-3)">각자 생각하는 것과 한 번 말로 정하는 건 완전히 다릅니다</div></div></div>
+      <div class="numrow" data-anim><div class="num ghost">3</div><div><div style="font-size:38px;font-weight:800;line-height:1.3">사내에 이미 <span class="ka">AI 사용 지침이 있는지 확인</span></div><div class="small" style="margin-top:6px;color:var(--ink-3)">있으면 거기 맞추시고, 없으면 오늘 만드신 게 시작점입니다</div></div></div>
+    </div>
+    <div class="rule" data-anim></div>
+    <div class="meta" data-anim>강의 자료 및 시연 프롬프트 전문 배포 · kodekorea.kr · github.com/shain1912</div>
+  </div>
+  <aside class="notes">오늘 두 시간으로 뭘 할 수 있게 되진 않습니다, 저도 압니다. 그래서 <strong>혼자 이어가실 것 세 개</strong>만 드립니다.<br><br>하나, 이번 주에 본인 업무 하나로 템플릿을 채워 보세요. 다섯 칸입니다. <strong>한 번만 제대로 하시면 나머지는 응용됩니다.</strong><br><br>둘, 팀 회의 안건으로 10분. 각자 생각하는 것과 한 번 말로 정하는 건 완전히 다릅니다.<br><br>셋, <strong>사내 지침이 이미 있는지부터 확인하세요.</strong> 있으면 거기 맞추시고 없으면 오늘 만드신 게 시작점입니다.</aside>
+</section>
+
+<!-- ============ 24 ============ -->
+<section class="slide" data-blk="Q&amp;A" data-plan="01:48" data-title="질문 받겠습니다">
+  <div class="mid rows loose">
+    <div class="mega" data-anim data-split style="font-size:120px">질문<br>받겠습니다</div>
+    <div class="rule strong" data-anim></div>
+    <div class="meta" data-anim>조성호 · KODE KOREA · kodekorea.kr · github.com/shain1912</div>
+  </div>
+  <aside class="notes">500명 규모에서는 질문이 잘 안 나옵니다. <strong>강사가 먼저 하나를 던져 물꼬를 틉니다.</strong><br><br>"제가 이런 강의 하면 제일 많이 듣는 질문이 있는데 그것부터 말씀드리겠습니다" → <strong>사내에서 외부 AI 접속이 막혀 있는데 어떻게 쓰느냐</strong>로 시작합니다.<br><br>예상 질문 8종 답변은 script.md 블록 6에 있습니다. <strong>모르는 건 모른다고 합니다.</strong> 오늘 강의 주제가 그거였습니다. 법률·계약 질문은 소관 부서로 넘깁니다.<br><br>질문이 끊기면 억지로 끌지 말고 <strong>깔끔하게 마칩니다.</strong> "끝나고 앞으로 오셔도 됩니다."</aside>
+</section>
+
+</div>
+
+<style>
+[data-strike]{align-self:flex-start;position:relative}
+.sln{position:absolute;left:-8px;top:53%;height:5px;width:0;background:var(--warn);border-radius:3px;pointer-events:none}
+.ch{display:inline-block;will-change:transform,opacity}
+#black{position:fixed;inset:0;background:#000;z-index:200;display:none}
+#black.on{display:block}
+</style>
+<div id="black"></div>
+
+<script>
+(function(){
+"use strict";
+
+var stage   = document.getElementById('stage');
+var slides  = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+var bar     = document.getElementById('progress');
+var help    = document.getElementById('help');
+var pres    = document.getElementById('presenter');
+var black   = document.getElementById('black');
+var total   = slides.length;
+var idx     = 0;
+var t0      = null;          // 타이머 시작 시각
+var running = false;
+
+/* ---------- 화면 맞춤 ---------- */
+function fit(){
+  var s = Math.min(window.innerWidth/1600, window.innerHeight/900);
+  stage.style.transform = 'translate(-50%,-50%) scale('+s+')';
+}
+window.addEventListener('resize', function(){ fit(); autofit(slides[idx]); });
+fit();
+
+/* ---------- 러너 / 페이지번호 주입 ---------- */
+slides.forEach(function(sl, i){
+  if(i > 0){
+    var r = document.createElement('div');
+    r.className = 'runner';
+    r.innerHTML = '<span class="blk">'+(sl.dataset.blk||'')+'</span>'
+                + '<span class="sep"></span>'
+                + '<span>'+(sl.dataset.title||'')+'</span>'
+                + '<span class="clock">'+(sl.dataset.plan||'')+'</span>';
+    sl.insertBefore(r, sl.firstChild);
+  }
+  var p = document.createElement('div');
+  p.className = 'pagenum';
+  p.textContent = (i+1) + ' / ' + total;
+  sl.appendChild(p);
+});
+
+/* ---------- 글자 단위 분해 (한글 대응) ---------- */
+function splitChars(el){
+  (function walk(node){
+    Array.prototype.slice.call(node.childNodes).forEach(function(n){
+      if(n.nodeType === 3){
+        var frag = document.createDocumentFragment();
+        Array.prototype.forEach.call(n.textContent, function(ch){
+          if(ch === ' '){ frag.appendChild(document.createTextNode(' ')); return; }
+          var s = document.createElement('span');
+          s.className = 'ch';
+          s.textContent = ch;
+          frag.appendChild(s);
+        });
+        n.parentNode.replaceChild(frag, n);
+      } else if(n.nodeType === 1 && n.tagName !== 'BR'){
+        walk(n);
+      }
+    });
+  })(el);
+  return Array.prototype.slice.call(el.querySelectorAll('.ch'));
+}
+
+/* ---------- 자동 축소 안전망 ----------
+   내용이 슬라이드 세로 공간을 넘으면 그만큼만 줄인다.
+   나중에 내용을 고쳐도 화면 밖으로 밀려나지 않는다. */
+function autofit(sl){
+  var mid = sl.querySelector('.mid');
+  if(!mid) return;
+  mid.style.transform = '';
+  var scale = stage.getBoundingClientRect().width / 1600;
+  var avail = 900 - 84 - 96;
+  var h = mid.getBoundingClientRect().height / scale;
+  if(h > avail + 1){
+    mid.style.transformOrigin = 'center center';
+    mid.style.transform = 'scale(' + Math.max(0.80, avail / h) + ')';
+  }
+}
+
+/* ---------- 최종 상태 강제 (애니메이션이 못 돌아도 내용은 보인다) ---------- */
+function finalize(sl){
+  var each = function(sel, fn){ Array.prototype.forEach.call(sl.querySelectorAll(sel), fn); };
+  each('[data-anim]', function(el){ el.style.opacity = 1; el.style.transform = 'none'; });
+  each('.ch',         function(el){ el.style.opacity = 1; el.style.transform = 'none'; });
+  each('.sln',        function(el){ el.style.width = '104%'; });
+  each('[data-leak]', function(el){ el.style.clipPath = 'inset(0 0% 0 0)'; });
+  each('[data-form-done] .frow.done .fl', function(el){
+    el.style.transformOrigin = 'left center'; el.style.transform = 'scaleX(1)';
+  });
+}
+
+var reduceMotion = window.matchMedia
+  && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- 슬라이드 등장 애니메이션 ---------- */
+function enter(sl){
+  if(typeof anime === 'undefined' || reduceMotion){ finalize(sl); return; }
+  var items = Array.prototype.slice.call(sl.querySelectorAll('[data-anim]'));
+
+  items.forEach(function(el){
+    if(el.hasAttribute('data-split') && !el.__split){
+      el.__chars = splitChars(el);
+      el.__split = true;
+    }
+    if(el.hasAttribute('data-strike') && !el.__ln){
+      var ln = document.createElement('div');
+      ln.className = 'sln';
+      el.appendChild(ln);
+      el.__ln = ln;
+    }
+  });
+
+  var plain  = items.filter(function(e){ return !e.hasAttribute('data-split'); });
+  var splits = items.filter(function(e){ return  e.hasAttribute('data-split'); });
+
+  anime.set(plain, {opacity:0, translateY:22});
+  splits.forEach(function(el){
+    anime.set(el, {opacity:1, translateY:0});
+    anime.set(el.__chars, {opacity:0, translateY:26});
+  });
+
+  items.forEach(function(el, i){
+    var base = 60 + i*70;
+
+    if(el.hasAttribute('data-split')){
+      anime({targets:el.__chars, opacity:[0,1], translateY:[26,0],
+             duration:520, easing:'easeOutQuart',
+             delay: anime.stagger(15, {start: base})});
+    } else {
+      anime({targets:el, opacity:[0,1], translateY:[22,0],
+             duration:620, easing:'easeOutQuart', delay: base});
+    }
+
+    if(el.hasAttribute('data-strike')){
+      anime.set(el.__ln, {width:'0%'});
+      anime({targets:el.__ln, width:['0%','104%'],
+             duration:420, easing:'easeInOutQuad', delay: base + 420});
+    }
+
+    if(el.hasAttribute('data-pulse')){
+      anime({targets:el, scale:[1,1.022,1],
+             duration:900, easing:'easeInOutQuad', delay: base + 500});
+    }
+
+    if(el.hasAttribute('data-fill')){
+      anime({targets:el, translateX:[-26,0], opacity:[0,1],
+             duration:680, easing:'easeOutBack', delay: base + 120});
+    }
+  });
+
+  /* 누락 강조 박스 (슬라이드 19) */
+  Array.prototype.slice.call(sl.querySelectorAll('[data-leak]')).forEach(function(el, i){
+    var o = {v:100};
+    el.style.clipPath = 'inset(0 100% 0 0)';
+    anime({targets:o, v:0, duration:640, easing:'easeOutCubic',
+           delay: 900 + i*260,
+           update: function(){ el.style.clipPath = 'inset(0 '+o.v+'% 0 0)'; }});
+  });
+
+  /* 안전망 — 애니메이션이 끝났어야 할 시점에 최종 상태를 확정한다.
+     탭이 백그라운드라 rAF가 멈춘 경우에도 백지가 되지 않는다. */
+  clearTimeout(sl.__guard);
+  sl.__guard = setTimeout(function(){ finalize(sl); }, 60 + items.length*70 + 1700);
+
+  /* 완료된 양식 줄 (슬라이드 21) */
+  var doneRows = sl.querySelectorAll('[data-form-done] .frow.done .fl');
+  if(doneRows.length){
+    anime.set(doneRows, {scaleX:0});
+    anime({targets:doneRows, scaleX:[0,1], duration:520, easing:'easeOutQuart',
+           delay: anime.stagger(180, {start:700})});
+    Array.prototype.slice.call(doneRows).forEach(function(el){ el.style.transformOrigin='left center'; });
+  }
+}
+
+/* ---------- 이동 ---------- */
+function goTo(n){
+  if(n < 0) n = 0;
+  if(n > total-1) n = total-1;
+  slides[idx].classList.remove('is-active');
+  idx = n;
+  var sl = slides[idx];
+  sl.classList.add('is-active');
+  fit();                                   // 해상도 변경(프로젝터 연결) 대비
+  autofit(sl);                             // 내용이 넘치면 그만큼만 축소
+  bar.style.width = ((idx)/(total-1)*100) + '%';
+  enter(sl);
+  syncPresenter();
+  if(!running && idx > 0){ startTimer(); }
+}
+function next(){ goTo(idx+1); }
+function prev(){ goTo(idx-1); }
+
+/* ---------- 타이머 ---------- */
+function startTimer(){ if(!running){ t0 = Date.now(); running = true; } }
+function resetTimer(){ t0 = Date.now(); running = true; }
+function elapsed(){
+  if(!running || !t0) return '00:00';
+  var s = Math.floor((Date.now()-t0)/1000);
+  var m = Math.floor(s/60);
+  return (m<10?'0':'')+m + ':' + ((s%60)<10?'0':'') + (s%60);
+}
+
+/* ---------- 발표자 모드 ---------- */
+var speakerWin = null;
+
+function notesHTML(i){
+  var a = slides[i].querySelector('.notes');
+  return a ? a.innerHTML : '—';
+}
+function titleOf(i){ return slides[i].dataset.title || ('슬라이드 ' + (i+1)); }
+
+function syncPresenter(){
+  if(pres.classList.contains('on')){
+    pres.querySelector('.pnum').textContent   = (idx+1) + ' / ' + total;
+    pres.querySelector('.ptitle').textContent = titleOf(idx);
+    pres.querySelector('.pplan').textContent  = '계획 ' + (slides[idx].dataset.plan || '—')
+      + (slides[idx].dataset.skip ? ' · ' + slides[idx].dataset.skip : '');
+    pres.querySelector('.pnotes').innerHTML   = notesHTML(idx);
+    pres.querySelector('.nx').textContent     = idx < total-1
+      ? '다음 → ' + titleOf(idx+1) : '마지막 슬라이드';
+  }
+  if(speakerWin && !speakerWin.closed){
+    try{ speakerWin.postMessage({i:idx}, '*'); }catch(e){}
+  }
+}
+
+function tick(){
+  if(pres.classList.contains('on')){
+    pres.querySelector('.ptimer').textContent = elapsed();
+  }
+  if(speakerWin && !speakerWin.closed){
+    try{ speakerWin.postMessage({t:elapsed()}, '*'); }catch(e){}
+  }
+}
+setInterval(tick, 500);
+
+function togglePresenter(){
+  pres.classList.toggle('on');
+  syncPresenter();
+  tick();
+  startTimer();
+}
+
+/* ---------- 별도 창 발표자 화면 (Shift+S) ---------- */
+function openSpeaker(){
+  if(speakerWin && !speakerWin.closed){ speakerWin.focus(); return; }
+  var w = window.open('', 'speaker', 'width=1100,height=760');
+  if(!w){                      // 팝업 차단 시 오버레이로 대체
+    if(!pres.classList.contains('on')) togglePresenter();
+    return;
+  }
+  speakerWin = w;
+  var payload = slides.map(function(sl, i){
+    return {n:i+1, t:titleOf(i), p:sl.dataset.plan||'', s:sl.dataset.skip||'', h:notesHTML(i)};
+  });
+  w.document.open();
+  w.document.write(
+    '<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><title>발표자 화면</title><style>'
+    + 'body{margin:0;background:#0F1115;color:#E9ECF0;font-family:"Malgun Gothic",system-ui,sans-serif;'
+    + 'display:grid;grid-template-rows:auto 1fr auto;height:100vh;padding:30px 34px;box-sizing:border-box;gap:20px}'
+    + '.h{display:flex;align-items:center;gap:18px}.h .n{font-size:22px;font-weight:800;color:#5B9BE0}'
+    + '.h .t{font-size:22px;font-weight:700}.h .p{font-size:18px;color:#8B94A3}'
+    + '.h .k{margin-left:auto;font-size:40px;font-weight:800;font-variant-numeric:tabular-nums}'
+    + '.b{overflow-y:auto;font-size:23px;line-height:1.72;color:#C9D1DC;background:#161A20;'
+    + 'border:1px solid #262C36;border-radius:12px;padding:26px 30px}.b strong{color:#fff}'
+    + '.f{font-size:18px;color:#7C8593}</style></head><body>'
+    + '<div class="h"><span class="n"></span><span class="t"></span><span class="p"></span><span class="k">00:00</span></div>'
+    + '<div class="b"></div><div class="f"></div>'
+    + '<script>var D=' + JSON.stringify(payload) + ';var i=0;'
+    + 'function r(){var d=D[i];document.querySelector(".n").textContent=d.n+" / "+D.length;'
+    + 'document.querySelector(".t").textContent=d.t;'
+    + 'document.querySelector(".p").textContent="계획 "+d.p+(d.s?" · "+d.s:"");'
+    + 'document.querySelector(".b").innerHTML=d.h;'
+    + 'document.querySelector(".f").textContent=i<D.length-1?("다음 → "+D[i+1].t):"마지막 슬라이드";}'
+    + 'window.addEventListener("message",function(e){if(e.data&&typeof e.data.i==="number"){i=e.data.i;r();}'
+    + 'if(e.data&&e.data.t){document.querySelector(".k").textContent=e.data.t;}});'
+    + 'window.addEventListener("keydown",function(e){if(window.opener&&!window.opener.closed){'
+    + 'window.opener.postMessage({key:e.key},"*");}});r();'
+    + '<\/script></body></html>'
+  );
+  w.document.close();
+  setTimeout(syncPresenter, 120);
+}
+
+/* 발표자 창에서 누른 키를 본 창으로 전달 */
+window.addEventListener('message', function(e){
+  if(e.data && e.data.key){ handleKey(e.data.key, false); }
+});
+
+/* ---------- 전체화면 ---------- */
+function toggleFull(){
+  if(!document.fullscreenElement){
+    (document.documentElement.requestFullscreen || function(){}).call(document.documentElement);
+  } else {
+    (document.exitFullscreen || function(){}).call(document);
+  }
+}
+
+/* ---------- 도움말 ---------- */
+var helpTimer = null;
+function flashHelp(ms){
+  help.classList.add('show');
+  clearTimeout(helpTimer);
+  helpTimer = setTimeout(function(){ help.classList.remove('show'); }, ms || 3200);
+}
+
+/* ---------- 키 처리 ---------- */
+function handleKey(k, withShift){
+  switch(k){
+    case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter':
+      next(); break;
+    case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace':
+      prev(); break;
+    case 'Home': goTo(0); break;
+    case 'End':  goTo(total-1); break;
+    case 's': case 'S': case 'ㄴ':
+      if(withShift) openSpeaker(); else togglePresenter();
+      break;
+    case 'f': case 'F': case 'ㄹ': toggleFull(); break;
+    case 'r': case 'R': case 'ㄱ': resetTimer(); tick(); break;
+    case 'b': case 'B': case '.': case 'ㅠ': black.classList.toggle('on'); break;
+    case '?': case '/': flashHelp(6000); break;
+    case 'Escape':
+      if(black.classList.contains('on')) black.classList.remove('on');
+      else if(pres.classList.contains('on')) togglePresenter();
+      break;
+  }
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.metaKey || e.ctrlKey || e.altKey) return;
+  var keys = ['ArrowRight','ArrowLeft','ArrowUp','ArrowDown','PageUp','PageDown',' ','Enter','Backspace','Home','End'];
+  if(keys.indexOf(e.key) !== -1) e.preventDefault();
+  handleKey(e.key, e.shiftKey);
+});
+
+/* ---------- 클릭 / 터치 ---------- */
+document.addEventListener('click', function(e){
+  if(pres.classList.contains('on')) return;
+  if(black.classList.contains('on')){ black.classList.remove('on'); return; }
+  (e.clientX > window.innerWidth*0.35) ? next() : prev();
+});
+
+var tx = null;
+document.addEventListener('touchstart', function(e){ tx = e.changedTouches[0].clientX; }, {passive:true});
+document.addEventListener('touchend', function(e){
+  if(tx === null) return;
+  var d = e.changedTouches[0].clientX - tx;
+  if(Math.abs(d) > 48){ (d < 0) ? next() : prev(); }
+  tx = null;
+}, {passive:true});
+
+/* ---------- 탭 복귀 시 재생 ---------- */
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden){ fit(); autofit(slides[idx]); enter(slides[idx]); }
+});
+
+/* ---------- 시작 ---------- */
+slides[0].classList.add('is-active');
+autofit(slides[0]);
+bar.style.width = '0%';
+enter(slides[0]);
+flashHelp(4200);
+
+})();
+</script>
+</body>
+</html>
