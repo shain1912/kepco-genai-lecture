@@ -1852,6 +1852,16 @@ bar.style.width = '0%';
 enter(slides[0]);
 flashHelp(4200);
 
+/* ---------- 딥링크: #N 또는 #/N 으로 시작 슬라이드 지정 (임베드용) ---------- */
+try{
+  var dl = parseInt((location.hash||'').replace(/[^0-9]/g,''), 10);
+  if(!isNaN(dl) && dl > 0) goTo(Math.min(dl, total-1));
+  window.addEventListener('hashchange', function(){
+    var h = parseInt((location.hash||'').replace(/[^0-9]/g,''), 10);
+    if(!isNaN(h)) goTo(Math.min(h, total-1));
+  });
+}catch(e){}
+
 })();
 </script>
 </body>
