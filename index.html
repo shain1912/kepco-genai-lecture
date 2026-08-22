@@ -762,7 +762,7 @@ h2.sub{font-size:var(--t-h2);font-weight:700;line-height:1.24;letter-spacing:-.0
     <div class="eyebrow" data-anim style="margin-bottom:8px">업무를 둘로 나눠 보면</div>
     <div class="vstage" data-anim
          data-src="assets/manim_domain.mp4"
-         data-yt=""
+         data-local="keep"
          data-cues='[{"t":0,"z":1},{"t":16,"z":1,"cap":"이건 현장에 있었던 사람만 안다"}]'></div>
   </div>
   <div class="disc">개념 도식 — 실제 측정치가 아님</div>
@@ -889,7 +889,7 @@ h2.sub{font-size:var(--t-h2);font-weight:700;line-height:1.24;letter-spacing:-.0
     <div class="eyebrow warn" data-anim style="margin-bottom:8px">다음에 올 법한 말을 고른다는 게 무슨 뜻인가</div>
     <div class="vstage" data-anim
          data-src="assets/manim_next_token.mp4"
-         data-yt=""
+         data-local="keep"
          data-cues='[{"t":0,"z":1},{"t":15,"z":1,"cap":"이 과정 어디에도 사실을 확인하는 단계가 없다"}]'></div>
   </div>
   <div class="disc">개념 도식 — 실제 측정치가 아님</div>
@@ -1294,7 +1294,7 @@ function buildVideo(box){
   /* 공개본(GitHub Pages)에서는 유튜브 플레이어로 대체한다.
      build_public.py 가 window.PUBLIC_YT 를 켜 준다.
      강의장용 로컬 덱은 그대로 mp4 — 회선이 끊겨도 돌아간다. */
-  if(window.PUBLIC_YT){
+  if(window.PUBLIC_YT && box.dataset.local !== 'keep'){
     var wrapY = document.createElement('div'); wrapY.className = 'vwrap';
     var yt = (box.dataset.yt || '').trim();
     if(yt){
