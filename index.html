@@ -1,36 +1,34 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="corporate-clean">
+<html lang="ko" data-theme="kepco-dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>한국전력공사 특강 — 프롬프트를 넘어 현장 도메인 지식과 에이전트 하네스로 · 조성호</title>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/base.css">
-<link rel="stylesheet" href="assets/themes/corporate-clean.css">
 <link rel="stylesheet" href="assets/animations/animations.css">
 <style>
 /* ===================================================================
-   한국전력공사 빅-임팩트 비즈니스 라이트 (Real Agentic Harness)
+   한국전력공사 울트라-빅 타이포 & 프리미엄 다크 (Ultra-Big Dark Mode)
    =================================================================== */
 :root {
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --surface-2: #f1f5f9;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --text-1: #0f172a;
-  --text-2: #334155;
-  --text-3: #64748b;
-  --accent: #005bac;
-  --accent-2: #0284c7;
-  --good: #059669;
-  --warn: #ea580c;
-  --bad: #dc2626;
-  --radius: 16px;
-  --radius-sm: 10px;
-  --radius-lg: 20px;
-  --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --bg: #070b14;
+  --bg-card: rgba(18, 26, 43, 0.85);
+  --border: rgba(56, 189, 248, 0.18);
+  --border-strong: rgba(56, 189, 248, 0.4);
+  --text-1: #ffffff;
+  --text-2: #cbd5e1;
+  --text-3: #94a3b8;
+  --accent: #38bdf8;
+  --accent-2: #0ea5e9;
+  --cyan: #06b6d4;
+  --good: #10b981;
+  --warn: #f59e0b;
+  --bad: #ef4444;
+  --radius: 20px;
+  --radius-lg: 24px;
+  --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 20px -2px rgba(56, 189, 248, 0.12);
+  --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px -5px rgba(56, 189, 248, 0.25);
   --font-sans: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
 }
 
@@ -52,10 +50,10 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--text-3);
-  letter-spacing: .06em;
+  letter-spacing: .08em;
   z-index: 15;
   pointer-events: none;
   transition: opacity .3s ease;
@@ -65,12 +63,12 @@ html, body {
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 800;
   color: var(--accent);
-  letter-spacing: .08em;
+  letter-spacing: .1em;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 .slide.center .kicker, .slide.tc .kicker { align-self: center; }
 
@@ -87,42 +85,47 @@ html, body {
 .hero-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.90) 0%, rgba(15, 23, 42, 0.45) 50%, rgba(15, 23, 42, 0.15) 100%);
+  background: linear-gradient(to top, rgba(7, 11, 20, 0.95) 0%, rgba(7, 11, 20, 0.5) 50%, rgba(7, 11, 20, 0.2) 100%);
 }
 .hero-content {
   position: absolute;
-  left: 60px;
-  right: 60px;
-  bottom: 60px;
-  max-width: 1150px;
+  left: 64px;
+  right: 64px;
+  bottom: 64px;
+  max-width: 1200px;
   color: #ffffff;
 }
 .hero-content h1 {
-  margin-top: 14px;
-  font-size: 58px;
+  margin-top: 16px;
+  font-size: 64px;
   line-height: 1.15;
   letter-spacing: -.03em;
   color: #ffffff;
 }
-.hero-content p { margin-top: 14px; font-size: 24px; color: #e2e8f0; }
+.hero-content p { margin-top: 16px; font-size: 26px; color: #cbd5e1; }
 
-/* Big Text & Headings */
+/* Ultra-Big Typography */
 .big-title {
-  font-size: 68px;
+  font-size: 78px;
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.16;
   letter-spacing: -.03em;
   color: var(--text-1);
 }
 .big-subtitle {
-  font-size: 26px;
+  font-size: 32px;
   font-weight: 600;
   line-height: 1.5;
   color: var(--text-2);
-  margin-top: 24px;
+  margin-top: 26px;
 }
 .gradient-text {
-  background: linear-gradient(135deg, #005bac 0%, #0284c7 100%);
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gradient-cyan {
+  background: linear-gradient(135deg, #06b6d4 0%, #38bdf8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -130,8 +133,8 @@ html, body {
 /* Split Visual Layout */
 .split-visual {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 48px;
   align-items: center;
   height: calc(100vh - 160px);
 }
@@ -150,55 +153,51 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 8px 18px;
   border-radius: 999px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
-  letter-spacing: .06em;
+  letter-spacing: .08em;
   text-transform: uppercase;
-  background: rgba(0, 91, 172, 0.08);
+  background: rgba(56, 189, 248, 0.15);
   color: var(--accent);
-  border: 1px solid rgba(0, 91, 172, 0.2);
-}
-.hero-content .pill {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(56, 189, 248, 0.35);
   backdrop-filter: blur(8px);
 }
 
 .card {
-  background: var(--surface);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 28px 30px;
+  padding: 30px 32px;
   box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
 }
 .card.highlight {
-  border-color: #bfdbfe;
-  background: #f0f7ff;
+  border-color: var(--border-strong);
+  background: rgba(26, 38, 63, 0.9);
 }
 .card-title {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
   color: var(--text-1);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
-.card-desc { font-size: 17px; color: var(--text-2); line-height: 1.55; }
+.card-desc { font-size: 19px; color: var(--text-2); line-height: 1.55; }
 
-.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px; }
-.cols-4 .card { padding: 22px 18px; }
-.cols-4 .card-title { font-size: 18px; margin-bottom: 6px; }
-.cols-4 .card-desc { font-size: 14px; line-height: 1.45; }
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 24px; }
+.cols-4 .card { padding: 22px 20px; }
+.cols-4 .card-title { font-size: 20px; margin-bottom: 8px; }
+.cols-4 .card-desc { font-size: 15px; line-height: 1.45; }
 
 /* Big Versus */
-.versus { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; width: 100%; }
-.versus > div { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 34px; box-shadow: var(--shadow); }
-.versus .vt { font-size: 18px; font-weight: 800; letter-spacing: .06em; margin-bottom: 14px; text-transform: uppercase; }
-.versus .vb { font-size: 28px; font-weight: 800; line-height: 1.35; color: var(--text-1); margin-bottom: 12px; }
-.versus .vn { font-size: 17px; color: var(--text-3); line-height: 1.55; }
+.versus { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; width: 100%; }
+.versus > div { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; box-shadow: var(--shadow); }
+.versus .vt { font-size: 19px; font-weight: 800; letter-spacing: .08em; margin-bottom: 14px; text-transform: uppercase; }
+.versus .vb { font-size: 30px; font-weight: 800; line-height: 1.35; color: var(--text-1); margin-bottom: 12px; }
+.versus .vn { font-size: 18px; color: var(--text-3); line-height: 1.55; }
 .versus .ok-side { border-top: 5px solid var(--good); }
 .versus .ok-side .vt { color: var(--good); }
 .versus .warn-side { border-top: 5px solid var(--warn); }
@@ -206,49 +205,50 @@ html, body {
 
 /* Big Quote */
 .big-quote {
-  font-size: 40px;
+  font-size: 46px;
   font-weight: 800;
-  line-height: 1.4;
+  line-height: 1.38;
   color: var(--text-1);
   letter-spacing: -.02em;
-  padding-left: 28px;
+  padding-left: 32px;
   border-left: 6px solid var(--accent);
 }
 
 /* Big Quiz */
-.quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+.quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 32px; }
 .quiz .opt {
-  padding: 28px 30px;
+  padding: 30px 34px;
   border-radius: var(--radius);
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  color: #0f172a;
+  color: #ffffff;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
   min-height: 110px;
   box-shadow: var(--shadow);
+  border: 1px solid var(--border);
 }
 .quiz .opt .sym {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.08);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
   flex: none;
-  color: #0f172a;
+  color: #ffffff;
 }
-.quiz .a { background: #fef3c7; border: 1px solid #fde68a; }
-.quiz .b { background: #e0f2fe; border: 1px solid #bae6fd; }
-.quiz .c { background: #dcfce7; border: 1px solid #bbf7d0; }
-.quiz .d { background: #fee2e2; border: 1px solid #fecaca; }
+.quiz .a { background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); }
+.quiz .b { background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4); }
+.quiz .c { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); }
+.quiz .d { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); }
 
 body[data-current-slide="1"] .deck-header, 
-body[data-current-slide="21"] .deck-header, 
-body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
+body[data-current-slide="13"] .deck-header, 
+body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -266,7 +266,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
         <span class="gradient-text">현장 도메인 지식과 에이전트 하네스로</span>
       </h1>
       <p>프롬프트 기교는 끝났습니다. 폴더 구조, 레퍼런스, 적대적 검증으로 완성하는 실무 시스템</p>
-      <div style="margin-top:20px;font-size:16px;color:#cbd5e1">조성호 · KODE KOREA 대표 · 부산대학교 AI융합교육원 강사</div>
+      <div style="margin-top:24px;font-size:18px;color:#94a3b8">조성호 · KODE KOREA 대표 · 부산대학교 AI융합교육원 강사</div>
     </div>
   </div>
   <div class="notes">반갑습니다. 프롬프트 작성 요령이 아닌, 진짜 AI 병목을 뚫는 시스템 엔지니어링을 공유합니다.</div>
@@ -274,8 +274,8 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 
 <!-- 02. 직설적 질문 -->
 <section class="slide center tc" data-title="질문">
-  <p class="kicker">직설적인 질문</p>
-  <h1 class="big-title" style="font-size:66px">
+  <p class="kicker">직설적인 질문 하나</p>
+  <h1 class="big-title">
     "프롬프트 길게 쓰느라<br>
     <span class="gradient-text">진 빼보셨습니까?"</span>
   </h1>
@@ -286,9 +286,9 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 03. 현장의 현실 -->
 <section class="slide center tc" data-title="현장의 현실">
   <p class="kicker">실무자의 현실적 탄식</p>
-  <div class="big-quote" style="max-width:960px;margin:30px auto;text-align:left">
+  <div class="big-quote" style="max-width:1050px;margin:30px auto;text-align:left">
     "프롬프트 강의 백날 들어봤자...<br>
-    <span class="gradient-text">결국 실무에선 쓸 수 없는 뻔한 교과서 글짓기만 나옵니다."</span>
+    <span class="gradient-cyan">결국 실무에선 쓸 수 없는 뻔한 교과서 글짓기만 나옵니다."</span>
   </div>
   <p class="big-subtitle">여러분의 프롬프트 실력이 부족해서가 아닙니다.</p>
   <div class="notes">프롬프트 부족이 원인이 아님을 명확히 합니다.</div>
@@ -299,11 +299,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">패러다임의 전환</p>
-      <h1 class="big-title" style="font-size:56px;line-height:1.2">
+      <h1 class="big-title" style="font-size:62px;line-height:1.2">
         프롬프트 엔지니어링은<br>
         <span class="gradient-text">이미 끝난 문제입니다</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         단발성 프롬프트 기교는 구시대의 유물입니다.<br>
         이미 <b>멀티턴 대화</b>와 <b>스킬 파일</b>로 기술적으로 해결되었습니다.
       </p>
@@ -318,11 +318,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 05. 강사의 태도: 솔직한 고백 -->
 <section class="slide center tc" data-title="강사의 포지션">
   <p class="kicker">분명한 선 긋기</p>
-  <h1 class="big-title" style="font-size:58px;line-height:1.25">
+  <h1 class="big-title" style="font-size:66px;line-height:1.25">
     "한전의 업무는 여러분이 전문가입니다.<br>
-    <span class="gradient-text">저는 AI 기술의 '진짜 병목'을 말하겠습니다."</span>
+    <span class="gradient-cyan">저는 AI 기술의 '진짜 병목'을 말하겠습니다."</span>
   </h1>
-  <p class="big-subtitle" style="max-width:900px;margin:24px auto 0">
+  <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
     외부 강사가 한전 업무를 안다고 훈수 두는 것은 기만입니다.<br>
     여러분이 쥔 그 방대한 현장 도메인 지식이, 왜 AI와 만날 때마다 겉도는지 그 기술적 병목을 해부합니다.
   </p>
@@ -332,11 +332,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 06. 취합의 현실 -->
 <section class="slide" data-title="취합의 현실">
   <p class="kicker">실무의 진짜 현실</p>
-  <h2 class="h2" style="font-size:40px">각 부서와 협력사에서 쏟아지는 수십 건의 취합 데이터</h2>
-  <div class="cols-2" style="margin-top:28px">
+  <h2 class="h2" style="font-size:46px">각 부서와 협력사에서 쏟아지는 수십 건의 취합 데이터</h2>
+  <div class="cols-2" style="margin-top:32px">
     <div class="card">
       <div class="card-title" style="color:var(--text-3)">매일 실무자가 마주하는 것</div>
-      <p class="card-desc" style="line-height:1.7">
+      <p class="card-desc" style="font-size:20px;line-height:1.7">
         · 사업소별 주간 실적 메모 및 엑셀 수치 취합<br>
         · 협력업체 정기 점검 결과서 및 공정률 보고<br>
         · 반복되는 대민 민원 내역 및 현장 특이사항<br>
@@ -345,7 +345,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
     </div>
     <div class="card highlight">
       <div class="card-title" style="color:var(--warn)">AI에게 그냥 넘겼을 때의 결과</div>
-      <p class="card-desc" style="line-height:1.7">
+      <p class="card-desc" style="font-size:20px;line-height:1.7">
         "이거 취합해서 보고서 양식으로 요약해 줘."<br><br>
         <b>결과:</b> 뻔한 인터넷 백과사전식 요약문 출력.<br>
         → 이번 분기 우리 본부의 관리 지표도, 결재권자의 숨은 의도도 전혀 반영하지 못함!
@@ -360,11 +360,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">진짜 AI 병목 ①</p>
-      <h1 class="big-title" style="font-size:52px;line-height:1.25">
+      <h1 class="big-title" style="font-size:56px;line-height:1.25">
         "텍스트는 평등하지만,<br>
         <span class="gradient-text">조직의 리스크는 불평등합니다"</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         AI 입장에서 취합된 100줄의 문서는 모두 똑같은 <b>'글자(토큰)'</b>입니다.<br>
         하지만 실무자는 무엇이 결재의 핵심이고 무엇이 감사 지적 대상인지 압니다.
       </p>
@@ -379,20 +379,20 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 08. 병목 ② 맥락, 파장, 책임의 단절 -->
 <section class="slide" data-title="AI의 3대 한계">
   <p class="kicker">진짜 AI 병목 ②</p>
-  <h2 class="h2" style="font-size:40px">AI가 혼자서는 결재 문서를 쓸 수 없는 3가지 근본 이유</h2>
-  <div class="cols-3" style="margin-top:32px">
+  <h2 class="h2" style="font-size:44px">AI가 혼자서는 결재 문서를 쓸 수 없는 3가지 근본 이유</h2>
+  <div class="cols-3" style="margin-top:36px">
     <div class="card" style="border-top:5px solid var(--accent)">
       <div class="pill" style="margin-bottom:12px">한계 1 · 맥락의 장님</div>
       <h3 class="card-title">사내 맥락의 부재</h3>
       <p class="card-desc">이번 분기 본부 중점 사항, 부서 간 이해관계, 결재 라인의 성향은 세상 어떤 AI 학습 데이터에도 없습니다.</p>
     </div>
     <div class="card highlight" style="border-top:5px solid var(--warn)">
-      <div class="pill" style="background:#fee2e2;color:#b91c1c;margin-bottom:12px">한계 2 · 파장의 무지</div>
+      <div class="pill" style="background:rgba(245,158,11,0.2);color:var(--warn);margin-bottom:12px">한계 2 · 파장의 무지</div>
       <h3 class="card-title">감사 리스크 무감각</h3>
       <p class="card-desc">숫자 하나, 표현 하나가 틀렸을 때 감사원이나 내부 감사에서 어떤 지적을 받는지 AI는 모릅니다.</p>
     </div>
     <div class="card" style="border-top:5px solid var(--good)">
-      <div class="pill" style="background:#dcfce7;color:#15803d;margin-bottom:12px">한계 3 · 책임의 공백</div>
+      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">한계 3 · 책임의 공백</div>
       <h3 class="card-title">책임의 부재</h3>
       <p class="card-desc">AI는 엉터리 기안을 올려도 감봉당하지 않습니다. 기안에 도장 찍고 최종 책임을 지는 것은 실무자입니다.</p>
     </div>
@@ -403,14 +403,14 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 09. 병목 ③ 규정과 감사: 환각의 공포 -->
 <section class="slide" data-title="사내 규정과 환각">
   <p class="kicker">감사와 컴플라이언스</p>
-  <h2 class="h2" style="font-size:42px">AI가 써준 규정 조항을 믿고 결재 올릴 수 있습니까?</h2>
-  <div class="card" style="margin-top:24px;padding:34px">
-    <p style="font-size:22px;color:var(--text-1);font-weight:700">
+  <h2 class="h2" style="font-size:46px">AI가 써준 규정 조항을 믿고 결재 올릴 수 있습니까?</h2>
+  <div class="card" style="margin-top:28px;padding:36px">
+    <p style="font-size:26px;color:var(--text-1);font-weight:700">
       "사내 계약 지침에 따른 수의계약 한도와 예외 조항을 정리해 줘.<br>
       <span style="color:var(--accent)">※ 절대 틀리지 말고, 확실한 사규 조항만 사실대로 답변하세요."</span>
     </p>
   </div>
-  <p class="big-subtitle" style="font-size:22px;margin-top:20px;color:var(--warn);font-weight:700">
+  <p class="big-subtitle" style="font-size:26px;margin-top:24px;color:var(--bad);font-weight:700">
     결과: 존재하지도 않는 제12조 제3항을 지어내고 한도 금액을 날조함 ➔ 감사 지적 100%!
   </p>
   <div class="notes">규정과 감사에서 환각이 초래하는 사고를 짚습니다.</div>
@@ -419,11 +419,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 10. 핵심 명제 ① (빅 폰트) -->
 <section class="slide center tc" data-title="핵심 명제 ①">
   <p class="kicker">강의의 첫 번째 본질</p>
-  <h1 class="big-title" style="font-size:56px;line-height:1.25">
+  <h1 class="big-title" style="font-size:62px;line-height:1.25">
     "AI는 문장을 매끄럽게 엮는 기계일 뿐,<br>
     <span class="gradient-text">'무엇이 진짜 중요한지'를 아는 것은 실무자입니다."</span>
   </h1>
-  <p class="big-subtitle" style="max-width:880px;margin:24px auto 0">
+  <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
     프롬프트 기술을 탓하지 마십시오.<br>
     조직을 지키는 것은 실무자의 도메인 지식과 <b>'시스템 검증 체계'</b>입니다.
   </p>
@@ -435,11 +435,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">조직의 진짜 병목</p>
-      <h1 class="big-title" style="font-size:56px;line-height:1.2">
+      <h1 class="big-title" style="font-size:60px;line-height:1.2">
         조직의 진짜 병목은<br>
-        <span class="gradient-text">어디에 있는가?</span>
+        <span class="gradient-cyan">어디에 있는가?</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         인공지능 모델의 성능 부족이 아닙니다.<br>
         <b>우리 부서의 일하는 법과 판단 기준이 사람 머릿속에만 갇혀 있는 것</b>이 유일한 병목입니다.
       </p>
@@ -454,7 +454,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 12. 1부 결론: 질문 던지기 -->
 <section class="slide center tc" data-title="1부 결론">
   <p class="kicker">이제 던져야 할 질문</p>
-  <h1 class="big-title" style="font-size:62px">
+  <h1 class="big-title" style="font-size:68px">
     "그렇다면 프롬프트 대신<br>
     <span class="gradient-text">무엇으로 AI를 일하게 해야 하는가?"</span>
   </h1>
@@ -475,9 +475,9 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
       <span class="pill">PART 2 · 실전 에이전틱 하네스</span>
       <h1 class="mt-s anim-rise-in" data-anim="rise-in">
         프롬프트 없는 세상,<br>
-        <span class="gradient-text">에이전트를 완벽히 통제하는 6대 하네스</span>
+        <span class="gradient-cyan">에이전트를 완벽히 통제하는 6대 하네스</span>
       </h1>
-      <p>폴더 구조화 · 레퍼런스 주입 · 컨텍스트 고정 · 평가 지표 · 자가 치유 루프 · 적대적 검증</p>
+      <p>폴더 구조화 · 레퍼런스 주입 · 컨텍스트 고정 · 평가 지표 · 자율 루프 · 적대적 검증</p>
     </div>
   </div>
   <div class="notes">2부에서는 프롬프트를 대체하는 6대 실전 엔지니어링 기법을 본격 전수합니다.</div>
@@ -486,34 +486,41 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 14. 6대 기법 로드맵 -->
 <section class="slide" data-title="6대 기법 로드맵">
   <p class="kicker">에이전트 통제의 핵심 6축</p>
-  <h2 class="h2" style="font-size:38px">진짜 고수들이 일회성 프롬프트 대신 사용하는 시스템</h2>
-  <div class="cols-3" style="margin-top:28px">
+  <h2 class="h2" style="font-size:42px">진짜 고수들이 일회성 프롬프트 대신 사용하는 시스템</h2>
+  <div class="cols-3" style="margin-top:32px">
     <div class="card"><div class="pill" style="margin-bottom:8px">축 1 & 2</div><h3 class="card-title">폴더 구조 & 레퍼런스</h3><p class="card-desc">말 대신 명확한 디렉토리와 합격 문서를 던져준다</p></div>
     <div class="card"><div class="pill" style="margin-bottom:8px">축 3 & 4</div><h3 class="card-title">컨텍스트 & 평가 지표</h3><p class="card-desc">CLAUDE.md로 원칙을 박고 채점 기준표를 세운다</p></div>
-    <div class="card highlight"><div class="pill" style="background:#dcfce7;color:#059669;margin-bottom:8px">축 5 & 6</div><h3 class="card-title">자율 루프 & 적대적 검증</h3><p class="card-desc">스스로 오류를 고치고, 가혹한 감사관을 붙인다</p></div>
+    <div class="card highlight"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">축 5 & 6</div><h3 class="card-title">자율 루프 & 적대적 검증</h3><p class="card-desc">스스로 오류를 고치고, 가혹한 감사관을 붙인다</p></div>
   </div>
   <div class="notes">6대 기법의 전체 조망도를 보여줍니다.</div>
 </section>
 
-<!-- 15. 기법 ①: 폴더 구조 정리 -->
-<section class="slide center tc" data-title="기법 1: 폴더 구조">
-  <p class="kicker">실전 기법 ①</p>
-  <h1 class="big-title" style="font-size:62px">
-    프롬프트로 설명하지 마십시오.<br>
-    <span class="gradient-text">"폴더 구조"로 일의 자리를 잡습니다</span>
-  </h1>
-  <p class="big-subtitle" style="max-width:860px;margin:24px auto 0">
-    채팅창에 수십 줄 규정을 치는 대신, 디렉토리 하나를 깔끔하게 정돈해 주는 순간<br>
-    에이전트의 경로 이탈과 환각이 80% 사라집니다.
-  </p>
+<!-- 15. 기법 ①: 폴더 구조 정리 (비주얼 분할) -->
+<section class="slide" data-title="기법 1: 폴더 구조">
+  <div class="split-visual">
+    <div>
+      <p class="kicker">실전 기법 ①</p>
+      <h1 class="big-title" style="font-size:56px;line-height:1.25">
+        프롬프트로 설명하지 마십시오.<br>
+        <span class="gradient-text">"폴더 구조"로 일의 자리를 잡습니다</span>
+      </h1>
+      <p class="big-subtitle" style="font-size:24px">
+        채팅창에 수십 줄 규정을 치는 대신, 디렉토리 하나를 깔끔하게 정돈해 주는 순간<br>
+        <b>에이전트의 경로 이탈과 환각이 80% 사라집니다.</b>
+      </p>
+    </div>
+    <div class="visual-box">
+      <img src="images/13-folder-structure.jpg" alt="디지털 폴더 구조 아키텍처">
+    </div>
+  </div>
   <div class="notes">말 대신 폴더 구조로 맥락을 잡는 원리를 설명합니다.</div>
 </section>
 
 <!-- 16. 기법 ① 상세: 표준 폴더 아키텍처 -->
 <section class="slide" data-title="표준 폴더 구조">
   <p class="kicker">실전 폴더 아키텍처</p>
-  <h2 class="h2" style="font-size:38px">사내 업무 자동화의 표준 4대 폴더 구조</h2>
-  <div class="cols-4" style="margin-top:28px">
+  <h2 class="h2" style="font-size:42px">사내 업무 자동화의 표준 4대 폴더 구조</h2>
+  <div class="cols-4" style="margin-top:32px">
     <div class="card">
       <div class="card-title" style="color:var(--accent)">📂 rules/</div>
       <p class="card-desc">부서 업무 지침, 결재 전결 규정, 필수 준수 보안 가이드라인 문서</p>
@@ -527,7 +534,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
       <p class="card-desc">이번 주에 처리해야 할 정제되지 않은 현장 메모 및 사업소 취합 원자료</p>
     </div>
     <div class="card">
-      <div class="card-title" style="color:var(--accent-2)">📂 output/</div>
+      <div class="card-title" style="color:var(--cyan)">📂 output/</div>
       <p class="card-desc">에이전트가 검증을 거쳐 최종 출력할 표준 규격 결재 기안서</p>
     </div>
   </div>
@@ -537,11 +544,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 17. 기법 ②: 레퍼런스 잘 주기 -->
 <section class="slide center tc" data-title="기법 2: 레퍼런스">
   <p class="kicker">실전 기법 ②</p>
-  <h1 class="big-title" style="font-size:62px">
+  <h1 class="big-title" style="font-size:68px">
     주관적인 형용사 10줄보다,<br>
-    <span class="gradient-text">"과거 통과된 결재 문서 1장"이 압도적입니다</span>
+    <span class="gradient-cyan">"과거 통과된 결재 문서 1장"이 압도적입니다</span>
   </h1>
-  <p class="big-subtitle" style="max-width:880px;margin:24px auto 0">
+  <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
     "깔끔하고 격조 있게 써줘"라는 말은 최악입니다.<br>
     <b>"이 references 폴더의 작년 공문 양식과 톤앤매너 그대로 채워 넣어"</b>가 100배 정확합니다.
   </p>
@@ -551,7 +558,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 18. 기법 ② 비교 (Versus) -->
 <section class="slide" data-title="레퍼런스 비교">
   <p class="kicker">지시 방식의 극적인 차이</p>
-  <h2 class="h2" style="font-size:40px">말(프롬프트)로 시키기 vs <span class="gradient-text">레퍼런스 던져주기</span></h2>
+  <h2 class="h2" style="font-size:42px">말(프롬프트)로 시키기 vs <span class="gradient-text">레퍼런스 던져주기</span></h2>
   <div class="versus" style="margin-top:32px">
     <div class="card">
       <div class="vt" style="color:var(--warn)">실패하는 프롬프트 방식</div>
@@ -570,11 +577,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 19. 기법 ③: 컨텍스트 유지시키기 -->
 <section class="slide center tc" data-title="기법 3: 컨텍스트 고정">
   <p class="kicker">실전 기법 ③</p>
-  <h1 class="big-title" style="font-size:60px">
+  <h1 class="big-title" style="font-size:66px">
     새 창 열 때마다 설명하지 마십시오.<br>
     <span class="gradient-text">"CLAUDE.md로 부서 원칙을 영구 고정합니다"</span>
   </h1>
-  <p class="big-subtitle" style="max-width:900px;margin:24px auto 0">
+  <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
     부서의 대원칙, 전결 규정, 금기 사항을 시스템 파일로 딱 박아두면(Pinning),<br>
     대화가 50턴, 100턴 길어져도 에이전트가 산으로 가지 않습니다 (컨텍스트 드리프트 차단).
   </p>
@@ -584,39 +591,46 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 20. 기법 ③ 상세: CLAUDE.md 예시 -->
 <section class="slide" data-title="CLAUDE.md 실물">
   <p class="kicker">부서 원칙 파일 실물</p>
-  <h2 class="h2" style="font-size:38px">우리 부서 전용 시스템 지침서 (CLAUDE.md)</h2>
-  <div class="card" style="margin-top:24px;background:#f8fafc;font-family:var(--font-mono);font-size:18px;line-height:1.7;border-left:5px solid var(--accent)">
+  <h2 class="h2" style="font-size:42px">우리 부서 전용 시스템 지침서 (CLAUDE.md)</h2>
+  <div class="card" style="margin-top:28px;background:rgba(18,26,43,0.95);font-family:var(--font-mono);font-size:20px;line-height:1.75;border-left:5px solid var(--accent)">
 # [기획관리부 에이전트 지침]
 1. 보고서 톤: 공기업 표준 개조식 종결어미 (~함, ~임) 엄격 준수. 구어체 금지.
 2. 수치 검증: 예산 및 실적 수치는 원본 엑셀과 단 1원의 오차도 허용하지 않음.
 3. 보안 대원칙: 사외 전송 금지. 고객 식별정보 발견 시 즉시 작업을 중단하고 마스킹 경고.
 4. 참고 규정: 규정 조항 언급 시 반드시 rules/사규_2026.pdf의 원문 조항 번호를 대조할 것.
   </div>
-  <p class="big-subtitle" style="font-size:18px;margin-top:16px;color:var(--text-3)">
+  <p class="big-subtitle" style="font-size:20px;margin-top:20px;color:var(--text-3)">
     이 파일 하나만 폴더 루트에 두면, 팀원 누가 에이전트를 켜도 똑같은 부서 표준으로 동작합니다.
   </p>
   <div class="notes">CLAUDE.md의 실제 내용을 보여주며 영구 자산화의 실체를 확인합니다.</div>
 </section>
 
-<!-- 21. 기법 ④: 평가 지표 먼저 만들기 -->
-<section class="slide center tc" data-title="기법 4: 평가 지표">
-  <p class="kicker">실전 기법 ④</p>
-  <h1 class="big-title" style="font-size:62px">
-    글을 쓰게 하기 전에,<br>
-    <span class="gradient-text">"합격 채점표(Metric)"부터 만들게 하십시오</span>
-  </h1>
-  <p class="big-subtitle" style="max-width:880px;margin:24px auto 0">
-    "알아서 잘 써줘"는 최악의 지시입니다.<br>
-    <b>"이 보고서가 통과되려면 충족해야 할 3대 합격 조건(Acceptance Criteria)"</b>을 먼저 확정해야 합니다.
-  </p>
+<!-- 21. 기법 ④: 평가 지표 먼저 만들기 (비주얼 분할) -->
+<section class="slide" data-title="기법 4: 평가 지표">
+  <div class="split-visual">
+    <div>
+      <p class="kicker">실전 기법 ④</p>
+      <h1 class="big-title" style="font-size:50px;line-height:1.25">
+        글을 쓰게 하기 전에,<br>
+        <span class="gradient-cyan">"합격 채점표(Metric)"부터 확립하십시오</span>
+      </h1>
+      <p class="big-subtitle" style="font-size:24px">
+        "알아서 잘 써줘"는 최악의 지시입니다.<br>
+        <b>"이 보고서가 통과되려면 충족해야 할 3대 합격 조건(Acceptance Criteria)"</b>을 먼저 확정해야 스스로 자가 평가를 할 수 있습니다.
+      </p>
+    </div>
+    <div class="visual-box">
+      <img src="images/15-acceptance-metrics.jpg" alt="합격 평가 지표 스캐너">
+    </div>
+  </div>
   <div class="notes">평가 지표를 먼저 수립해야 하는 이유를 설명합니다.</div>
 </section>
 
 <!-- 22. 기법 ④ 상세: 3대 합격 채점표 -->
 <section class="slide" data-title="3대 합격 채점표">
   <p class="kicker">정량적 평가 지표</p>
-  <h2 class="h2" style="font-size:38px">보고서 자동 통과를 위한 3대 평가 지표 예시</h2>
-  <div class="cols-3" style="margin-top:32px">
+  <h2 class="h2" style="font-size:42px">보고서 자동 통과를 위한 3대 평가 지표 예시</h2>
+  <div class="cols-3" style="margin-top:36px">
     <div class="card highlight">
       <div class="pill" style="margin-bottom:12px">지표 1 · 완전성</div>
       <h3 class="card-title">누락 항목 0건</h3>
@@ -641,11 +655,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">실전 기법 ⑤</p>
-      <h1 class="big-title" style="font-size:52px;line-height:1.25">
+      <h1 class="big-title" style="font-size:54px;line-height:1.25">
         사람이 피드백 주지 마십시오.<br>
         <span class="gradient-text">"채점표 보고 스스로 루프를 돕니다"</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         초안 작성 ➔ 채점표 대조 ➔ 결함 발견 ➔ 스스로 재작성.<br>
         <b>사람을 귀찮게 하지 않고 100점이 될 때까지 스스로 회전하는 자가 치유(Self-healing) 루프</b>입니다.
       </p>
@@ -663,31 +677,38 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="cols-4" style="margin-top:36px;text-align:left">
     <div class="card"><div class="pill" style="margin-bottom:8px">STEP 1</div><h3 class="card-title">초안 생성</h3><p class="card-desc">input/ 자료와 레퍼런스를 참조해 1차 기안서 작성</p></div>
     <div class="card"><div class="pill" style="margin-bottom:8px">STEP 2</div><h3 class="card-title">자체 채점</h3><p class="card-desc">사전에 정의한 3대 평가 지표로 1차 초안 검증</p></div>
-    <div class="card highlight"><div class="pill" style="background:#fee2e2;color:#b91c1c;margin-bottom:8px">STEP 3</div><h3 class="card-title">자가 치유</h3><p class="card-desc">"수치 불일치 1건 발견" ➔ 스스로 재계산 후 문장 수정</p></div>
-    <div class="card"><div class="pill" style="background:#dcfce7;color:#059669;margin-bottom:8px">STEP 4</div><h3 class="card-title">완료 보고</h3><p class="card-desc">3대 지표 100점 충족 시 사람에게 최종 결과물 제출</p></div>
+    <div class="card highlight"><div class="pill" style="background:rgba(239,68,68,0.2);color:var(--bad);margin-bottom:8px">STEP 3</div><h3 class="card-title">자가 치유</h3><p class="card-desc">"수치 불일치 1건 발견" ➔ 스스로 재계산 후 문장 수정</p></div>
+    <div class="card"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">STEP 4</div><h3 class="card-title">완료 보고</h3><p class="card-desc">3대 지표 100점 충족 시 사람에게 최종 결과물 제출</p></div>
   </div>
   <div class="notes">루프 4단계를 명쾌하게 도식화합니다.</div>
 </section>
 
-<!-- 25. 기법 ⑥: 멀티에이전트 역할 분담 -->
-<section class="slide center tc" data-title="기법 6: 멀티에이전트">
-  <p class="kicker">실전 기법 ⑥</p>
-  <h1 class="big-title" style="font-size:62px">
-    한 놈에게 다 시키면 망합니다.<br>
-    <span class="gradient-text">"전문 역할을 쪼갠 '멀티에이전트 팀'을 짭니다"</span>
-  </h1>
-  <p class="big-subtitle" style="max-width:900px;margin:24px auto 0">
-    조사, 작성, 검증을 한 프롬프트에서 다 하라고 하면 환각이 폭발합니다.<br>
-    사람 조직처럼 역할을 철저히 분리한 3인 1조 서브에이전트 팀을 가동합니다.
-  </p>
+<!-- 25. 기법 ⑥: 멀티에이전트 역할 분담 (비주얼 분할) -->
+<section class="slide" data-title="기법 6: 멀티에이전트">
+  <div class="split-visual">
+    <div>
+      <p class="kicker">실전 기법 ⑥</p>
+      <h1 class="big-title" style="font-size:54px;line-height:1.25">
+        한 놈에게 다 시키면 망합니다.<br>
+        <span class="gradient-cyan">"역할을 쪼갠 '멀티에이전트 팀'을 짭니다"</span>
+      </h1>
+      <p class="big-subtitle" style="font-size:24px">
+        조사, 작성, 검증을 한 프롬프트에서 다 하라고 하면 환각이 폭발합니다.<br>
+        사람 조직처럼 역할을 철저히 분리한 3인 1조 서브에이전트 팀을 가동합니다.
+      </p>
+    </div>
+    <div class="visual-box">
+      <img src="images/14-multi-agent-team.jpg" alt="3인 1조 멀티에이전트 팀">
+    </div>
+  </div>
   <div class="notes">멀티에이전트 역할 분담의 필요성을 설명합니다.</div>
 </section>
 
 <!-- 26. 기법 ⑥ 상세: 3인 1조 서브에이전트 팀 -->
 <section class="slide" data-title="3인 1조 팀 구성">
   <p class="kicker">실전 팀 아키텍처</p>
-  <h2 class="h2" style="font-size:38px">사내 보고서 자동 완성을 위한 3인 1조 에이전트 분업</h2>
-  <div class="cols-3" style="margin-top:32px">
+  <h2 class="h2" style="font-size:42px">사내 보고서 자동 완성을 위한 3인 1조 에이전트 분업</h2>
+  <div class="cols-3" style="margin-top:36px">
     <div class="card">
       <div class="pill" style="margin-bottom:12px">에이전트 1 · 조사관</div>
       <h3 class="card-title">Data Scout</h3>
@@ -699,7 +720,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
       <p class="card-desc">조사관의 팩트와 references/ 샘플을 바탕으로 부서 규격에 맞춘 1차 결재 기안문 작성</p>
     </div>
     <div class="card highlight">
-      <div class="pill" style="background:#dcfce7;color:#059669;margin-bottom:12px">에이전트 3 · 감독관</div>
+      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">에이전트 3 · 감독관</div>
       <h3 class="card-title">Quality Inspector</h3>
       <p class="card-desc">완성된 기안문이 CLAUDE.md 지침과 평가 지표를 완벽히 통과했는지 최종 검수</p>
     </div>
@@ -712,17 +733,17 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">실전 기법 ⑦ (궁극의 안전장치)</p>
-      <h1 class="big-title" style="font-size:50px;line-height:1.25">
+      <h1 class="big-title" style="font-size:52px;line-height:1.25">
         "너는 이제 까다로운 감사관이다.<br>
         <span class="gradient-text">이 기안문의 결점을 가혹하게 찾아내라"</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         작성한 AI에게 잘 썼냐고 묻지 마십시오.<br>
         <b>별도의 적대적 에이전트(Red Team)에게 감사관 역할을 맡겨 기안문을 난타하게</b> 만듭니다.
       </p>
     </div>
     <div class="visual-box">
-      <img src="images/12-cross-check.jpg" alt="적대적 정밀 검증 일러스트">
+      <img src="images/16-red-team-auditor.jpg" alt="적대적 정밀 감사관 일러스트">
     </div>
   </div>
   <div class="notes">적대적 검증(Red Teaming)의 폭발적 위력을 설명합니다.</div>
@@ -731,20 +752,20 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 28. 기법 ⑦ 상세: 적대적 검증의 3단계 공격 -->
 <section class="slide" data-title="적대적 검증 3단계">
   <p class="kicker">감사관 페르소나 공격</p>
-  <h2 class="h2" style="font-size:38px">결재 올리기 전, 적대적 에이전트가 가하는 3대 공격</h2>
-  <div class="cols-3" style="margin-top:32px">
+  <h2 class="h2" style="font-size:42px">결재 올리기 전, 적대적 에이전트가 가하는 3대 공격</h2>
+  <div class="cols-3" style="margin-top:36px">
     <div class="card" style="border-top:5px solid var(--bad)">
-      <div class="pill" style="background:#fee2e2;color:#b91c1c;margin-bottom:12px">공격 1 · 법적 규정</div>
+      <div class="pill" style="background:rgba(239,68,68,0.2);color:var(--bad);margin-bottom:12px">공격 1 · 법적 규정</div>
       <h3 class="card-title">사규 위반 공격</h3>
       <p class="card-desc">"제12조 계약 예외 조항 적용에 근거 서류가 결여되어 있습니다. 감사 지적 대상입니다."</p>
     </div>
     <div class="card" style="border-top:5px solid var(--warn)">
-      <div class="pill" style="background:#ffedd5;color:#c2410c;margin-bottom:12px">공격 2 · 산술 정합성</div>
+      <div class="pill" style="background:rgba(245,158,11,0.2);color:var(--warn);margin-bottom:12px">공격 2 · 산술 정합성</div>
       <h3 class="card-title">수치 불일치 공격</h3>
       <p class="card-desc">"본문 3페이지의 절감액 합계가 1페이지 총괄표와 240만 원 차이납니다. 재검토하세요."</p>
     </div>
     <div class="card highlight" style="border-top:5px solid var(--good)">
-      <div class="pill" style="background:#dcfce7;color:#15803d;margin-bottom:12px">최종 방어</div>
+      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">최종 방어</div>
       <h3 class="card-title">공격받고 스스로 수정</h3>
       <p class="card-desc">기안 에이전트가 감사관의 지적을 수용하여 결재 전 완벽히 무결점 보고서로 수정 완료!</p>
     </div>
@@ -755,11 +776,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 29. 6대 기법 총괄 다이어그램 -->
 <section class="slide center tc" data-title="6대 기법 총괄">
   <p class="kicker">하네스 아키텍처 완성</p>
-  <h1 class="big-title" style="font-size:52px">
+  <h1 class="big-title" style="font-size:56px">
     "프롬프트는 한 줄도 치지 않았습니다.<br>
     <span class="gradient-text">오직 시스템(Harness)만 설계했을 뿐입니다."</span>
   </h1>
-  <div class="cols-3" style="margin-top:36px;text-align:left">
+  <div class="cols-3" style="margin-top:40px;text-align:left">
     <div class="card"><h3 class="card-title">1. 구조 & 레퍼런스</h3><p class="card-desc">폴더 정리 + 과거 합격 문서 주입</p></div>
     <div class="card"><h3 class="card-title">2. 지침 & 평가 지표</h3><p class="card-desc">CLAUDE.md 원칙 고정 + 채점표</p></div>
     <div class="card highlight"><h3 class="card-title">3. 루프 & 적대적 검증</h3><p class="card-desc">자가 치유 회전 + 가혹한 감사관 검수</p></div>
@@ -776,11 +797,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">환경의 차이</p>
-      <h1 class="big-title" style="font-size:54px;line-height:1.25">
+      <h1 class="big-title" style="font-size:56px;line-height:1.25">
         남이 지은 식당(SaaS) vs<br>
-        <span class="gradient-text">우리 집 주방(로컬 에이전트)</span>
+        <span class="gradient-cyan">우리 집 주방(로컬 에이전트)</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         정해진 메뉴판만 주문 가능한 외부 클라우드 챗봇에서 벗어나,<br>
         <b>사내 PC 환경에서 부서의 고유 데이터와 6대 하네스 도구를 직접 결합</b>하여 요리합니다.
       </p>
@@ -797,11 +818,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">라이브 시연 ①</p>
-      <h1 class="big-title" style="font-size:50px;line-height:1.25">
+      <h1 class="big-title" style="font-size:52px;line-height:1.25">
         웹 브라우저 자동 제어:<br>
         <span class="gradient-text">사내 포털 및 인트라넷 데이터 연동</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         별도의 전산망 API가 없어도 괜찮습니다.<br>
         사람이 브라우저로 하던 로그인, 조회, 엑셀 다운로드를 <b>에이전트가 완벽히 대행</b>합니다.
       </p>
@@ -818,14 +839,14 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">프롬프트 대신 남기는 것</p>
-      <h1 class="big-title" style="font-size:52px;line-height:1.25">
+      <h1 class="big-title" style="font-size:54px;line-height:1.25">
         말(프롬프트) 대신 남기는<br>
-        <span class="gradient-text">3대 영구 업무 자산</span>
+        <span class="gradient-cyan">3대 영구 업무 자산</span>
       </h1>
-      <div style="margin-top:24px;display:flex;flex-direction:column;gap:14px">
-        <div class="card" style="padding:18px 24px"><b style="color:var(--accent)">컨텍스트 (CLAUDE.md)</b>: 부서 대원칙과 보고 지침</div>
-        <div class="card" style="padding:18px 24px"><b style="color:var(--accent)">스킬 (SKILL.md)</b>: 도메인 지식이 담긴 실행 매뉴얼</div>
-        <div class="card" style="padding:18px 24px"><b style="color:var(--accent)">MCP</b>: 사내 시스템과 데이터를 연결하는 표준 콘센트</div>
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">컨텍스트 (CLAUDE.md)</b>: 부서 대원칙과 보고 지침</div>
+        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">스킬 (SKILL.md)</b>: 도메인 지식이 담긴 실행 매뉴얼</div>
+        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">MCP</b>: 사내 시스템과 데이터를 연결하는 표준 콘센트</div>
       </div>
     </div>
     <div class="visual-box">
@@ -838,7 +859,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 33. 스킬의 위력 비교 -->
 <section class="slide" data-title="스킬의 위력">
   <p class="kicker">실전 비교</p>
-  <h2 class="h2" style="font-size:42px">프롬프트 20줄 작성 vs <span class="gradient-text">스킬 파일 1줄 호출</span></h2>
+  <h2 class="h2" style="font-size:44px">프롬프트 20줄 작성 vs <span class="gradient-text">스킬 파일 1줄 호출</span></h2>
   <div class="versus" style="margin-top:32px">
     <div class="card">
       <div class="vt" style="color:var(--text-3)">구시대 프롬프트 방식</div>
@@ -857,7 +878,7 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 34. 퀴즈 ② -->
 <section class="slide" data-title="퀴즈 ②">
   <p class="kicker">개념 점검</p>
-  <h2 class="h2" style="font-size:38px">매주 반복하는 정기 업무를 자동화할 때 우리 부서에 남겨야 할 자산은?</h2>
+  <h2 class="h2" style="font-size:42px">매주 반복하는 정기 업무를 자동화할 때 우리 부서에 남겨야 할 자산은?</h2>
   <div class="quiz">
     <div class="opt a"><div class="sym">▲</div><span>더 길고 정교한 프롬프트 템플릿</span></div>
     <div class="opt b"><div class="sym">◆</div><span>현장 도메인 지식이 담긴 스킬 파일(SKILL.md)</span></div>
@@ -870,11 +891,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 35. 바이브코딩: 시각적 목표 -->
 <section class="slide center tc" data-title="바이브코딩">
   <p class="kicker">작업 지시의 혁신</p>
-  <h1 class="big-title" style="font-size:60px">
+  <h1 class="big-title" style="font-size:64px">
     "예쁘게 만들어 줘" 대신,<br>
-    <span class="gradient-text">완성 화면 사진을 먼저 던집니다</span>
+    <span class="gradient-cyan">완성 화면 사진을 먼저 던집니다</span>
   </h1>
-  <p class="big-subtitle" style="max-width:860px;margin:24px auto 0">
+  <p class="big-subtitle" style="max-width:920px;margin:24px auto 0">
     주관적 형용사는 백날 프롬프트에 써봐야 엉뚱한 결과가 나옵니다.<br>
     시각적 목표(Mockup)와 3대 합격 기준을 명시하는 것이 바이브코딩의 정석입니다.
   </p>
@@ -886,11 +907,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="split-visual">
     <div>
       <p class="kicker">친숙한 업무 방식</p>
-      <h1 class="big-title" style="font-size:52px;line-height:1.25">
+      <h1 class="big-title" style="font-size:54px;line-height:1.25">
         완성 예시 · 3대 합격 기준 ·<br>
         <span class="gradient-text">샘플 검수</span>
       </h1>
-      <p class="big-subtitle" style="font-size:22px">
+      <p class="big-subtitle" style="font-size:24px">
         새로운 기술이 아닙니다.<br>
         현업에서 <b>후배 직원에게 일을 지시하고 피드백을 주며 검수하던 방식 그대로</b>입니다.
       </p>
@@ -905,12 +926,12 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 37. 8단계 프로토콜 -->
 <section class="slide" data-title="8단계 프로토콜">
   <p class="kicker">표준 프로토콜</p>
-  <h2 class="h2" style="font-size:42px">에이전트 기반 업무 자산화 8단계</h2>
-  <div class="cols-4" style="margin-top:24px">
+  <h2 class="h2" style="font-size:44px">에이전트 기반 업무 자산화 8단계</h2>
+  <div class="cols-4" style="margin-top:28px">
     <div class="card"><div class="pill" style="margin-bottom:8px">1-2단계</div><h3 class="card-title">폴더 & 레퍼런스</h3><p class="card-desc">폴더 구조와 통과된 과거 샘플 주입</p></div>
     <div class="card"><div class="pill" style="margin-bottom:8px">3-4단계</div><h3 class="card-title">지침 & 평가 지표</h3><p class="card-desc">CLAUDE.md 원칙과 3대 채점표 확정</p></div>
     <div class="card"><div class="pill" style="margin-bottom:8px">5-6단계</div><h3 class="card-title">루프 & 적대적 검증</h3><p class="card-desc">자율 수정 및 가혹한 감사관 검수</p></div>
-    <div class="card highlight"><div class="pill" style="background:#dcfce7;color:#059669;margin-bottom:8px">7-8단계</div><h3 class="card-title">스킬 파일 자산화</h3><p class="card-desc">SKILL.md 저장 및 팀 내 인수인계</p></div>
+    <div class="card highlight"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">7-8단계</div><h3 class="card-title">스킬 파일 자산화</h3><p class="card-desc">SKILL.md 저장 및 팀 내 인수인계</p></div>
   </div>
   <div class="notes">8단계 구축 프로토콜을 설명합니다.</div>
 </section>
@@ -918,19 +939,19 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 38. 공기업 보안 안전선 -->
 <section class="slide" data-title="보안 안전선">
   <p class="kicker">공기업 환경</p>
-  <h2 class="h2" style="font-size:42px">어디까지가 안전한 시작점인가?</h2>
-  <div class="cols-3" style="margin-top:32px">
+  <h2 class="h2" style="font-size:44px">어디까지가 안전한 시작점인가?</h2>
+  <div class="cols-3" style="margin-top:34px">
     <div class="card" style="border-top:5px solid var(--good)">
       <div class="card-title" style="color:var(--good)">✅ 즉시 가능 영역</div>
-      <p class="card-desc">· 공문·보고서 서식 정리<br>· 공개 규정 신구대조표<br>· 비식별 통계 데이터 취합</p>
+      <p class="card-desc" style="font-size:19px;line-height:1.6">· 공문·보고서 서식 정리<br>· 공개 규정 신구대조표<br>· 비식별 통계 데이터 취합</p>
     </div>
     <div class="card highlight" style="border-top:5px solid var(--accent)">
       <div class="card-title" style="color:var(--accent)">🔍 검토 후 도입</div>
-      <p class="card-desc">· 사내 전산 규정 봇 (폐쇄망)<br>· 비식별 관리 보고서 요약<br>· 전력 통계 시각화</p>
+      <p class="card-desc" style="font-size:19px;line-height:1.6">· 사내 전산 규정 봇 (폐쇄망)<br>· 비식별 관리 보고서 요약<br>· 전력 통계 시각화</p>
     </div>
-    <div class="card" style="border-top:5px solid var(--warn)">
-      <div class="card-title" style="color:var(--warn)">🚫 사외 반출 금지</div>
-      <p class="card-desc">· 전력 제어망 SCADA 데이터<br>· 주민번호 등 금융 식별정보<br>· 대외비 감사·인사 원본</p>
+    <div class="card" style="border-top:5px solid var(--bad)">
+      <div class="card-title" style="color:var(--bad)">🚫 사외 반출 금지</div>
+      <p class="card-desc" style="font-size:19px;line-height:1.6">· 전력 제어망 SCADA 데이터<br>· 주민번호 등 금융 식별정보<br>· 대외비 감사·인사 원본</p>
     </div>
   </div>
   <div class="notes">공기업 보안 안전 기준선을 안내합니다.</div>
@@ -939,8 +960,8 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 39. 우선 구축 스킬 3선 -->
 <section class="slide" data-title="첫 스킬 3선">
   <p class="kicker">내일 아침 시작할 과제</p>
-  <h2 class="h2" style="font-size:42px">현업 복귀 후 즉시 구축할 첫 스킬 3선</h2>
-  <div class="cols-3" style="margin-top:32px">
+  <h2 class="h2" style="font-size:44px">현업 복귀 후 즉시 구축할 첫 스킬 3선</h2>
+  <div class="cols-3" style="margin-top:34px">
     <div class="card highlight">
       <div class="pill" style="margin-bottom:12px">기획 · 관리</div>
       <h3 class="card-title">주간보고 실적 취합</h3>
@@ -963,11 +984,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 40. 사내 확산 단계 -->
 <section class="slide center tc" data-title="사내 확산">
   <p class="kicker">조직의 여정</p>
-  <h1 class="big-title" style="font-size:56px">
+  <h1 class="big-title" style="font-size:60px">
     개인의 스킬에서,<br>
     <span class="gradient-text">조직의 영구 자산으로</span>
   </h1>
-  <div class="cols-3" style="margin-top:32px;text-align:left">
+  <div class="cols-3" style="margin-top:36px;text-align:left">
     <div class="card"><div class="pill" style="margin-bottom:8px">STEP 1</div><h3 class="card-title">개인 스킬</h3><p class="card-desc">내 PC에서 내 반복 업무를 줄이는 SKILL.md</p></div>
     <div class="card highlight"><div class="pill" style="margin-bottom:8px">STEP 2</div><h3 class="card-title">팀 표준 매뉴얼</h3><p class="card-desc">팀 공유 폴더 등록, 후임자 인수인계 완료</p></div>
     <div class="card"><div class="pill" style="margin-bottom:8px">STEP 3</div><h3 class="card-title">전사 공유 자산</h3><p class="card-desc">사업소 간 검증된 스킬 공유, 일하는 방식 혁신</p></div>
@@ -978,10 +999,10 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 41. 실천 다짐 설문 -->
 <section class="slide" data-title="실천 다짐">
   <p class="kicker">실천 다짐</p>
-  <h2 class="h2" style="font-size:38px">이번 주에 우리 부서에서 가장 먼저<br>폴더 구조와 레퍼런스를 갖추고 싶은 업무는?</h2>
-  <div class="card" style="margin-top:30px;padding:44px;border:2px dashed var(--border-strong);text-align:center">
-    <p style="font-size:26px;font-weight:800;color:var(--text-1)">업무 명칭 하나를 확정해 주십시오</p>
-    <p style="font-size:18px;color:var(--text-3);margin-top:12px">적어둔 업무 하나가 내일 아침 에이전트 하네스의 출발점이 됩니다.</p>
+  <h2 class="h2" style="font-size:42px">이번 주에 우리 부서에서 가장 먼저<br>폴더 구조와 레퍼런스를 갖추고 싶은 업무는?</h2>
+  <div class="card" style="margin-top:32px;padding:48px;border:2px dashed var(--border-strong);text-align:center">
+    <p style="font-size:28px;font-weight:800;color:var(--text-1)">업무 명칭 하나를 확정해 주십시오</p>
+    <p style="font-size:20px;color:var(--text-3);margin-top:14px">적어둔 업무 하나가 내일 아침 에이전트 하네스의 출발점이 됩니다.</p>
   </div>
   <div class="notes">현업 착수 과제를 스스로 확정하도록 유도합니다.</div>
 </section>
@@ -989,20 +1010,20 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 42. 현업 복귀 3단계 실천 -->
 <section class="slide" data-title="실천 과제">
   <p class="kicker">이번 주 실행 과제</p>
-  <h2 class="h2" style="font-size:42px">현업 복귀 후 추진할 3단계 실천 과제</h2>
-  <div class="cols-3" style="margin-top:32px">
+  <h2 class="h2" style="font-size:44px">현업 복귀 후 추진할 3단계 실천 과제</h2>
+  <div class="cols-3" style="margin-top:34px">
     <div class="card">
-      <div class="num ghost" style="margin-bottom:12px">1</div>
+      <div class="pill" style="margin-bottom:12px">과제 1</div>
       <h3 class="card-title">레퍼런스 폴더 구축</h3>
       <p class="card-desc">핵심 정기 업무 1건의 과거 통과 문서와 엑셀을 references/에 수집</p>
     </div>
     <div class="card">
-      <div class="num ghost" style="margin-bottom:12px">2</div>
+      <div class="pill" style="margin-bottom:12px">과제 2</div>
       <h3 class="card-title">CLAUDE.md 지침 작성</h3>
       <p class="card-desc">우리 팀만의 전결선과 필수 보고 원칙을 1페이지 규칙 파일로 고정</p>
     </div>
-    <div class="card">
-      <div class="num ghost" style="margin-bottom:12px">3</div>
+    <div class="card highlight">
+      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">과제 3</div>
       <h3 class="card-title">적대적 검증 루프 적용</h3>
       <p class="card-desc">기안문 작성 후 "감사실 관점 결점 지적" 적대적 에이전트로 결재 전 자가 필터링</p>
     </div>
@@ -1013,11 +1034,11 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
 <!-- 43. 핵심 요약 (빅 폰트) -->
 <section class="slide center tc" data-title="핵심 요약">
   <p class="kicker">강의 총정리</p>
-  <h1 class="big-title" style="font-size:60px;line-height:1.25">
+  <h1 class="big-title" style="font-size:62px;line-height:1.25">
     "프롬프트에 매달리지 마십시오.<br>
     <span class="gradient-text">폴더 구조, 레퍼런스, 적대적 검증 하네스를 구축하십시오."</span>
   </h1>
-  <p class="big-subtitle" style="max-width:900px;margin:24px auto 0">
+  <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
     여러분의 도메인 지식이 시스템의 지침으로 고정될 때,<br>
     인공지능은 비로소 실무자의 가장 든든한 현장 대리인이 됩니다.
   </p>
@@ -1031,12 +1052,12 @@ body[data-current-slide="48"] .deck-header { opacity: 0; pointer-events: none; }
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <span class="pill">오늘의 한 문장 · 질의응답</span>
-      <h1 class="mt-s anim-rise-in" data-anim="rise-in" style="font-size:52px">
+      <h1 class="mt-s anim-rise-in" data-anim="rise-in" style="font-size:56px">
         인공지능이 도구를 쥐는 시대.<br>
-        <span class="gradient-text">생산성의 병목은 기술이 아닌 '시스템 하네스'입니다.</span>
+        <span class="gradient-cyan">생산성의 병목은 기술이 아닌 '시스템 하네스'입니다.</span>
       </h1>
       <p style="margin-top:16px">경청해 주셔서 감사합니다. 자유롭게 질의해 주시기 바랍니다.</p>
-      <div style="margin-top:20px;font-size:16px;color:#cbd5e1">조성호 · KODE KOREA 대표 · seongho.cho@kodekorea.kr · kodekorea.kr</div>
+      <div style="margin-top:20px;font-size:18px;color:#94a3b8">조성호 · KODE KOREA 대표 · seongho.cho@kodekorea.kr · kodekorea.kr</div>
     </div>
   </div>
   <div class="notes">강의를 닫고 현장 Q&A를 진행합니다.</div>
