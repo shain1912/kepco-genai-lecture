@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="kepco-night">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>프롬프트의 종말 — 에이전트 시대의 업무자동화 · 한국전력공사</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" id="theme-link" href="assets/themes/kepco-night.css">
+<link rel="stylesheet" href="assets/animations/animations.css">
+<style>
+/* ---- deck-scoped styles (tokens only) ---- */
+.deck-header{position:fixed;top:24px;left:48px;right:48px;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--text-3);letter-spacing:.08em;z-index:15;pointer-events:none;transition:opacity .3s ease}
+.kicker{display:inline-flex;align-items:center;align-self:flex-start;width:fit-content}
+.kicker .time{margin-left:10px;padding:2px 10px;border-radius:999px;background:color-mix(in srgb,var(--accent-2) 14%,transparent);color:var(--accent-2);font-size:11px;letter-spacing:.06em}
+.slide.center .kicker, .slide.tc .kicker, .slide.center .quiz-badge, .slide.tc .quiz-badge{align-self:center}
+
+/* image hero */
+.hero{position:relative;height:calc(100vh - 112px);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+.hero .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.hero .bg.kb{animation:kf-kenburns 18s ease-in-out infinite alternate}
+.hero .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,16,36,.05) 30%,rgba(11,16,36,.88))}
+.hero .caption{position:absolute;bottom:52px;left:60px;right:60px;color:var(--text-1);z-index:2}
+.hero h1{font-size:76px;line-height:1.05;font-weight:900;letter-spacing:-.03em;margin:0}
+.hero p{font-size:22px;color:var(--text-2);margin:16px 0 0;max-width:60ch}
+.hero .pill{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.22)}
+
+/* split: image + text */
+.split{display:grid;grid-template-columns:1.15fr 1fr;gap:40px;align-items:center;margin-top:20px}
+.split .img{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border);aspect-ratio:16/9}
+.split .img img{width:100%;height:100%;object-fit:cover}
+.split .txt h3{font-size:34px;line-height:1.25}
+.split .txt p{font-size:22px;color:var(--text-2);line-height:1.65}
+.split .txt .big{font-size:30px;color:var(--text-1);font-weight:700;line-height:1.4}
+.analogy{display:grid;gap:12px;margin-top:18px}
+.analogy .line{display:grid;grid-template-columns:180px 1fr;gap:16px;align-items:center;padding:16px 20px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border)}
+.analogy .k{font-weight:700;color:var(--accent);font-size:21px}
+.analogy .v{font-size:19px;color:var(--text-2);line-height:1.55}
+
+/* comparison */
+.vs{display:grid;grid-template-columns:1fr 90px 1fr;gap:28px;align-items:stretch;margin-top:30px}
+.vs .side{padding:30px}
+.vs .mid{font-size:56px;font-weight:800;color:var(--text-3);display:flex;align-items:center;justify-content:center}
+.vs .bad-side{border-top:3px solid var(--bad)}
+.vs .good-side{border-top:3px solid var(--good)}
+.vs h3{font-size:26px}
+.vs ul{padding-left:22px;font-size:21px;line-height:1.85;color:var(--text-2)}
+.vs li::marker{color:var(--bad)}
+.vs .good-side li::marker{color:var(--good)}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:30px}
+.steps.s3{grid-template-columns:repeat(3,1fr)}
+.step{position:relative;padding:28px 26px 22px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow)}
+.step .num{position:absolute;top:-24px;left:22px;width:48px;height:48px;border-radius:50%;background:var(--accent);color:#0b1024;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;box-shadow:var(--shadow)}
+.step h4{margin:14px 0 8px;font-size:24px}
+.step p{font-size:18px;color:var(--text-2);line-height:1.6;margin:0}
+.step .tag{display:inline-block;margin-top:12px;font-size:12px;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--text-3)}
+
+/* harness 8 */
+.harness{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.harness .h{padding:18px 18px 14px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border)}
+.harness .h.core{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.harness .h b{display:block;font-size:13px;color:var(--accent-2);letter-spacing:.08em;margin-bottom:6px}
+.harness .h span{font-size:21px;font-weight:700;display:block}
+.harness .h small{font-size:15px;color:var(--text-2);display:block;margin-top:4px;line-height:1.5}
+.motto{margin-top:26px;padding:20px 28px;border-left:4px solid var(--accent);background:var(--surface);border-radius:var(--radius-sm);font-size:25px;font-weight:700}
+
+/* quiz (Kahoot-like) */
+.quiz{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.quiz .opt{padding:34px 30px;border-radius:var(--radius);font-size:30px;font-weight:700;color:#0b1024;display:flex;align-items:center;gap:18px;min-height:150px;box-shadow:var(--shadow)}
+.quiz .opt .sym{width:48px;height:48px;border-radius:12px;background:rgba(0,0,0,.18);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+.quiz .a{background:var(--accent)} .quiz .b{background:var(--accent-2)} .quiz .c{background:var(--good)} .quiz .d{background:var(--accent-3)}
+.quiz-badge{display:inline-flex;align-items:center;align-self:flex-start;width:fit-content;gap:10px;padding:8px 18px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,transparent);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);color:var(--accent);font-weight:700;font-size:15px;letter-spacing:.06em}
+.open-q{margin-top:34px;padding:50px;border-radius:var(--radius-lg);background:var(--surface);border:2px dashed var(--border-strong);font-size:24px;color:var(--text-2);text-align:center;width:100%;max-width:1100px;margin-left:auto;margin-right:auto}
+body[data-current-slide="1"] .deck-header, body[data-current-slide="28"] .deck-header{opacity:0;pointer-events:none}
+
+/* table */
+.tbl{width:100%;border-collapse:separate;border-spacing:0;margin-top:30px;font-size:24px}
+.tbl th,.tbl td{padding:24px 24px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);font-weight:600}
+.tbl td:first-child{font-weight:700;color:var(--text-1);width:30%}
+.tbl .saas{color:var(--text-2)} .tbl .agent{color:var(--accent);font-weight:700}
+.tbl tr:last-child td{border-bottom:none}
+
+/* demo card */
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;margin-top:16px}
+.demo .img{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
+.demo .img img{width:100%;display:block}
+.demo ol{margin:14px 0 0;padding-left:28px;font-size:23px;line-height:1.9;color:var(--text-2)}
+.demo ol li b{color:var(--text-1)}
+.demo .point{margin-top:22px;padding:16px 20px;border-radius:var(--radius-sm);background:color-mix(in srgb,var(--accent-2) 12%,var(--surface));border:1px solid color-mix(in srgb,var(--accent-2) 40%,transparent);font-size:21px;font-weight:700;color:var(--text-1)}
+
+.card h4{font-size:25px}
+.card p{font-size:19px;line-height:1.65}
+.mini{font-size:17px;color:var(--text-3)}
+</style>
+</head>
+<body data-themes="kepco-night,tokyo-night,blueprint,corporate-clean,minimal-white" data-theme-base="assets/themes/">
+<div class="deck">
+
+<!-- ============ 0. OPENING ============ -->
+
+<!-- 1 Cover -->
+<section class="slide" data-title="표지" style="padding:56px">
+  <div class="hero">
+    <div class="bg kb" style="background-image:url('images/07-towers-dawn.jpg')"></div>
+    <div class="overlay"></div>
+    <div class="caption">
+      <span class="pill">한국전력공사 재직자 과정 · 120분</span>
+      <h1 class="mt-s anim-rise-in" data-anim="rise-in">프롬프트의 종말<br><span class="gradient-text">에이전트 시대의 업무자동화</span></h1>
+      <p>바이브코딩으로 다시 보는 Claude 활용 — 개념 · 시연 · 동기부여</p>
+      <p class="mini" style="margin-top:22px">조성호 · KODE KOREA 대표 · 부산대학교 AI융합교육원 강사</p>
+    </div>
+  </div>
+  <div class="notes">인사. 오늘은 실습이 없습니다. 대신 여러분 손에 있는 시스템으로 설문과 퀴즈를 다섯 번 합니다. 2시간 뒤에 한 문장만 가져가시면 됩니다.</div>
+</section>
+
+<!-- 2 Poll 1 -->
+<section class="slide" data-title="설문 ①">
+  <span class="quiz-badge">📊 설문 ① · 시작 전</span>
+  <h2 class="h2 mt-m">지난주, AI에게 시킨 일은?</h2>
+  <div class="quiz anim-stagger-list" data-anim-target>
+    <div class="opt a"><span class="sym">▲</span>글 요약 · 번역</div>
+    <div class="opt b"><span class="sym">◆</span>메일·보고서 문안 다듬기</div>
+    <div class="opt c"><span class="sym">●</span>엑셀·데이터 정리</div>
+    <div class="opt d"><span class="sym">■</span>거의 안 씀</div>
+  </div>
+  <div class="deck-footer"><span class="dim2">현재 사용 수준 파악</span></div>
+  <div class="notes">결과가 화면에 뜨면 읽어준다. 대부분 ▲◆에 몰릴 것. "여러분 대부분은 아직 창밖에서 레시피를 듣는 단계입니다"로 다음 슬라이드 연결.</div>
+</section>
+
+<!-- 3 One sentence -->
+<section class="slide center tc" data-title="오늘의 한 문장">
+  <div style="max-width:1200px">
+    <p class="kicker anim-fade-down" data-anim="fade-down">오늘의 한 문장</p>
+    <h1 class="h1 anim-blur-in" data-anim="blur-in" style="font-size:66px;line-height:1.25">AI에게 <span class="dim">말을 잘하는</span> 시대는 끝났고,<br>AI에게 <span class="gradient-text">일터를 내주는</span> 시대가 왔다.</h1>
+  </div>
+  <div class="notes">이 문장 하나만 기억하면 된다고 못 박는다. 나머지 118분은 이 문장의 근거.</div>
+</section>
+
+<!-- 4 Agenda -->
+<section class="slide" data-title="Agenda">
+  <p class="kicker">Agenda <span class="time">120분</span></p>
+  <h2 class="h2">45분마다 시연 하나, 15분마다 퀴즈 하나</h2>
+  <div class="grid g4 mt-l anim-stagger-list" data-anim-target>
+    <div class="card card-accent"><h4>01 · 프롬프트의 종말</h4><p class="dim">컨텍스트 · 스킬 · MCP · CLI</p><span class="pill">20분</span></div>
+    <div class="card card-accent"><h4>02 · Agent vs SaaS</h4><p class="dim">오늘의 중심. 무엇이 다른가</p><span class="pill">25분</span></div>
+    <div class="card card-accent"><h4>03 · 대형 시연</h4><p class="dim">Chrome · Computer Use · Design</p><span class="pill">35분</span></div>
+    <div class="card card-accent"><h4>04 · 그래서 여러분은</h4><p class="dim">개발자가 될 필요는 없다</p><span class="pill">30분</span></div>
+  </div>
+  <div class="notes">모든 개념은 주방 비유 하나로 관통된다고 예고.</div>
+</section>
+
+<!-- ============ 1. 프롬프트의 종말 ============ -->
+
+<!-- 5 Section 01 -->
+<section class="slide tc center" data-title="Section 01">
+  <div style="max-width:900px;margin:0 auto">
+    <p class="kicker anim-fade-down" data-anim="fade-down">Section · 01 <span class="time">20분</span></p>
+    <h1 class="h1 anim-rise-in" data-anim="rise-in" style="font-size:104px">프롬프트의 <span class="gradient-text">종말</span></h1>
+    <div class="divider-accent" style="margin:24px auto"></div>
+    <p class="lede" style="margin:0 auto">왜 '프롬프트 잘 쓰기' 강의는 곧 사라지는가</p>
+  </div>
+</section>
+
+<!-- 6 Chatbot vs Agent -->
+<section class="slide" data-title="챗봇 vs 에이전트">
+  <p class="kicker">개념 · 첫 번째 비유</p>
+  <h2 class="h2">챗봇과 에이전트는 다르다</h2>
+  <div class="split">
+    <div class="img anim-fade-left" data-anim="fade-left"><img src="images/01-chatbot-vs-agent.jpg" alt="창밖에서 레시피를 외치는 사람과 주방에서 요리하는 요리사"></div>
+    <div class="txt anim-fade-right" data-anim="fade-right">
+      <p class="big">챗봇은 <span style="color:var(--accent-2)">창밖에서 레시피를 불러주는 사람</span>,<br>에이전트는 <span style="color:var(--accent)">주방에 직접 들어와 요리하는 사람</span>.</p>
+      <p>그래서 에이전트는 <b>손(설치)</b>이 필요합니다. 여러분의 컴퓨터, 폴더, 브라우저에 들어와야 일을 할 수 있으니까요.</p>
+      <div class="analogy">
+        <div class="line"><span class="k">한전 업무 장면</span><span class="v">주간보고 취합 · 민원 답변 문안 · 엑셀 자료 정리 · 규정·지침 요약 · 회의록 → 조치사항</span></div>
+        <div class="line"><span class="k">공기업 필수</span><span class="v">내부문서·고객 개인정보는 넣지 않기. 가명화·샘플 데이터로 시작.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="notes">보안 안내는 여기서 한 번, 4부에서 한 번 더. 지금은 가볍게.</div>
+</section>
+
+<!-- 7 Three layers -->
+<section class="slide" data-title="지속성 3층 + CLI">
+  <p class="kicker">프롬프트 = 주문 내용. 매번 새로 말해야 한다</p>
+  <h2 class="h2">말 대신 <span class="gradient-text">남기는 것들</span> — 3대 자산과 실행 도구</h2>
+  <div class="split" style="grid-template-columns:1fr 1.05fr">
+    <div class="txt">
+      <div class="analogy anim-stagger-list" data-anim-target style="margin-top:0">
+        <div class="line"><span class="k">컨텍스트</span><span class="v"><b>신입 인수인계 문서</b> — CLAUDE.md. 우리 부서 규칙을 벽에 붙여 둔다.</span></div>
+        <div class="line"><span class="k">스킬</span><span class="v"><b>업무 매뉴얼 파일</b> — 한 번 만들면 옆 부서에 그대로 넘겨준다.</span></div>
+        <div class="line"><span class="k">MCP</span><span class="v"><b>220V 콘센트 규격</b> — 어떤 도구든 같은 규격으로 꽂는다. 한전 분들이 가장 잘 아는 비유.</span></div>
+        <div class="line"><span class="k">CLI</span><span class="v"><b>키오스크 vs 카운터 직원</b> — 정해진 메뉴만 누르던 것에서, 말로 주문하는 것으로.</span></div>
+      </div>
+    </div>
+    <div class="img anim-fade-right" data-anim="fade-right"><img src="images/02-context-skill-mcp.jpg" alt="인수인계 문서, 업무 매뉴얼, 220V 콘센트"></div>
+  </div>
+  <div class="notes">프롬프트는 휘발된다. 남는 것은 파일이다. 이 세 층위가 오늘 4부에서 다시 나온다.</div>
+</section>
+
+<!-- 8 Demo 1 -->
+<section class="slide" data-title="시연 ①">
+  <p class="kicker">시연 ① <span class="time">5분</span></p>
+  <h2 class="h2">같은 요청, 프롬프트만 vs 스킬 파일 하나</h2>
+  <div class="vs">
+    <div class="card bad-side side anim-fade-left" data-anim="fade-left">
+      <h3>주문만 외친다</h3>
+      <ul>
+        <li>"현장 점검 메모 보고서로 정리해줘"</li>
+        <li>양식이 매번 다르게 나온다</li>
+        <li>지난주 지적사항을 또 설명해야 한다</li>
+        <li>옆자리 동료는 처음부터 다시</li>
+      </ul>
+    </div>
+    <div class="mid">→</div>
+    <div class="card good-side side anim-fade-right" data-anim="fade-right">
+      <h3>매뉴얼 파일을 붙인다</h3>
+      <ul>
+        <li>SKILL.md 한 장: 양식 · 합격 조건 3줄 · 예시 1건</li>
+        <li>같은 한 마디로 같은 결과</li>
+        <li>지적사항은 파일에 한 줄 추가로 끝</li>
+        <li>파일 복사 = 부서 전체 배포</li>
+      </ul>
+    </div>
+  </div>
+  <div class="notes">실제 화면: 같은 메모 5건을 두 방식으로 돌린다. 결과 차이를 눈으로 보여주는 것이 전부. 설명은 최소화.</div>
+</section>
+
+<!-- 9 Quiz 2 -->
+<section class="slide" data-title="퀴즈 ②">
+  <span class="quiz-badge">❓ 퀴즈 ② · 개념 확인</span>
+  <h2 class="h2 mt-m">매주 반복하는 보고서를 AI에게 맡기려면<br>무엇을 만들어야 할까?</h2>
+  <div class="quiz anim-stagger-list" data-anim-target>
+    <div class="opt a"><span class="sym">▲</span>더 길고 자세한 프롬프트</div>
+    <div class="opt b"><span class="sym">◆</span>업무 매뉴얼 파일(스킬)</div>
+    <div class="opt c"><span class="sym">●</span>새 AI 앱 구매</div>
+    <div class="opt d"><span class="sym">■</span>담당자 교체</div>
+  </div>
+  <div class="notes">정답 ◆. ▲를 고른 사람이 많으면 "그게 바로 프롬프트의 시대에 갇힌 것"이라고 웃으며 정리.</div>
+</section>
+
+<!-- ============ 2. AGENT vs SAAS ============ -->
+
+<!-- 10 Section 02 -->
+<section class="slide tc center" data-title="Section 02">
+  <div style="max-width:900px;margin:0 auto">
+    <p class="kicker anim-fade-down" data-anim="fade-down">Section · 02 <span class="time">25분</span></p>
+    <h1 class="h1 anim-rise-in" data-anim="rise-in" style="font-size:104px">Agent <span class="dim2">vs</span> <span class="gradient-text">SaaS</span></h1>
+    <div class="divider-accent" style="margin:24px auto"></div>
+    <p class="lede" style="margin:0 auto">오늘의 중심. 빌려 쓰는 것과 데려다 쓰는 것</p>
+  </div>
+</section>
+
+<!-- 11 Restaurant vs kitchen -->
+<section class="slide" data-title="식당 vs 주방">
+  <p class="kicker">개념 · 두 번째 비유</p>
+  <h2 class="h2">남이 지은 식당, 우리 집 주방</h2>
+  <div class="split">
+    <div class="img anim-fade-left" data-anim="fade-left"><img src="images/03-saas-vs-agent.jpg" alt="메뉴판만 가리키는 식당과 자유롭게 요리하는 우리집 주방"></div>
+    <div class="txt anim-fade-right" data-anim="fade-right">
+      <p class="big"><span style="color:var(--accent-2)">SaaS</span> = 남이 지은 식당.<br>메뉴판에 있는 것만 시킬 수 있다.</p>
+      <p class="big"><span style="color:var(--accent)">Agent</span> = 우리 집 주방에 온 요리사.<br>재료·도구를 다 만지고, 없으면 만들어 쓴다.</p>
+      <p>번역기·요약기·챗봇 창은 전부 식당입니다. 편하지만, 한전의 양식과 규정은 메뉴판에 없습니다.</p>
+    </div>
+  </div>
+  <div class="notes">SaaS를 폄하하지 않는다. "메뉴판에 있으면 식당이 더 싸고 빠르다." 문제는 메뉴판에 없는 우리 일.</div>
+</section>
+
+<!-- 12 Three differences -->
+<section class="slide" data-title="세 가지 차이">
+  <p class="kicker">표 하나로 끝내는 차이</p>
+  <h2 class="h2">세 가지 질문만 던져 보세요</h2>
+  <table class="tbl anim-fade-up" data-anim="fade-up">
+    <thead><tr><th>질문</th><th>SaaS (식당)</th><th>Agent (우리 주방)</th></tr></thead>
+    <tbody>
+      <tr><td>누가 도구를 고르나?</td><td class="saas">서비스 회사가 미리 정해 둔다</td><td class="agent">에이전트가 상황 보고 고른다 · 없으면 만든다</td></tr>
+      <tr><td>실패하면 누가 재시도하나?</td><td class="saas">사람이 다시 누른다</td><td class="agent">로그를 보고 스스로 다시 한다</td></tr>
+      <tr><td>우리 회사 규정을 아나?</td><td class="saas">모른다 · 알려줄 방법도 제한적</td><td class="agent">인수인계 문서(CLAUDE.md)를 읽고 일한다</td></tr>
+    </tbody>
+  </table>
+  <div class="notes">두 번째 줄이 오늘 시연의 핵심. 3부에서 일부러 실패시켜 보여줄 것이라고 예고.</div>
+</section>
+
+<!-- 13 Three stages -->
+<section class="slide" data-title="3단계">
+  <p class="kicker">챗봇 → 코파일럿 → 에이전트</p>
+  <h2 class="h2">그래서 "손(설치)"이 필요하다</h2>
+  <div class="steps s3 anim-stagger-list" data-anim-target>
+    <div class="step"><div class="num">1</div><h4>챗봇</h4><p>창밖에서 대답만 한다. 복사·붙여넣기는 내 몫.</p><span class="tag">브라우저 창</span></div>
+    <div class="step"><div class="num">2</div><h4>코파일럿</h4><p>내 문서 옆에서 제안한다. 실행 버튼은 여전히 내가 누른다.</p><span class="tag">앱 안의 보조</span></div>
+    <div class="step"><div class="num">3</div><h4>에이전트</h4><p>주방에 들어와 직접 만들고, 고치고, 실행하고, 스스로 재시도한다.</p><span class="tag">폴더 · 브라우저 · 컴퓨터</span></div>
+  </div>
+  <div class="motto anim-fade-up" data-anim="fade-up">주방 세팅 순서: 에디터(작업실 연다) → Node.js(불 켠다) → Git(되돌리기 켠다) → 에이전트(요리사 부른다)</div>
+  <div class="notes">설치 순서는 외우라는 게 아니라 "왜"만 기억하면 된다. 각 단계마다 이유가 한 단어.</div>
+</section>
+
+<!-- 14 Big quote -->
+<section class="slide center tc" data-title="핵심 메시지">
+  <div style="max-width:1140px">
+    <div class="serif" style="font-size:140px;line-height:.9;color:var(--accent);opacity:.6">"</div>
+    <blockquote class="anim-fade-up" data-anim="fade-up" style="font-size:52px;line-height:1.3;margin:-40px 0 24px;font-weight:800">
+      한전의 업무 지식은 SaaS가 갖고 있지 않다.<br>그래서 <span class="gradient-text">도메인 전문가</span>인 여러분이<br>병목이자, 가장 큰 자산이다.
+    </blockquote>
+    <p class="dim" style="font-size:20px;letter-spacing:.08em">에이전트 시스템 설계에서 대체 불가능한 것은 코딩이 아니라 현장 지식</p>
+  </div>
+  <div class="notes">동기부여의 첫 번째 못. 개발자가 아니어도 된다는 말을 여기서 처음 꺼낸다.</div>
+</section>
+
+<!-- 15 Poll 3 -->
+<section class="slide" data-title="설문 ③">
+  <span class="quiz-badge">📊 설문 ③ · 주관식 · 워드클라우드</span>
+  <h2 class="h2 mt-m">내 업무 중, SaaS로는 안 되는데<br>사람 손으로 하고 있는 일은?</h2>
+  <div class="open-q anim-fade-up" data-anim="fade-up">한 단어 또는 한 문장으로 입력해 주세요<br><span class="mini">예) 월간 실적 취합 · 민원 회신 초안 · 점검표 사진 정리 · 규정 개정 대조</span></div>
+  <div class="deck-footer"><span class="dim2">여기서 나온 답 하나를 3부 시연 ④에서 즉석 소재로 씁니다</span></div>
+  <div class="notes">워드클라우드가 뜨면 큰 단어 2~3개를 읽고, 그중 하나를 "이따 이걸로 만들어 보겠다"고 고른다. 강의 후 데이터는 한전 측에 전달 — 후속 심화과정 근거.</div>
+</section>
+
+<!-- ============ 3. DEMOS ============ -->
+
+<!-- 16 Section 03 -->
+<section class="slide tc center" data-title="Section 03">
+  <div style="max-width:900px;margin:0 auto">
+    <p class="kicker anim-fade-down" data-anim="fade-down">Section · 03 <span class="time">35분</span></p>
+    <h1 class="h1 anim-rise-in" data-anim="rise-in" style="font-size:96px">에이전트가 <span class="gradient-text">실제로 일하는</span> 장면</h1>
+    <div class="divider-accent" style="margin:24px auto"></div>
+    <p class="lede" style="margin:0 auto">Claude in Chrome · Computer Use · Claude Design</p>
+  </div>
+</section>
+
+<!-- 17 Demo 2 Chrome -->
+<section class="slide" data-title="시연 ② Chrome">
+  <p class="kicker">시연 ② · Claude in Chrome <span class="time">10분</span></p>
+  <h2 class="h2">브라우저는 "남의 집". 에이전트가 거기까지 간다</h2>
+  <div class="demo">
+    <div class="img anim-fade-left" data-anim="fade-left"><img src="images/04-computer-use.jpg" alt="브라우저와 문서를 직접 조작하는 AI 에이전트"></div>
+    <div class="anim-fade-right" data-anim="fade-right">
+      <ol>
+        <li><b>사내 포털형 샘플 사이트</b>에서 공지 30건을 읽는다</li>
+        <li>제목·부서·기한을 <b>엑셀로 정리</b>한다</li>
+        <li>기한이 3일 이내인 것만 <b>골라서 요약</b>한다</li>
+        <li>내가 한 일: 한 문장 말한 것뿐</li>
+      </ol>
+      <div class="point">탐색기 = 우리 집, 브라우저 = 남의 집. 이제 남의 집에서도 일한다.</div>
+    </div>
+  </div>
+  <div class="notes">실제 사내 포털은 절대 쓰지 않는다. 사전에 만든 가짜 포털 사이트 사용. 이 점을 청중에게도 말해 보안 감각을 심는다.</div>
+</section>
+
+<!-- 18 Demo 3 Computer Use -->
+<section class="slide" data-title="시연 ③ Computer Use">
+  <p class="kicker">시연 ③ · Computer Use / Cowork <span class="time">12분</span></p>
+  <h2 class="h2">일부러 실패시킨다 — 그리고 스스로 다시 한다</h2>
+  <div class="demo">
+    <div class="anim-fade-left" data-anim="fade-left">
+      <ol>
+        <li>폴더 속 <b>현장 점검 메모 수십 건</b>(가명화 샘플)</li>
+        <li>취합 → 보고서 초안 → 엑셀 집계</li>
+        <li>중간에 <b>양식이 깨진 파일</b> 하나를 심어 둔다</li>
+        <li>에이전트가 <b>로그(주방 CCTV)</b>를 보고 원인을 찾아 재시도</li>
+      </ol>
+      <div class="point">이 장면이 SaaS와의 결정적 차이. 사람이 다시 누르지 않는다.</div>
+    </div>
+    <div class="img anim-fade-right" data-anim="fade-right"><img src="images/05-log-retry.jpg" alt="CCTV 화면을 보고 다시 요리하는 요리사"></div>
+  </div>
+  <div class="notes">실패 장면에서 잠깐 멈추고 "지금 뭐가 일어났죠?"라고 묻는다. 청중이 로그를 눈으로 보게 한 뒤 재시도 장면을 보여준다. 퀴즈 ④의 정답이 여기서 나온다.</div>
+</section>
+
+<!-- 19 Demo 4 Design -->
+<section class="slide" data-title="시연 ④ Design">
+  <p class="kicker">시연 ④ · Claude Design <span class="time">8분</span></p>
+  <h2 class="h2">"만들어 달라"가 아니라 <span class="gradient-text">완성 사진을 먼저</span></h2>
+  <div class="grid g3 mt-l anim-stagger-list" data-anim-target>
+    <div class="card"><h4>1 · 소재는 설문 ③에서</h4><p class="dim">워드클라우드에서 고른 업무 하나 — 예: 월간 실적 대시보드, 안전 캠페인 안내물</p></div>
+    <div class="card"><h4>2 · 레퍼런스 한 장</h4><p class="dim">잘 만든 예시 화면을 먼저 보여주고 "이 톤으로, 우리 데이터로"라고만 말한다</p></div>
+    <div class="card"><h4>3 · 즉석 수정</h4><p class="dim">청중이 외치는 대로 색·문구·배치를 그 자리에서 바꾼다. 화면이 움직이는 것을 본다</p></div>
+  </div>
+  <div class="motto anim-fade-up" data-anim="fade-up">에디터는 한글(HWP)인데, 결과물이 움직이는 것 — 그 차이를 눈으로</div>
+  <div class="notes">여기는 '와' 소리를 내는 파트. 기술 설명은 하지 않는다. 청중 참여로 문구 하나 바꿔 보는 것이 핵심.</div>
+</section>
+
+<!-- 20 Quiz 4 -->
+<section class="slide" data-title="퀴즈 ④">
+  <span class="quiz-badge">❓ 퀴즈 ④ · 쐐기</span>
+  <h2 class="h2 mt-m">방금 시연에서, 에이전트가 실패했을 때 한 일은?</h2>
+  <div class="quiz anim-stagger-list" data-anim-target>
+    <div class="opt a"><span class="sym">▲</span>멈추고 기다렸다</div>
+    <div class="opt b"><span class="sym">◆</span>사람을 불렀다</div>
+    <div class="opt c"><span class="sym">●</span>로그를 보고 스스로 다시 했다</div>
+    <div class="opt d"><span class="sym">■</span>그냥 틀린 결과를 냈다</div>
+  </div>
+  <div class="notes">정답 ●. "이게 표의 두 번째 줄입니다"로 2부와 연결.</div>
+</section>
+
+<!-- ============ 4. 그래서 여러분은 ============ -->
+
+<!-- 21 Section 04 -->
+<section class="slide tc center" data-title="Section 04">
+  <div style="max-width:900px;margin:0 auto">
+    <p class="kicker anim-fade-down" data-anim="fade-down">Section · 04 <span class="time">20분</span></p>
+    <h1 class="h1 anim-rise-in" data-anim="rise-in" style="font-size:96px">그래서 <span class="gradient-text">여러분은</span><br>무엇을 하나</h1>
+    <div class="divider-accent" style="margin:24px auto"></div>
+    <p class="lede" style="margin:0 auto">개발자가 될 필요는 없다. 이미 후배에게 하던 일이다</p>
+  </div>
+</section>
+
+<!-- 22 Reference / verify / sample -->
+<section class="slide" data-title="이미 하던 일">
+  <p class="kicker">필요한 것은 세 가지뿐</p>
+  <h2 class="h2">완성 사진 · 합격 조건 3줄 · 샘플 검수</h2>
+  <div class="split">
+    <div class="img anim-fade-left" data-anim="fade-left"><img src="images/06-reference-verify.jpg" alt="완성 사진을 보고 요리하고, 샘플을 검수하는 요리사"></div>
+    <div class="txt">
+      <div class="analogy anim-stagger-list" data-anim-target style="margin-top:0">
+        <div class="line"><span class="k">완성 사진</span><span class="v">잘 쓴 보고서 한 장을 먼저 보여준다 (레퍼런스)</span></div>
+        <div class="line"><span class="k">합격 조건 3줄</span><span class="v">"3문단 이내 · 수치 근거 표기 · 존댓말" — 간 보는 사람(검증기)</span></div>
+        <div class="line"><span class="k">샘플 검수 게이트</span><span class="v">100건 양산하면 무작위 3건만 사람이 본다</span></div>
+      </div>
+      <p class="big" style="margin-top:22px">전부, 여러분이 신입에게 이미 하던 일입니다.</p>
+    </div>
+  </div>
+  <div class="notes">"코딩을 배우세요"라고 하지 않는다. 대신 "후배 가르치던 방식 그대로 파일에 적으세요"라고 한다.</div>
+</section>
+
+<!-- 23 Harness 8 -->
+<section class="slide" data-title="하네스 8단계">
+  <p class="kicker">한 장 그림 · 하네스 8단계</p>
+  <h2 class="h2">주방을 세팅하고, 루프를 돌리고, 매뉴얼로 남긴다</h2>
+  <div class="harness anim-stagger-list" data-anim-target>
+    <div class="h"><b>1</b><span>주방 세팅</span><small>스킬 · MCP · CLI 설치</small></div>
+    <div class="h core"><b>2 · 2.5</b><span>완성 사진 + 인수인계</span><small>레퍼런스·목표·정답예시, CLAUDE.md 벽에 붙이기</small></div>
+    <div class="h core"><b>3 · 3.5</b><span>주문 + 검증기</span><small>프롬프트, 합격조건 3줄</small></div>
+    <div class="h"><b>4 · 4.5</b><span>병목 찾기 + 로그</span><small>주방 CCTV 보기</small></div>
+    <div class="h"><b>5 · 6</b><span>피드백 → 루프</span><small>4↔5 반복, Git으로 되돌리기</small></div>
+    <div class="h"><b>7</b><span>스킬로 만들기</span><small>SKILL.md 한 장</small></div>
+    <div class="h"><b>8</b><span>양산</span><small>100건이든 1,000건이든</small></div>
+    <div class="h core"><b>8.5</b><span>샘플 검수 게이트</span><small>무작위 3건, 사람이 본다</small></div>
+  </div>
+  <div class="motto anim-fade-up" data-anim="fade-up">2번에 시간 쓰면 3번이 짧아지고, 4~6 돌면 7이 나오고, 7 있으면 8은 공짜.</div>
+  <div class="notes">강조된 세 칸(2.5 · 3.5 · 8.5)이 2시간 과정의 최소 단위. 나머지는 심화에서.</div>
+</section>
+
+<!-- 24 Security -->
+<section class="slide" data-title="공기업 현실">
+  <p class="kicker">공기업 현실 안내</p>
+  <h2 class="h2">어디까지가 <span class="gradient-text">안전한 시작점</span>인가</h2>
+  <div class="grid g3 mt-l anim-stagger-list" data-anim-target>
+    <div class="card card-accent"><h4>넣지 않는 것</h4><p class="dim">고객 개인정보 · 내부 전용 문서 · 설비 상세 데이터. 망분리 환경에서는 외부 AI에 원문을 올리지 않는다.</p></div>
+    <div class="card card-accent"><h4>대신 하는 것</h4><p class="dim">가명화 · 샘플 10건으로 스킬을 먼저 만든다. 스킬 파일 자체에는 데이터가 없다 — 양식과 규칙만 있다.</p></div>
+    <div class="card card-accent"><h4>그래서 가능한 것</h4><p class="dim">스킬은 밖에서 만들고, 데이터는 안에서 돌린다. 규정이 허용하는 사내 환경이 열리는 순간 그대로 이식.</p></div>
+  </div>
+  <div class="notes">보안 담당 부서가 청중에 있을 수 있다. "스킬 파일에는 데이터가 없다"는 문장이 핵심 방어 논리.</div>
+</section>
+
+<!-- 25 First skill candidates -->
+<section class="slide" data-title="첫 스킬 후보">
+  <p class="kicker">부서별 첫 스킬 후보</p>
+  <h2 class="h2">내일 아침, 이 셋 중 하나부터</h2>
+  <div class="steps s3 anim-stagger-list" data-anim-target>
+    <div class="step"><div class="num">A</div><h4>주간보고 취합</h4><p>팀원 메모 5건 → 부서 양식 1장. 합격 조건: 3문단 · 수치 근거 · 존댓말.</p><span class="tag">사무·기획</span></div>
+    <div class="step"><div class="num">B</div><h4>민원 답변 초안</h4><p>민원 유형별 답변 톤과 필수 문구를 매뉴얼로. 사람은 마지막 검수만.</p><span class="tag">고객·영업</span></div>
+    <div class="step"><div class="num">C</div><h4>규정 개정 대조표</h4><p>구·신 조문을 나란히, 바뀐 곳만 표시. 검증기: 누락 0건.</p><span class="tag">총무·감사</span></div>
+  </div>
+  <div class="notes">설문 ③의 워드클라우드와 겹치는 것을 즉석에서 짚어준다. "여러분이 적은 게 이미 후보입니다."</div>
+</section>
+
+<!-- 26 Persistence -->
+<section class="slide" data-title="지속성 3단계">
+  <p class="kicker">오늘 배운 것을 어디에 남길 것인가</p>
+  <h2 class="h2">지속성 3단계</h2>
+  <div class="steps s3 anim-stagger-list" data-anim-target>
+    <div class="step"><div class="num">1</div><h4>오늘의 대화</h4><p>내일 이어서. 내 컴퓨터에만 남는다.</p><span class="tag">/resume</span></div>
+    <div class="step"><div class="num">2</div><h4>인수인계 문서</h4><p>다음 분기까지. 파일이라 옮길 수 있다.</p><span class="tag">CLAUDE.md</span></div>
+    <div class="step"><div class="num">3</div><h4>스킬 파일</h4><p>옆 부서에 넘겨준다. 조직의 자산이 된다.</p><span class="tag">SKILL.md</span></div>
+  </div>
+  <div class="motto anim-fade-up" data-anim="fade-up">프롬프트는 휘발되고, 파일은 남는다 — 그래서 프롬프트의 종말.</div>
+  <div class="notes">1부의 세 층과 같은 것임을 다시 연결. 수미상관.</div>
+</section>
+
+<!-- 27 Poll 5 -->
+<section class="slide" data-title="설문 ⑤">
+  <span class="quiz-badge">📊 설문 ⑤ · 실행 다짐</span>
+  <h2 class="h2 mt-m">내일 당장 스킬로 만들고 싶은<br>내 업무 하나는?</h2>
+  <div class="open-q anim-fade-up" data-anim="fade-up">업무 이름 하나만 적어 주세요. 이 화면이 오늘의 마지막 슬라이드가 됩니다.</div>
+  <div class="deck-footer"><span class="dim2">결과는 사후 추적 · 후속 과정 설계에 사용</span></div>
+  <div class="notes">결과 화면을 띄운 채로 Q&A로 넘어간다. 설문 ③·⑤ 데이터는 한전 담당자에게 전달.</div>
+</section>
+
+<!-- 28 Closing -->
+<section class="slide" data-title="마무리" style="padding:56px">
+  <div class="hero">
+    <div class="bg" style="background-image:url('images/07-towers-dawn.jpg')"></div>
+    <div class="overlay"></div>
+    <div class="caption">
+      <span class="pill">Q&amp;A</span>
+      <h1 class="mt-s anim-rise-in" data-anim="rise-in">AI에게 일터를 내주는 시대.<br><span class="gradient-text">병목은 기술이 아니라 현장 지식입니다.</span></h1>
+      <p>조성호 · KODE KOREA 대표 · seongho.cho@kodekorea.kr · kodekorea.kr</p>
+    </div>
+  </div>
+  <div class="notes">오늘의 한 문장으로 닫는다. 질문은 보안·규정 질문이 많을 것 — 24번 슬라이드 논리로 답한다.</div>
+</section>
+
+</div>
+<header class="deck-header">
+  <div style="display:flex;align-items:center;gap:14px">
+    <a href="../" style="color:var(--accent-2);text-decoration:none;font-weight:600;pointer-events:auto" title="Part 1 슬라이드로 이동">← Part 1: 생성형 AI 실무 활용</a>
+    <span style="opacity:.3">|</span>
+    <span>Part 2: 에이전트 시대의 업무자동화</span>
+  </div>
+  <span class="slide-number"></span>
+</header>
+<div class="progress-bar"><span></span></div>
+<script src="assets/runtime.js"></script>
+</body></html>

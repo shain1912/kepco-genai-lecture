@@ -1,0 +1,16 @@
+/* theme: kepco-night — dark navy + amber + electric blue (matches Flow illustrations) */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+:root{
+  --bg:#0b1024;--bg-soft:#0e1430;--surface:#151c3a;--surface-2:#1c2547;
+  --border:rgba(160,190,255,.14);--border-strong:rgba(160,190,255,.3);
+  --text-1:#eef2ff;--text-2:#b7c2e6;--text-3:#7c89b8;
+  --accent:#f5a524;--accent-2:#38bdf8;--accent-3:#ff7a59;
+  --good:#4ade80;--warn:#f5a524;--bad:#f87171;
+  --grad:linear-gradient(135deg,#f5a524,#ff7a59 45%,#38bdf8);
+  --grad-soft:linear-gradient(135deg,#151c3a,#1c2547);
+  --radius:16px;--radius-sm:10px;--radius-lg:24px;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --shadow-lg:0 24px 62px rgba(0,0,0,.6);
+  --font-sans:'Noto Sans KR','Inter','Noto Sans SC',-apple-system,sans-serif;
+  --font-display:'Noto Sans KR','Inter',sans-serif;
+}
