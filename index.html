@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>한국전력공사 AI 특강 — 생성형 AI 실무 활용부터 에이전트 업무자동화까지 · 조성호</title>
+<title>한국전력공사 특강 — 프롬프트를 넘어 현장 도메인 지식과 에이전트 업무자산화로 · 조성호</title>
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/base.css">
 <link rel="stylesheet" href="assets/themes/corporate-clean.css">
@@ -45,14 +45,8 @@ html, body {
   font-family: var(--font-sans);
 }
 
-.deck {
-  background: var(--bg);
-}
-
-.slide {
-  background: var(--bg);
-  color: var(--text-1);
-}
+.deck { background: var(--bg); }
+.slide { background: var(--bg); color: var(--text-1); }
 
 /* Header */
 .deck-header {
@@ -89,7 +83,7 @@ html, body {
   align-self: center;
 }
 
-/* Hero Slide (Light Theme Adapted) */
+/* Hero Slide */
 .hero {
   position: relative;
   height: calc(100vh - 112px);
@@ -98,11 +92,7 @@ html, body {
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
 }
-.hero img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.hero img { width: 100%; height: 100%; object-fit: cover; }
 .hero-scrim {
   position: absolute;
   inset: 0;
@@ -118,7 +108,7 @@ html, body {
 }
 .hero-content h1 {
   margin-top: 14px;
-  font-size: 56px;
+  font-size: 54px;
   line-height: 1.15;
   letter-spacing: -.03em;
   color: #ffffff;
@@ -129,7 +119,7 @@ html, body {
   color: #e2e8f0;
 }
 
-/* Badge & Pill */
+/* Pill */
 .pill {
   display: inline-flex;
   align-items: center;
@@ -151,17 +141,9 @@ html, body {
   backdrop-filter: blur(8px);
 }
 
-/* Typography & Headings */
-.h1, .h2 {
-  color: var(--text-1);
-  font-weight: 800;
-  letter-spacing: -.02em;
-}
-.h2 {
-  font-size: 40px;
-  line-height: 1.25;
-  margin-top: 4px;
-}
+/* Headings */
+.h1, .h2 { color: var(--text-1); font-weight: 800; letter-spacing: -.02em; }
+.h2 { font-size: 40px; line-height: 1.25; margin-top: 4px; }
 .gradient-text {
   background: linear-gradient(135deg, #005bac 0%, #0284c7 100%);
   -webkit-background-clip: text;
@@ -173,7 +155,7 @@ html, body {
   -webkit-text-fill-color: transparent;
 }
 
-/* Cards & Grid Layouts */
+/* Grid Layouts */
 .cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .cols-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .cols-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
@@ -184,7 +166,6 @@ html, body {
   border-radius: var(--radius);
   padding: 32px 34px;
   box-shadow: var(--shadow);
-  transition: all .2s ease;
 }
 .card.highlight {
   border-color: #bfdbfe;
@@ -199,13 +180,9 @@ html, body {
   align-items: center;
   gap: 12px;
 }
-.card-desc {
-  font-size: 17px;
-  color: var(--text-2);
-  line-height: 1.6;
-}
+.card-desc { font-size: 17px; color: var(--text-2); line-height: 1.6; }
 
-/* Number badge */
+/* Number */
 .num {
   flex: none;
   width: 44px;
@@ -225,7 +202,7 @@ html, body {
   border: 2px solid var(--accent);
 }
 
-/* Quiz & Survey Elements (Clean Light Tone) */
+/* Quiz */
 .quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
 .quiz .opt {
   padding: 28px 30px;
@@ -238,7 +215,6 @@ html, body {
   gap: 18px;
   min-height: 120px;
   box-shadow: var(--shadow);
-  border: 1px solid transparent;
 }
 .quiz .opt .sym {
   width: 44px;
@@ -252,10 +228,10 @@ html, body {
   flex: none;
   color: #0f172a;
 }
-.quiz .a { background: #fef3c7; border-color: #fde68a; }
-.quiz .b { background: #e0f2fe; border-color: #bae6fd; }
-.quiz .c { background: #dcfce7; border-color: #bbf7d0; }
-.quiz .d { background: #fee2e2; border-color: #fecaca; }
+.quiz .a { background: #fef3c7; border: 1px solid #fde68a; }
+.quiz .b { background: #e0f2fe; border: 1px solid #bae6fd; }
+.quiz .c { background: #dcfce7; border: 1px solid #bbf7d0; }
+.quiz .d { background: #fee2e2; border: 1px solid #fecaca; }
 
 .quiz-badge {
   display: inline-flex;
@@ -289,7 +265,7 @@ html, body {
   box-shadow: var(--shadow);
 }
 
-/* Professional Work Form */
+/* Forms & Versus */
 .form {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -305,7 +281,6 @@ html, body {
 .form .ft { font-size: 18px; color: var(--text-2); font-weight: 600; }
 .form .fl { flex: 1; height: 1px; background: var(--border); margin-left: 8px; }
 
-/* Comparison Box (Versus) */
 .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; }
 .versus > div { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
 .versus .vt { font-size: 18px; font-weight: 800; letter-spacing: .06em; margin-bottom: 14px; text-transform: uppercase; }
@@ -316,7 +291,6 @@ html, body {
 .versus .warn-side { border-top: 4px solid var(--warn); }
 .versus .warn-side .vt { color: var(--warn); }
 
-/* Quotes & Text Boxes */
 .quote {
   font-size: 34px;
   font-weight: 700;
@@ -340,7 +314,6 @@ html, body {
   color: var(--text-2);
   white-space: pre-wrap;
 }
-.promptbox.bad { border-left-color: var(--warn); }
 
 .rawbox {
   background: #f1f5f9;
@@ -360,13 +333,11 @@ html, body {
 .phr li { font-size: 20px; color: var(--text-1); display: flex; align-items: center; gap: 14px; }
 .phr .bul { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
 
-/* Table */
 .tbl { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 24px; font-size: 19px; }
 .tbl th { background: #f1f5f9; padding: 14px 20px; font-weight: 700; color: var(--text-2); text-align: left; border-bottom: 2px solid var(--border-strong); }
 .tbl td { padding: 18px 20px; border-bottom: 1px solid var(--border); color: var(--text-1); background: #ffffff; }
 .tbl tr:last-child td { border-bottom: none; }
 
-/* Split Layout & Analogy */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: center; }
 .analogy { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
 .analogy .line {
@@ -401,33 +372,33 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
     <div class="hero-content">
       <span class="pill">한국전력공사 재직자 특강 · 180분</span>
       <h1 class="mt-s anim-rise-in" data-anim="rise-in">
-        생성형 AI 실무 활용부터<br>
-        <span class="gradient-text">에이전트 업무자동화까지</span>
+        프롬프트의 환상을 넘어,<br>
+        <span class="gradient-text">현장 도메인 지식과 에이전트 구축으로</span>
       </h1>
-      <p>단순 질의응답을 넘어, 현장 지식 기반의 사내 업무 시스템을 구축하는 실전 가이드</p>
+      <p>프롬프트 기교는 이미 끝났습니다. 현장 지식을 스킬로 자산화하는 진짜 실무 혁신</p>
       <div style="margin-top:20px;font-size:16px;color:#cbd5e1">
         조성호 · KODE KOREA 대표 · 부산대학교 AI융합교육원 강사
       </div>
     </div>
   </div>
   <div class="notes">
-    반갑습니다. 오늘 강의는 1부 '실무 적용 판단 기준과 위험 통제'부터 2부 '에이전트를 활용한 실전 업무자동화'까지 현장 중심으로 전달해 드리겠습니다.
+    반갑습니다. 오늘 강의는 '프롬프트 잘 쓰는 요령' 같은 시시한 이야기가 아닙니다. 프롬프트는 멀티턴과 스킬로 이미 끝난 문제입니다. 진짜 중요한 현장 도메인 지식과 조직의 병목을 어떻게 해결할지 집중적으로 다룹니다.
   </div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 02: 설문 ①
+     SLIDE 02: 사전 점검
      =================================================================== -->
-<section class="slide" data-title="사전 설문">
+<section class="slide" data-title="사전 점검">
   <span class="quiz-badge">📊 사전 점검</span>
-  <h2 class="h2">최근 실무에서 생성형 AI를 활용해 보신 영역은?</h2>
+  <h2 class="h2">프롬프트 잘 쓰려고 애써보셨습니까? 그런데 왜 실무에선 겉돌까요?</h2>
   <div class="quiz">
-    <div class="opt a"><div class="sym">▲</div><span>자료 요약 및 번역</span></div>
-    <div class="opt b"><div class="sym">◆</div><span>공문·보고서 초안 검토 및 다듬기</span></div>
-    <div class="opt c"><div class="sym">●</div><span>엑셀 데이터 및 통계 자료 정리</span></div>
-    <div class="opt d"><div class="sym">■</div><span>현재 실무에는 거의 사용하지 않음</span></div>
+    <div class="opt a"><div class="sym">▲</div><span>프롬프트를 길게 써도 원하는 서식이 안 나옴</span></div>
+    <div class="opt b"><div class="sym">◆</div><span>한전 현장의 실무 규정과 맥락을 AI가 모름</span></div>
+    <div class="opt c"><div class="sym">●</div><span>새 대화창 열 때마다 처음부터 다시 설명해야 함</span></div>
+    <div class="opt d"><div class="sym">■</div><span>결국 사람이 일일이 고치느라 시간이 더 걸림</span></div>
   </div>
-  <div class="notes">현재 재직자분들의 주된 AI 활용 수준을 파악하고 1부의 필요성을 환기합니다.</div>
+  <div class="notes">프롬프트 작성이 실무의 본질이 아니라는 현실적 공감대를 형성합니다.</div>
 </section>
 
 <!-- ===================================================================
@@ -435,138 +406,142 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
      =================================================================== -->
 <section class="slide" data-title="강의 개요">
   <p class="kicker">강의 구성 및 핵심 주제</p>
-  <h2 class="h2">실무 적용력을 완성하는 <span class="gradient-text">2단계 커리큘럼</span></h2>
+  <h2 class="h2">프롬프트 만능론을 넘어 <span class="gradient-text">본질적 병목을 해결하는 여정</span></h2>
   <div class="cols-2" style="margin-top:24px">
     <div class="card" style="border-top:4px solid var(--accent)">
       <div class="pill" style="margin-bottom:14px">PART 1 · 70분</div>
-      <h3 style="font-size:24px;color:var(--text-1);margin-bottom:12px">생성형 AI 실무 활용과 판단 기준</h3>
+      <h3 style="font-size:24px;color:var(--text-1);margin-bottom:12px">프롬프트의 한계와 현장 도메인 지식</h3>
       <p class="card-desc">
-        · 업무 적용 시 일반론적 답변이 나오는 원인 분석<br>
-        · 프롬프트 3종 비교를 통한 판단 기준 구체화<br>
-        · 규정 환각(Hallucination) 식별 및 검증 프로세스<br>
-        · 사내 데이터 보안 및 개인정보 비식별화 가이드
+        · 프롬프트는 기술이 아니다: 멀티턴과 스킬로 이미 해결된 영역<br>
+        · 뻔한 답변의 진짜 원인: 프롬프트 부족이 아니라 사내 도메인 지식의 부재<br>
+        · 순시 메모 사례: 차이를 만든 것은 문장 기교가 아닌 현장 판단 기준<br>
+        · 환각과 보안의 통제: 프롬프트가 아닌 사람의 원문 대조와 시스템 격리
       </p>
     </div>
     <div class="card" style="border-top:4px solid var(--accent-2)">
       <div class="pill" style="background:#eff6ff;color:var(--accent-2);margin-bottom:14px">PART 2 · 80분</div>
-      <h3 style="font-size:24px;color:var(--text-1);margin-bottom:12px">에이전트 기반 사내 업무자동화 구축</h3>
+      <h3 style="font-size:24px;color:var(--text-1);margin-bottom:12px">에이전트 기반 사내 업무 자산화</h3>
       <p class="card-desc">
-        · 일회성 챗봇과 지속성 에이전트의 구조적 차이<br>
-        · 말 대신 남기는 업무 자산: Context, Skill, MCP, CLI<br>
-        · 사내 웹 브라우저 제어 및 자가 치유(Self-healing) 시연<br>
-        · 공기업 환경을 고려한 부서별 첫 자동화 스킬 구축
+        · 매번 말하는 챗봇 vs 도메인 지식을 장착하고 스스로 일하는 에이전트<br>
+        · 말 대신 남기는 것들: Context(지침), Skill(매뉴얼), MCP(도구)<br>
+        · 브라우저 제어와 자가 치유(Self-healing) 라이브 시연<br>
+        · 공기업 망분리 환경에서 현장 지식을 사내 자산으로 축적하는 법
       </p>
     </div>
   </div>
-  <div class="notes">오늘 강의의 1부와 2부 구성을 명확히 안내합니다.</div>
+  <div class="notes">프롬프트가 아니라 현장 도메인 지식과 에이전트 자산화가 핵심임을 선언합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 04: 실무 산출물 (우리 팀 활용 기준)
+     SLIDE 04: 실무 산출물 (도메인 지식 정의서)
      =================================================================== -->
 <section class="slide" data-title="실무 산출물">
   <p class="kicker">오늘의 실무 산출물</p>
   <div class="split" style="grid-template-columns:1fr 1.15fr;gap:40px">
     <div>
-      <h2 class="h2" style="font-size:40px">강의 종료 시 완성하는<br><span class="gradient-text">'우리 팀 AI 활용 기준표'</span></h2>
+      <h2 class="h2" style="font-size:38px">프롬프트 템플릿이 아닙니다.<br><span class="gradient-text">'현장 도메인 지식 정의서'</span>입니다</h2>
       <p class="p" style="margin-top:16px;color:var(--text-2);font-size:18px;line-height:1.6">
-        이론 청취에 머무르지 않고, 현업 복귀 즉시 팀 내 의사결정에 적용할 수 있는 4대 판단 기준을 직접 도출합니다.
+        프롬프트 문장은 언제든 바뀝니다. 진짜 중요한 것은 <b>"우리 부서가 무엇을 중요하게 보고, 무엇을 거르는가"</b>라는 현장 기준을 언어화하는 것입니다.
       </p>
       <div style="margin-top:24px;padding:20px;border-radius:12px;background:#f1f5f9;border:1px solid var(--border);color:var(--text-2);font-size:16px;line-height:1.6">
-        💡 <b>실무 적용 원칙:</b><br>
-        외부 솔루션의 기능보다 더 중요한 것은 우리 부서 현장에 맞는 명확한 기준 설정입니다.
+        💡 <b>핵심 명제:</b><br>
+        도메인 지식이 없는 프롬프트는 껍데기에 불과하며, 도메인 지식이 담긴 기준은 에이전트의 영구 스킬이 됩니다.
       </div>
     </div>
     <div class="form">
-      <div class="fh">[실습 양식] 우리 팀 생성형 AI 활용 판단 기준</div>
+      <div class="fh">[실습 양식] 우리 부서 현장 도메인 지식 정의서</div>
       <div class="fs">배포 워크시트 1페이지 · 강의 중 실습 작성</div>
-      <div class="frow"><span class="fn">1</span><span class="ft">현업 적용 분류 기준 (즉시 처리 / 일정 계획 / 단순 기록)</span><span class="fl"></span></div>
-      <div class="frow"><span class="fn">2</span><span class="ft">원문 대조가 필수적인 업무 (규정 · 수치 · 설비 점검)</span><span class="fl"></span></div>
-      <div class="frow"><span class="fn">3</span><span class="ft">입력 전 사전 마스킹 대상 (고객 식별정보 · 내부 대외비)</span><span class="fl"></span></div>
-      <div class="frow"><span class="fn">4</span><span class="ft">팀 내 공유 및 인수인계 핵심 가이드라인</span><span class="fl"></span></div>
+      <div class="frow"><span class="fn">1</span><span class="ft">현장 경중 판단 기준 (즉시 조치 / 일정 계획 / 단순 기록)</span><span class="fl"></span></div>
+      <div class="frow"><span class="fn">2</span><span class="ft">원문 대조 필수 검증점 (규정 조항 · 핵심 수치 · 설비 상태)</span><span class="fl"></span></div>
+      <div class="frow"><span class="fn">3</span><span class="ft">사내 보안 경계선 (외부 전송 금지 데이터 및 마스킹 규격)</span><span class="fl"></span></div>
+      <div class="frow"><span class="fn">4</span><span class="ft">에이전트 스킬(SKILL.md)로 영구 보존할 부서 매뉴얼</span><span class="fl"></span></div>
     </div>
   </div>
-  <div class="notes">강의가 끝나면 팀에 복귀하여 바로 공유할 수 있는 기준표 한 장을 완성한다는 점을 안내합니다.</div>
+  <div class="notes">프롬프트를 외우는 것이 아니라 부서의 도메인 지식을 문서화하는 것이 오늘 산출물입니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 05: 학습 목표 & 역할
+     SLIDE 05: 학습 목표 & 실무자 역할
      =================================================================== -->
 <section class="slide" data-title="실무자 역할">
-  <p class="kicker">학습 목표</p>
+  <p class="kicker">실무자의 진짜 역할</p>
   <h2 class="h2">
-    단순 사용자를 넘어,<br>
-    실무 기준을 설계하고 <span class="gradient-text">검증하는 실무 책임자</span>
+    프롬프트 타이핑을 치는 사람이 아니라,<br>
+    <span class="gradient-text">현장 지식을 정의하고 검증하는 지휘자</span>
   </h2>
   <div class="cols-3" style="margin-top:36px">
     <div class="card">
       <div class="num" style="margin-bottom:14px">1</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">프롬프트 판별력</h3>
-      <p class="card-desc">실무 결재에 상신 가능한 양질의 결과물과 보완이 필요한 결과물을 즉시 구별합니다.</p>
+      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">도메인 지식 언어화</h3>
+      <p class="card-desc">베테랑 실무자의 머릿속에만 있던 현장 판단 기준과 우선순위를 명확한 규칙으로 정의합니다.</p>
     </div>
     <div class="card">
       <div class="num" style="margin-bottom:14px">2</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">환각 식별 체계</h3>
-      <p class="card-desc">AI가 자연스럽게 지어낸 가상의 규정, 조항, 수치를 정확히 짚어내고 검증합니다.</p>
+      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">검증 하네스 통제</h3>
+      <p class="card-desc">AI의 출력을 맹신하지 않고, 사내 규정 원본과 대조(Cross-check)하는 안전 검증선을 구축합니다.</p>
     </div>
     <div class="card">
       <div class="num" style="margin-bottom:14px">3</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">보안 경계 통제</h3>
-      <p class="card-desc">사내 데이터 중 외부 입력 가능 정보와 로컬 격리가 필요한 정보를 체계화합니다.</p>
+      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">스킬 자산화 구축</h3>
+      <p class="card-desc">일회성 채팅으로 날리지 않고, 팀원 누구나 재사용할 수 있는 표준 스킬 파일(SKILL.md)로 시스템화합니다.</p>
     </div>
   </div>
-  <div class="notes">현업 실무자로서 가져야 할 3가지 핵심 판단 역량을 강조합니다.</div>
+  <div class="notes">실무자의 가치는 프롬프트 테크닉이 아닌 도메인 지식과 검증에 있습니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 06: 문제 분석
+     SLIDE 06: 프롬프트의 환상 깨기
      =================================================================== -->
-<section class="slide" data-title="문제 분석">
-  <p class="kicker">도입 초기 현업의 주된 피드백</p>
+<section class="slide" data-title="프롬프트의 환상">
+  <p class="kicker">프롬프트 강의를 백날 들어도 실무에 안 쓰이는 이유</p>
   <div class="quote mute" style="margin-top:20px">
-    "업무에 써보려고 시도했는데,<br>
-    일반론적이고 교과서적인 답변만 나옵니다."
+    "프롬프트 작성법, 템플릿 열심히 배웠는데...<br>
+    결국 실무에선 뻔한 교과서 답변만 나옵니다."
   </div>
   <div class="cols-2" style="margin-top:34px">
     <div class="card">
-      <div class="card-title" style="color:var(--warn)">원인 1 · 현업 판단 기준의 미제공</div>
-      <p class="card-desc">단순히 "요약해 달라"고만 요청할 뿐, 우리 부서가 우선적으로 고려해야 할 판단 잣대를 주지 않았습니다.</p>
+      <div class="card-title" style="color:var(--warn)">착각: "프롬프트를 못 써서 그렇다?"</div>
+      <p class="card-desc">
+        아닙니다. 프롬프트 문장을 아무리 화려하게 다듬어도, 모델은 <b>한국전력공사의 사내 맥락과 현장 실무 기준</b>을 모르면 인터넷 상식만 읊을 수밖에 없습니다.
+      </p>
     </div>
-    <div class="card">
-      <div class="card-title" style="color:var(--accent)">원인 2 · 사내 맥락(Context)의 부재</div>
-      <p class="card-desc">한전의 업무 지침, 특정 설비 이력, 보고 양식이 모델에 사전 전달되지 않은 상태에서 질의했습니다.</p>
+    <div class="card highlight">
+      <div class="card-title" style="color:var(--accent)">진실: 이미 해결된 기술 vs 진짜 병목</div>
+      <p class="card-desc">
+        프롬프트 문안 작성은 <b>멀티턴 대화와 스킬 파일</b>로 이미 해결되었습니다. 진짜 병목은 <b>"현장의 도메인 지식이 모델에게 주입되지 않은 것"</b>입니다.
+      </p>
     </div>
   </div>
-  <div class="notes">현업에서 AI를 도입했을 때 실망하는 대표적인 이유 두 가지를 짚습니다.</div>
+  <div class="notes">프롬프트 작성 요령에 매달리는 것이 왜 시간 낭비인지 짚습니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 07: 고칠 수 있는 것 vs 없는 것
+     SLIDE 07: 멀티턴과 스킬로 이미 끝난 영역
      =================================================================== -->
-<section class="slide" data-title="해결 범위 정의">
-  <p class="kicker">문제를 분리하여 접근한다</p>
-  <h2 class="h2">프롬프트로 <span class="gradient-text">해결 가능한 영역 vs 실무자가 판단할 영역</span></h2>
+<section class="slide" data-title="기술의 현실">
+  <p class="kicker">기술의 현주소</p>
+  <h2 class="h2">프롬프트 엔지니어링은 <span class="gradient-text">이미 끝난 문제입니다</span></h2>
   <div class="versus" style="margin-top:28px">
-    <div class="ok-side">
-      <div class="vt">프롬프트 및 스킬로 해결 가능한 영역</div>
-      <div class="vb">서식 불일치 · 표현의 모호함 · 일반론적 문장</div>
-      <div class="vn">→ 독자 정의, 보고 양식 고정, 우선순위 분류 기준 제공으로 100% 개선 가능합니다.</div>
-    </div>
     <div class="warn-side">
-      <div class="vt">실무자가 직접 판단해야 하는 영역</div>
-      <div class="vb">현장 사실관계 확인 · 규정 부합성 · 결재 책임</div>
-      <div class="vn">→ 실무 도메인 지식, 사실 검증, 최종 집행 책임은 온전히 사람의 몫입니다.</div>
+      <div class="vt">과거의 방식 (일회성 프롬프트 집착)</div>
+      <div class="vb">수십 줄짜리 프롬프트를 매번 복사·붙여넣기</div>
+      <div class="vn">→ 창 닫으면 날아가고, 수정할 때마다 문장 전체를 다시 손봐야 하는 극심한 비효율.</div>
+    </div>
+    <div class="ok-side">
+      <div class="vt">현재의 방식 (멀티턴 & 스킬 자산화)</div>
+      <div class="vb">도메인 지식을 스킬 파일로 저장하고 멀티턴으로 조율</div>
+      <div class="vn">→ 부서 규칙(Context)과 매뉴얼(Skill)을 파일로 한 번 장착하면, 대화 몇 번으로 완벽하게 수렴.</div>
     </div>
   </div>
-  <div class="notes">도구로 해결할 부분과 실무자가 직접 통제할 영역을 명확히 구분합니다.</div>
+  <div class="notes">프롬프트 엔지니어링에 매달리는 대신 스킬과 도메인 지식으로 넘어가야 합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 08: 시연 ① 원자료
+     SLIDE 08: 시연 ① 현장 순시 메모
      =================================================================== -->
 <section class="slide" data-title="시연 ① 순시 메모">
-  <span class="quiz-badge">🔴 라이브 시연 ① · 실무 사례</span>
-  <h2 class="h2">오전 <span class="gradient-text">현장 순시 점검 메모</span> 원자료</h2>
+  <span class="quiz-badge">🔴 라이브 사례 · 현장 순시 메모</span>
+  <h2 class="h2">거친 현장 메모: <span class="gradient-text">무엇이 좋은 보고서를 만드는가?</span></h2>
   <div class="rawbox" style="margin-top:20px">
 3호 변압기 쪽 소리 좀 이상함. 웅- 하는 소리가 평소보다 큼.
 2호 피더 케이블 피복 약간 긁힘 흔적 있음. 당장 문제는 없어 보임.
@@ -574,461 +549,430 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
 변전실 환풍기 먼지 많이 쌓여서 소음 심함. 청소 필요.
   </div>
   <p class="p" style="margin-top:16px;color:var(--text-2);font-size:18px">
-    현장에서 작성된 거친 메모를 상급자 보고서로 가공할 때, 모델에게 어떤 지침을 주어야 할까요?
+    "이걸 보고서로 요약해 줘"라고만 하면 AI는 4개를 나열할 뿐입니다. 무엇이 빠졌을까요?
   </p>
-  <div class="notes">실제 현장에서 작성되는 거친 메모 데이터를 제시하고 프롬프트 3종을 비교합니다.</div>
+  <div class="notes">메모를 보고서로 만드는 과정에서 드러나는 도메인 지식의 실체를 확인합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 09: 시연 ① 프롬프트 C (판단 기준)
+     SLIDE 09: 차이를 만든 것은 도메인 지식
      =================================================================== -->
-<section class="slide" data-title="판단 기준 구체화">
-  <p class="kicker">프롬프트 3종 비교 분석</p>
-  <h2 class="h2">프롬프트 C — <span class="gradient-text">판단 기준을 명확한 문장으로</span> 전달</h2>
+<section class="slide" data-title="도메인 지식의 주입">
+  <p class="kicker">비교 검증</p>
+  <h2 class="h2">차이를 만든 것은 프롬프트가 아니라 <span class="gradient-text">'현장 도메인 지식'</span></h2>
   <div class="cols-2" style="margin-top:24px">
-    <div class="promptbox">
-【보고 독자】 결재권자 (현장 미동행, 당일 긴급 조치 우선순위 결정)
-【분류 기준】
-· [즉시]: 당일 고장 및 안전사고로 직결될 수 있는 항목 (예: 변압기 이상음)
-· [계획]: 주간 단위 일정 수립 후 조치할 항목 (예: 케이블 피복 점검)
-· [기록]: 별도 조치 불필요, 단순 현황 관리
-【안전장치】
-· 확인되지 않은 수치나 사내 규정을 임의로 지어내지 말 것.
-· 추가 확인이 필요한 항목은 [정보부족]으로 명시할 것.
+    <div class="card">
+      <div class="card-title" style="color:var(--text-3)">프롬프트 문장 (단순 그릇)</div>
+      <p class="card-desc" style="font-family:var(--font-mono);font-size:16px;line-height:1.7">
+        "보고서 형태로 요약해 줘"<br>
+        "3문단으로 간결하게 작성해 줘"<br><br>
+        <span style="color:var(--warn)">→ 아무리 공손하고 자세히 써도 변압기 이상음의 심각성을 모르면 일반 요약에 그침.</span>
+      </p>
     </div>
     <div class="card highlight">
-      <div class="card-title">품질을 결정하는 4대 설계 요소</div>
+      <div class="card-title" style="color:var(--accent)">주입된 도메인 지식 (실제 본체)</div>
       <div class="analogy" style="margin-top:12px">
-        <div class="line"><span class="k">독자 특정</span><span class="v">누가 보고서를 읽고 어떤 결정을 내리는가</span></div>
-        <div class="line"><span class="k">분류 기준</span><span class="v">현장의 경중(즉시/계획/기록)을 언어화하여 제공</span></div>
-        <div class="line"><span class="k">오류 방어</span><span class="v">근거 없는 추정 대신 [정보부족] 표기 강제</span></div>
-        <div class="line"><span class="k">양식 제약</span><span class="v">결재권자가 한눈에 파악할 수 있는 3문단 구성</span></div>
+        <div class="line"><span class="k">우선순위</span><span class="v"><b>변압기 이상음 = [즉시] 조치</b> (단선 및 정전 위험)</span></div>
+        <div class="line"><span class="k">계획수립</span><span class="v"><b>케이블 피복 = [계획] 조치</b> (주간 정기보수 반영)</span></div>
+        <div class="line"><span class="k">단순기록</span><span class="v"><b>환풍기 청소 = [기록]</b> (당일 결재 불필요)</span></div>
       </div>
     </div>
   </div>
-  <div class="notes">품질의 차이는 모델의 차이가 아니라 판단 기준을 명문화했는지 여부에서 발생합니다.</div>
+  <div class="notes">차이를 만든 본체는 프롬프트가 아니라 실무자의 도메인 지식입니다.</div>
 </section>
 
 <!-- ===================================================================
      SLIDE 10: 핵심 메시지 ①
      =================================================================== -->
 <section class="slide center tc" data-title="핵심 메시지 ①">
-  <p class="kicker" style="align-self:center">시연 ①의 결론</p>
-  <h1 class="h1" style="font-size:56px;margin-top:18px">
-    결과물의 차이를 만드는 것은 모델 성능이 아닌,<br>
-    <span class="gradient-text">'실무자가 정의한 판단 기준'입니다</span>
-  </h1>
-  <p class="p" style="max-width:840px;margin:24px auto 0;color:var(--text-2);font-size:20px;line-height:1.6">
-    변압기 소음이 케이블 청소보다 시급하다는 판단은 인공지능이 내린 것이 아닙니다.<br>
-    한국전력공사 실무자가 현장에서 오랜 경험을 통해 축적한 도메인 지식입니다.
-  </p>
-  <div class="notes">현장 도메인 지식이 결과물의 가치를 결정함을 강조합니다.</div>
-</section>
-
-<!-- ===================================================================
-     SLIDE 11: 도메인 지식
-     =================================================================== -->
-<section class="slide" data-title="도메인 지식의 가치">
-  <p class="kicker">기술 발전과 실무자의 역할</p>
-  <h2 class="h2">AI 모델이 고도화될수록, <span class="gradient-text">도메인 지식의 중요성은 커집니다</span></h2>
-  <div class="cols-2" style="margin-top:28px">
-    <div class="card">
-      <div class="card-title" style="color:var(--accent-2)">실행의 영역 (AI 자동화 가속)</div>
-      <p class="card-desc">
-        초안 작성, 표준 서식 변환, 요약, 코드 생성, 데이터 정리 등.<br><br>
-        <b style="color:var(--text-1)">시간이 지날수록 AI의 처리 범위가 넓어지고 실행 속도는 비약적으로 향상됩니다.</b>
-      </p>
-    </div>
-    <div class="card highlight">
-      <div class="card-title" style="color:var(--accent)">판단의 영역 (전문가의 고유 책임)</div>
-      <p class="card-desc">
-        무엇이 중요한가? 규정의 본래 취지는 무엇인가? 현장 위험 수준은 얼마인가?<br><br>
-        <b style="color:var(--text-1)">기술이 발전해도 판단의 책임은 경감되지 않으며, 결과에 대한 최종 책임은 실무자가 집니다.</b>
-      </p>
-    </div>
-  </div>
-  <div class="notes">실행은 자동화하되 판단의 통제권은 실무자가 확고히 유지해야 합니다.</div>
-</section>
-
-<!-- ===================================================================
-     SLIDE 12: 시연 ② 환각 (새벽 두 시)
-     =================================================================== -->
-<section class="slide" data-title="시연 ② 환각">
-  <span class="quiz-badge">🔴 라이브 시연 ② · 환각 위험</span>
-  <h2 class="h2">야간 순시 중, <span class="gradient-text">사내 규정을 질의한 가상 상황</span></h2>
-  <div class="card" style="margin-top:20px;padding:36px">
-    <ul class="phr" style="gap:20px">
-      <li><span class="bul"></span>야간 순시 중 2등급 설비 이상을 발견함.</li>
-      <li><span class="bul"></span>사내 규정집은 사무실에 있고, 현장에서는 인트라넷 전산망 접속이 불가함.</li>
-      <li><span class="bul"></span>모바일 스마트폰으로 외부 생성형 AI 서비스에 접속함.</li>
-    </ul>
-    <div class="promptbox" style="margin-top:24px">
-"○○사업소 설비이상 보고 지침에 따르면, 2등급 설비 이상은 몇 시간 이내에 누구에게 보고해야 합니까?"
-    </div>
-  </div>
-  <div class="notes">원문 데이터 없이 폐쇄형 사내 규정을 AI에 질의했을 때 일어나는 현상을 검증합니다.</div>
-</section>
-
-<!-- ===================================================================
-     SLIDE 13: 시연 ② 결과
-     =================================================================== -->
-<section class="slide" data-title="시연 ② 결과">
-  <p class="kicker" style="color:var(--warn)">시연 ②의 검증 결과</p>
-  <h1 class="h1" style="font-size:46px;color:var(--warn);margin-top:10px">
-    "존재하지 않는 규정을 완벽한 문장으로 생성한 결과"
-  </h1>
-  <div class="cols-3" style="margin-top:28px">
-    <div class="card">
-      <div class="card-title" style="color:var(--warn)">조항 번호 (제4조 제2항)</div>
-      <p class="card-desc">허구 — 실재하지 않는 가상의 조항 번호 인용</p>
-    </div>
-    <div class="card">
-      <div class="card-title" style="color:var(--warn)">보고 시한 (4시간 이내)</div>
-      <p class="card-desc">허구 — 통계적 확률로 가장 그럴듯한 숫자 조합</p>
-    </div>
-    <div class="card">
-      <div class="card-title" style="color:var(--warn)">야간 특례 조항</div>
-      <p class="card-desc">허구 — 규정집 자체에 존재하지 않는 조항</p>
-    </div>
-  </div>
-  <div class="card" style="margin-top:20px;border-left:5px solid var(--warn);background:#fff1f2">
-    <p style="font-size:18px;color:#9f1239;font-weight:700">
-      ⚠️ 생성된 답변은 공문서의 어조와 문법 체계를 완벽히 갖추고 있어, 원문을 모르면 사실 여부를 구별하기 불가능합니다.
-    </p>
-  </div>
-  <div class="notes">출처 원문이 주어지지 않은 상태의 질의는 치명적인 규정 오류로 이어질 수 있습니다.</div>
-</section>
-
-<!-- ===================================================================
-     SLIDE 14: 환각의 원리
-     =================================================================== -->
-<section class="slide" data-title="환각 원리">
-  <p class="kicker">기술 구조의 이해</p>
-  <h2 class="h2">환각은 단순 오류가 아닌 <span class="gradient-text">언어모델의 동작 원리</span></h2>
-  <div class="versus" style="margin-top:28px">
-    <div class="card">
-      <div class="vt" style="color:var(--text-3)">검색 엔진 (Search Engine)</div>
-      <div class="vb">색인된 문서를 찾아 제공한다</div>
-      <div class="vn">실제 문서 데이터베이스에 없는 내용은 정직하게 "일치하는 결과 없음"으로 처리합니다.</div>
-    </div>
-    <div class="card highlight">
-      <div class="vt" style="color:var(--accent)">언어모델 (LLM)</div>
-      <div class="vb">다음에 올 확률이 높은 단어를 예측한다</div>
-      <div class="vn">규정집 원문이 없어도 "제3조" 다음에는 "제2항"이 올 확률이 가장 높으므로 문맥을 완성합니다.</div>
-    </div>
-  </div>
-  <div class="notes">언어모델의 기본 작동 원리가 다음 토큰 확률 예측임을 설명합니다.</div>
-</section>
-
-<!-- ===================================================================
-     SLIDE 15: 환각 대응 원칙
-     =================================================================== -->
-<section class="slide center tc" data-title="환각 대응 원칙">
-  <p class="kicker" style="align-self:center">실무 검증 원칙</p>
-  <h1 class="h1" style="font-size:52px;margin-top:18px">
-    "이 내용이 맞아?" 라고 묻지 말고,<br>
-    <span class="gradient-text">"확인 가능한 원문 근거를 제시하라"</span> 고 요구하십시오
+  <p class="kicker" style="align-self:center">강의의 첫 번째 핵심 명제</p>
+  <h1 class="h1" style="font-size:54px;margin-top:18px">
+    "프롬프트는 단순한 그릇일 뿐입니다.<br>
+    <span class="gradient-text">결과물의 가치는 당신의 '도메인 지식'에서 나옵니다."</span>
   </h1>
   <p class="p" style="max-width:860px;margin:24px auto 0;color:var(--text-2);font-size:20px;line-height:1.6">
-    AI에게 결론의 진위를 판별하게 하지 마십시오. 인용한 원문 발췌(Citation)를 함께 출력하도록 강제하고,<br>
-    최종 사실관계는 실무자가 사내 규정 원본과 직접 대조(Cross-check)해야 합니다.
+    프롬프트 테크닉을 공부하지 마십시오. 이미 모델과 멀티턴 기술이 알아서 알아듣습니다.<br>
+    실무자가 해야 할 유일한 일은 <b>현장의 판단 기준을 명확한 언어로 정의하는 것</b>입니다.
   </p>
-  <div class="notes">원문 대조 원칙을 명확히 전달합니다.</div>
+  <div class="notes">프롬프트 공부를 멈추고 도메인 지식 정의에 집중해야 함을 강조합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 16: 사내 보안 & 비식별화
+     SLIDE 11: 진짜 병목 (Bottleneck)
      =================================================================== -->
-<section class="slide" data-title="사내 보안 관리">
-  <span class="quiz-badge">🔴 라이브 시연 ③ · 보안 통제</span>
-  <h2 class="h2">사내 데이터 활용 시 <span class="gradient-text">개인정보 및 보안 통제 방안</span></h2>
+<section class="slide" data-title="진짜 병목">
+  <p class="kicker">조직의 현주소</p>
+  <h2 class="h2">AI 시대, 조직의 <span class="gradient-text">진짜 병목(Bottleneck)은 어디인가?</span></h2>
+  <div class="cols-2" style="margin-top:28px">
+    <div class="card">
+      <div class="card-title" style="color:var(--text-3)">기술이나 모델의 병목? ❌</div>
+      <p class="card-desc">
+        Claude, GPT 등 글로벌 최신 모델은 이미 상상을 초월할 정도로 똑똑합니다.<br><br>
+        <b style="color:var(--text-1)">모델 성능이 부족해서 사내 도입이 안 되는 것이 아닙니다.</b>
+      </p>
+    </div>
+    <div class="card highlight">
+      <div class="card-title" style="color:var(--accent)">현장 지식 자산화의 병목! ⭕</div>
+      <p class="card-desc">
+        한국전력공사 각 사업소와 팀의 업무 매뉴얼, 암묵지, 규정 해석 기준이<br><br>
+        <b style="color:var(--text-1)">"사람 머릿속에만 갇혀 있어 AI에게 전달되지 못하는 것"이 유일한 병목입니다.</b>
+      </p>
+    </div>
+  </div>
+  <div class="notes">조직의 병목은 기술이 아니라 현장 암묵지의 미자산화임을 명확히 합니다.</div>
+</section>
+
+<!-- ===================================================================
+     SLIDE 12: 시연 ② 환각의 실체
+     =================================================================== -->
+<section class="slide" data-title="시연 ② 환각 실체">
+  <span class="quiz-badge">🔴 라이브 시연 · 환각 검증</span>
+  <h2 class="h2">사내 규정 질의: <span class="gradient-text">프롬프트로 환각을 막을 수 있는가?</span></h2>
+  <div class="card" style="margin-top:20px;padding:36px">
+    <div class="promptbox">
+"○○사업소 설비이상 보고 지침에 따르면, 2등급 설비 이상은 몇 시간 이내에 누구에게 보고해야 합니까? 
+※ 절대 거짓말하지 말고, 확실한 사내 규정만 사실대로 답변하세요."
+    </div>
+    <div style="margin-top:20px;padding:18px;border-radius:8px;background:#fee2e2;color:#991b1b;font-size:18px;font-weight:700">
+      결과: 조항 번호(제4조 제2항), 보고 시한(4시간), 야간 특례까지 완벽한 문장으로 지어냄!
+    </div>
+  </div>
+  <div class="notes">"거짓말하지 마"라고 프롬프트를 써도 환각이 발생하는 실체를 확인합니다.</div>
+</section>
+
+<!-- ===================================================================
+     SLIDE 13: 환각을 대하는 태도
+     =================================================================== -->
+<section class="slide" data-title="환각의 본질">
+  <p class="kicker">환각의 본질</p>
+  <h2 class="h2">환각은 프롬프트로 못 막습니다. <span class="gradient-text">'검증 하네스'로 통제합니다</span></h2>
+  <div class="versus" style="margin-top:28px">
+    <div class="warn-side">
+      <div class="vt">잘못된 접근 (프롬프트 의존)</div>
+      <div class="vb">"환각 안 생기게 프롬프트 잘 짜주세요"</div>
+      <div class="vn">→ 언어모델은 본질이 확률적 텍스트 예측기이므로, 프롬프트로는 환각을 100% 차단할 수 없습니다.</div>
+    </div>
+    <div class="ok-side">
+      <div class="vt">올바른 접근 (도메인 전문가의 검증)</div>
+      <div class="vb">원문 출처 대조(Citation) 프로세스 강제</div>
+      <div class="vn">→ 규정과 수치는 모델에게 답을 묻지 않고, 원본 문서를 대조하는 실무 검증 절차로 통제합니다.</div>
+    </div>
+  </div>
+  <div class="notes">환각은 프롬프트 테크닉이 아니라 검증 프로세스로 통제해야 합니다.</div>
+</section>
+
+<!-- ===================================================================
+     SLIDE 14: 환각 검증 원칙
+     =================================================================== -->
+<section class="slide center tc" data-title="환각 검증 원칙">
+  <p class="kicker" style="align-self:center">실무 검증 황금률</p>
+  <h1 class="h1" style="font-size:52px;margin-top:18px">
+    "이 내용이 맞아?" 라고 묻지 말고,<br>
+    <span class="gradient-text">"사내 규정 원본의 어느 조항인가?"</span> 를 요구하십시오
+  </h1>
+  <p class="p" style="max-width:860px;margin:24px auto 0;color:var(--text-2);font-size:20px;line-height:1.6">
+    AI에게 판단의 진위를 위임하지 마십시오.<br>
+    인용한 원문 위치를 제시하게 하고, <b>최종 확인은 현장 실무자가 직접 수행</b>해야 결재 사고를 방지합니다.
+  </p>
+  <div class="notes">원문 대조 프로세스를 확립해야 함을 강조합니다.</div>
+</section>
+
+<!-- ===================================================================
+     SLIDE 15: 사내 보안과 비식별화
+     =================================================================== -->
+<section class="slide" data-title="사내 보안 통제">
+  <span class="quiz-badge">🔴 라이브 사례 · 보안 통제</span>
+  <h2 class="h2">보안 역시 프롬프트가 아닌 <span class="gradient-text">'시스템 마스킹'으로 통제</span></h2>
   <div class="rawbox" style="margin-top:20px;font-size:18px">
 접수번호: C-2026-0912 | 고객번호: 0123456789 | 성명: <span class="hl">김민수</span> | 연락처: <span class="hl">010-1234-5678</span>
 주소: <span class="hl">부산광역시 금정구 부산대학로 63번길 2</span>
-내용: 어제 저녁 8시경 정전이 20분간 발생했습니다. 냉장고 음식이 상해 보상 문의드립니다.
+내용: 어제 저녁 8시경 정전 발생. 냉장고 식품 변질 보상 문의.
   </div>
   <div class="cols-2" style="margin-top:24px">
     <div class="card" style="border-top:4px solid var(--warn)">
-      <div class="card-title" style="color:var(--warn)">보안 위험: 외부 유출 사고</div>
-      <p class="card-desc">고객 식별 정보(PII)나 내부 설비 민감 정보가 무단 전송될 경우 개인정보보호법 및 보안 규정 위반이 발생합니다.</p>
+      <div class="card-title" style="color:var(--warn)">프롬프트 주의사항의 한계</div>
+      <p class="card-desc">"개인정보 빼고 요약해 줘"라고 프롬프트에 적어도, 입력 창에 붙여넣는 순간 이미 외부 서버로 정보가 유출됩니다.</p>
     </div>
     <div class="card highlight" style="border-top:4px solid var(--good)">
-      <div class="card-title" style="color:var(--good)">대응 체계: 사전 로컬 마스킹</div>
-      <p class="card-desc">고객명, 연락처, 주소를 [고객A], [연락처1] 등으로 로컬에서 자동 치환한 후 질의하고 결과를 복원합니다.</p>
+      <div class="card-title" style="color:var(--good)">로컬 비식별화 자동화</div>
+      <p class="card-desc">전송 전 내 PC(로컬)에서 정규식 스크립트로 [고객A], [연락처1]로 사전 치환한 후 질의하고 안전하게 복원합니다.</p>
     </div>
   </div>
-  <div class="notes">업무 효율을 추구하되 사전 비식별화 체계를 반드시 구축해야 함을 설명합니다.</div>
+  <div class="notes">보안도 프롬프트 지시가 아니라 사전 로컬 마스킹 도구로 해결합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 17: Part 1 요약
+     SLIDE 16: Part 1 결론
      =================================================================== -->
-<section class="slide" data-title="1부 요약">
-  <p class="kicker">1부 핵심 요약</p>
-  <h2 class="h2">생성형 AI 실무 도입을 위한 <span class="gradient-text">3대 관리 기준</span></h2>
-  <div class="cols-3" style="margin-top:28px">
+<section class="slide center tc" data-title="1부 결론">
+  <p class="kicker" style="align-self:center">1부의 결론</p>
+  <h1 class="h1" style="font-size:52px;margin-top:18px">
+    프롬프트 작성에 시간 쓰지 마십시오.<br>
+    <span class="gradient-text">현장의 도메인 지식을 정제하는 데 집중하십시오.</span>
+  </h1>
+  <div class="cols-3" style="margin-top:36px;text-align:left">
     <div class="card">
       <div class="num" style="margin-bottom:12px">1</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">판단 기준의 명문화</h3>
-      <p class="card-desc">결재권자의 우선순위와 실무 경중을 문장화하여 프롬프트에 제공합니다.</p>
+      <div class="card-title">판단 기준 언어화</div>
+      <p class="card-desc">팀의 우선순위와 실무 경중을 명문화</p>
     </div>
     <div class="card">
       <div class="num" style="margin-bottom:12px">2</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">원문 대조 프로세스</h3>
-      <p class="card-desc">규정과 수치는 AI의 단독 진술을 배제하고 출처 대조를 필수로 거칩니다.</p>
+      <div class="card-title">원문 대조 검증</div>
+      <p class="card-desc">규정·수치는 실무자가 출처 직접 대조</p>
     </div>
     <div class="card">
       <div class="num" style="margin-bottom:12px">3</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">사전 비식별화 통제</h3>
-      <p class="card-desc">개인정보와 사내 대외비는 로컬 마스킹 절차를 거쳐 안전하게 보호합니다.</p>
+      <div class="card-title">시스템 보안 격리</div>
+      <p class="card-desc">개인정보와 대외비는 로컬 사전 마스킹</p>
     </div>
   </div>
-  <div class="card highlight tc" style="margin-top:24px;border:1px solid #bfdbfe">
-    <h3 style="font-size:26px;color:var(--accent)">
-      "인공지능이 초안을 작성하고, <span style="color:#0f172a">실무자가 판단과 검증을 책임진다</span>"
-    </h3>
-  </div>
-  <div class="notes">1부를 매끄럽게 정리하고 2부 에이전트 업무자동화로 넘어갑니다.</div>
+  <div class="notes">1부를 정리하고 2부 에이전트 자산화로 연결합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 18: Part 2 전환 표지 (히어로)
+     SLIDE 17: Part 2 전환 표지 (히어로)
      =================================================================== -->
-<section class="slide" data-title="2부 도입">
+<section class="slide" data-title="2부 전환">
   <div class="hero">
     <img src="images/01-chatbot-vs-agent.jpg" alt="작업실과 시스템">
     <div class="hero-scrim"></div>
     <div class="hero-content">
-      <span class="pill">PART 2 · 에이전트 기반 업무자동화</span>
+      <span class="pill">PART 2 · 에이전트 기반 업무 자산화</span>
       <h1 class="mt-s anim-rise-in" data-anim="rise-in">
-        단순 질의응답을 넘어,<br>
-        <span class="gradient-text">업무 시스템과 자산을 남기는 단계로</span>
+        프롬프트의 종말,<br>
+        <span class="gradient-text">현장 지식을 '스킬'로 자산화하는 에이전트</span>
       </h1>
-      <p>프롬프트 반복 입력을 탈피하는 에이전트 워크플로우와 실전 구축 방안</p>
+      <p>매번 새로 말하는 챗봇에서, 우리 부서의 매뉴얼을 장착하고 스스로 일하는 시스템으로</p>
     </div>
   </div>
-  <div class="notes">2부에서는 단순 대화창을 넘어 부서의 업무 자산으로 구축하는 방법을 다룹니다.</div>
+  <div class="notes">2부에서는 프롬프트를 넘어 스킬과 에이전트로 업무를 자산화하는 방법을 다룹니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 19: 프롬프트의 한계
+     SLIDE 18: 프롬프트 반복의 비효율
      =================================================================== -->
 <section class="slide" data-title="프롬프트 한계">
-  <p class="kicker">업무 방식의 전환</p>
-  <h2 class="h2">일회성 프롬프트 작업이 가진 <span class="gradient-text">구조적 한계</span></h2>
+  <p class="kicker">프롬프트 반복의 비효율</p>
+  <h2 class="h2">매번 프롬프트를 새로 치는 것은 <span class="gradient-text">가장 비효율적인 방식입니다</span></h2>
   <div class="cols-2" style="margin-top:28px">
     <div class="card">
-      <div class="card-title" style="color:var(--warn)">반복 프롬프트 입력의 비효율</div>
+      <div class="card-title" style="color:var(--warn)">프롬프트 반복 입력의 낭비</div>
       <ul class="phr" style="margin-top:16px;gap:14px">
-        <li><span class="bul" style="background:var(--warn)"></span>매주 정기 업무 때마다 긴 프롬프트를 다시 복사하고 수정해야 합니다.</li>
-        <li><span class="bul" style="background:var(--warn)"></span>채팅창을 새로 열 때마다 부서 규정과 서식을 처음부터 설명해야 합니다.</li>
-        <li><span class="bul" style="background:var(--warn)"></span>개인이 만든 좋은 프롬프트가 팀의 표준 프로세스로 축적되지 않습니다.</li>
+        <li><span class="bul" style="background:var(--warn)"></span>매주 월요일마다 메모장에 적어둔 프롬프트를 다시 찾아 복사합니다.</li>
+        <li><span class="bul" style="background:var(--warn)"></span>담당자가 바뀌면 그동안 공들여 만든 프롬프트 노하우가 함께 사라집니다.</li>
+        <li><span class="bul" style="background:var(--warn)"></span>텍스트 답변만 줄 뿐, 실제 사내 엑셀이나 브라우저 작업을 대신하지 못합니다.</li>
       </ul>
     </div>
     <div class="card highlight">
-      <div class="card-title" style="color:var(--accent)">에이전트 스킬 파일 기반의 자산화</div>
+      <div class="card-title" style="color:var(--accent)">스킬 파일(SKILL.md) 기반의 자산화</div>
       <ul class="phr" style="margin-top:16px;gap:14px">
-        <li><span class="bul"></span>말(프롬프트) 대신 <b>표준 파일(SKILL.md)</b>로 매뉴얼화합니다.</li>
-        <li><span class="bul"></span>한 번 정의해 두면 후임자에게 그대로 인수인계가 가능합니다.</li>
-        <li><span class="bul"></span>사내 문서, 엑셀, 브라우저를 에이전트가 직접 제어하여 완수합니다.</li>
+        <li><span class="bul"></span>현장 도메인 지식을 <b>'스킬 파일'</b>로 한 번만 작성해 둡니다.</li>
+        <li><span class="bul"></span>후임자에게 파일 하나만 넘겨주면 인수인계가 100% 완료됩니다.</li>
+        <li><span class="bul"></span>에이전트가 로컬 파일, 웹 브라우저를 직접 조작해 결과물을 완수합니다.</li>
       </ul>
     </div>
   </div>
-  <div class="notes">프롬프트의 휘발성을 지적하고 영구 자산화의 필요성을 설명합니다.</div>
+  <div class="notes">프롬프트 휘발성을 극복하고 스킬로 남겨야 하는 이유입니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 20: 챗봇 vs 에이전트
+     SLIDE 19: 챗봇 vs 에이전트
      =================================================================== -->
 <section class="slide" data-title="챗봇 vs 에이전트">
-  <p class="kicker">개념 정의</p>
-  <h2 class="h2">챗봇과 에이전트의 <span class="gradient-text">구조적 차이</span></h2>
+  <p class="kicker">구조적 비교</p>
+  <h2 class="h2">챗봇과 에이전트: <span class="gradient-text">자판기와 직원의 차이</span></h2>
   <div class="tbl-wrap" style="margin-top:28px">
     <table class="tbl">
       <thead>
-        <tr><th>비교 항목</th><th>챗봇 (Chatbot)</th><th>에이전트 (Agent)</th></tr>
+        <tr><th>비교 항목</th><th>챗봇 (Chatbot) · 구시대</th><th>에이전트 (Agent) · 현재</th></tr>
       </thead>
       <tbody>
         <tr>
-          <td><b>동작 방식</b></td>
-          <td>1회성 질의응답 (1 Query - 1 Response)</td>
-          <td>목표 부여 시 <b>스스로 계획-실행-검증 루프</b> 수행</td>
+          <td><b>동작 원리</b></td>
+          <td>1회성 프롬프트 질의응답 (1 Query - 1 Response)</td>
+          <td>목표 부여 시 <b>자율적인 계획-실행-검증 루프</b> 수행</td>
         </tr>
         <tr>
-          <td><b>도구 연동</b></td>
-          <td>채팅창 내 텍스트 출력에 국한</td>
-          <td>로컬 파일 편집, 브라우저 조작, 터미널 명령어 실행</td>
+          <td><b>도메인 지식</b></td>
+          <td>매번 프롬프트로 길게 설명해야 함</td>
+          <td><b>스킬 파일(SKILL.md)</b>로 영구 탑재</td>
         </tr>
         <tr>
-          <td><b>예외 처리</b></td>
-          <td>오류 발생 시 답변 중단 또는 오답 출력</td>
-          <td>에러 로그를 스스로 분석하고 <b>자가 치유(Self-healing)</b></td>
+          <td><b>실행 도구</b></td>
+          <td>채팅창 내 글자 출력에 국한</td>
+          <td>로컬 파일 수정, 브라우저 제어, 명령어 실행</td>
+        </tr>
+        <tr>
+          <td><b>오류 대처</b></td>
+          <td>오류 시 멈추거나 잘못된 답변 출력</td>
+          <td>로그를 확인하고 <b>스스로 수정 재시도(Self-healing)</b></td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="notes">챗봇은 자판기이고 에이전트는 일을 끝까지 수행하는 현장 대리인입니다.</div>
+  <div class="notes">챗봇과 에이전트의 명확한 구조적 차이를 설명합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 21: 지속성 3층 + CLI
+     SLIDE 20: 3대 자산과 CLI
      =================================================================== -->
-<section class="slide" data-title="3대 자산과 CLI">
+<section class="slide" data-title="3대 자산">
   <p class="kicker">프롬프트 대신 남기는 것들</p>
-  <h2 class="h2">사내 업무에 남기는 <span class="gradient-text">3대 자산과 실행 인터페이스</span></h2>
+  <h2 class="h2">사내에 남겨야 할 <span class="gradient-text">3대 영구 자산</span></h2>
   <div class="split" style="grid-template-columns:1.05fr 1fr">
     <div class="txt">
       <div class="analogy" style="margin-top:0">
-        <div class="line"><span class="k">컨텍스트</span><span class="v"><b>부서 인수인계 문서</b> — CLAUDE.md. 우리 부서의 공통 규칙과 원칙 정의.</span></div>
-        <div class="line"><span class="k">스킬</span><span class="v"><b>업무 표준 매뉴얼</b> — SKILL.md. 정기 반복 업무의 절차와 합격 조건 명시.</span></div>
-        <div class="line"><span class="k">MCP</span><span class="v"><b>표준 접속 규격</b> — 전력 규격처럼 사내 데이터베이스와 도구를 안전하게 연결.</span></div>
-        <div class="line"><span class="k">CLI</span><span class="v"><b>지휘 인터페이스</b> — 웹 버튼 클릭 대신 자연어 명령으로 전체 워크플로우 통제.</span></div>
+        <div class="line"><span class="k">컨텍스트</span><span class="v"><b>부서 규칙서</b> — CLAUDE.md. 우리 부서의 업무 환경과 대원칙.</span></div>
+        <div class="line"><span class="k">스킬</span><span class="v"><b>업무 매뉴얼</b> — SKILL.md. 도메인 지식과 합격 기준이 담긴 실행 파일.</span></div>
+        <div class="line"><span class="k">MCP</span><span class="v"><b>표준 콘센트</b> — 사내 DB, 포털, 사내망 시스템을 안전하게 연결.</span></div>
+        <div class="line"><span class="k">CLI</span><span class="v"><b>통합 인터페이스</b> — 자연어로 에이전트를 지휘하는 실행 환경.</span></div>
       </div>
     </div>
     <div class="media" style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)">
       <img src="images/02-context-skill-mcp.jpg" alt="3대 자산 일러스트" style="width:100%;height:100%;object-fit:cover">
     </div>
   </div>
-  <div class="notes">3대 자산(컨텍스트, 스킬, MCP)과 실행 도구인 CLI의 역할을 설명합니다.</div>
+  <div class="notes">프롬프트 대신 남겨야 할 진짜 자산 3가지를 설명합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 22: 시연 ④ 스킬 장착
+     SLIDE 21: 시연 ④ 스킬 호출
      =================================================================== -->
-<section class="slide" data-title="시연 ④ 스킬 파일">
-  <span class="quiz-badge">🔴 라이브 시연 ④ · 스킬 자산화</span>
-  <h2 class="h2">반복 프롬프트 작성 vs <span class="gradient-text">업무 매뉴얼 파일(스킬) 호출</span></h2>
+<section class="slide" data-title="시연 ④ 스킬 호출">
+  <span class="quiz-badge">🔴 라이브 시연 · 스킬 자산화</span>
+  <h2 class="h2">프롬프트 20줄 작성 vs <span class="gradient-text">도메인 지식 스킬(SKILL.md) 호출</span></h2>
   <div class="cols-2" style="margin-top:28px">
     <div class="card">
-      <div class="card-title" style="color:var(--text-3)">방식 A · 매번 프롬프트 작성</div>
+      <div class="card-title" style="color:var(--text-3)">구시대 방식 · 매번 프롬프트 작성</div>
       <p class="card-desc">
-        "우리 팀 주간보고 양식은 3문단이고, 첫 문단은 실적, 두 번째는 계획, 존댓말 쓰고, 3호 변압기 수치 포함하고..."<br><br>
-        <span style="color:var(--warn)">→ 매주 반복 작성 필요, 담당자 변경 시 누락 발생.</span>
+        "우리 부서 주간보고 서식은 3문단이고, 실적 먼저 쓰고, 변압기 수치 포함하고, 경어체 통일하고..."<br><br>
+        <span style="color:var(--warn)">→ 매주 반복 작업 소요, 담당자 변경 시 누락 발생.</span>
       </p>
     </div>
     <div class="card highlight">
-      <div class="card-title" style="color:var(--accent)">방식 B · 표준 SKILL.md 파일 호출</div>
+      <div class="card-title" style="color:var(--accent)">에이전트 방식 · SKILL.md 장착</div>
       <p class="card-desc">
-        단 한 줄의 지시: <b>"이번 주 주간업무 실적 취합해 줘"</b><br><br>
-        <span style="color:var(--good)">→ 폴더 내 SKILL.md를 자동 참조하여 부서 표준 서식과 합격 조건 100% 일치 산출물 생성.</span>
+        단 한 줄 호출: <b>"이번 주 주간업무 실적 취합해 줘"</b><br><br>
+        <span style="color:var(--good)">→ 에이전트가 폴더 내 SKILL.md(도메인 지식 매뉴얼)를 읽고 완벽한 규격 산출물 자동 생성.</span>
       </p>
     </div>
   </div>
-  <div class="notes">스킬 파일 하나로 부서의 반복 업무가 완전히 표준화되는 과정을 시연합니다.</div>
+  <div class="notes">스킬 파일 하나가 프롬프트 수십 줄을 대체하는 현장을 확인합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 23: 퀴즈 ②
+     SLIDE 22: 퀴즈 ②
      =================================================================== -->
 <section class="slide" data-title="퀴즈 ②">
   <span class="quiz-badge">❓ 퀴즈 ② · 이해도 점검</span>
-  <h2 class="h2">정기 반복 업무를 자동화할 때 영구적으로 남겨야 할 자산은?</h2>
+  <h2 class="h2">정기 반복 업무를 자동화할 때 우리 부서에 남겨야 할 자산은?</h2>
   <div class="quiz">
-    <div class="opt a"><div class="sym">▲</div><span>더 길고 복잡한 프롬프트</span></div>
-    <div class="opt b"><div class="sym">◆</div><span>표준화된 업무 매뉴얼 파일(스킬)</span></div>
-    <div class="opt c"><div class="sym">●</div><span>새로운 유료 AI 소프트웨어 도입</span></div>
-    <div class="opt d"><div class="sym">■</div><span>담당자 개인의 메모장 기록</span></div>
+    <div class="opt a"><div class="sym">▲</div><span>더 길고 정교한 프롬프트 템플릿</span></div>
+    <div class="opt b"><div class="sym">◆</div><span>현장 도메인 지식이 담긴 스킬 파일(SKILL.md)</span></div>
+    <div class="opt c"><div class="sym">●</div><span>새로운 외부 상용 AI 앱 도입</span></div>
+    <div class="opt d"><div class="sym">■</div><span>담당자 개인의 메모장 요령</span></div>
   </div>
-  <div class="notes">정답은 ◆ 표준화된 업무 매뉴얼 파일(스킬)입니다. 프롬프트 복사는 지속되지 않습니다.</div>
+  <div class="notes">정답은 ◆ 현장 도메인 지식이 담긴 스킬 파일(SKILL.md)입니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 24: 식당 vs 주방
+     SLIDE 23: 식당 vs 주방
      =================================================================== -->
 <section class="slide" data-title="식당 vs 주방">
-  <p class="kicker">환경 비교</p>
-  <h2 class="h2">범용 클라우드 SaaS vs <span class="gradient-text">사내 맞춤형 로컬 환경</span></h2>
+  <p class="kicker">비유로 이해하기</p>
+  <h2 class="h2">남이 지은 식당(SaaS) vs <span class="gradient-text">우리 집 주방(로컬 에이전트)</span></h2>
   <div class="split" style="grid-template-columns:1fr 1.05fr">
     <div class="media" style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)">
       <img src="images/03-saas-vs-agent.jpg" alt="식당 vs 주방 일러스트" style="width:100%;height:100%;object-fit:cover">
     </div>
     <div class="txt">
       <div class="analogy" style="margin-top:0">
-        <div class="line"><span class="k">외부 SaaS</span><span class="v">정해진 기능만 사용 가능. 사내 고유 데이터를 반출하여 가공하기 어려움.</span></div>
-        <div class="line"><span class="k">로컬 에이전트</span><span class="v">사내 PC 환경에서 부서의 고유 데이터와 업무 도구를 직접 결합하여 자동화.</span></div>
+        <div class="line"><span class="k">외부 SaaS</span><span class="v">정해진 메뉴만 주문 가능. 사내 고유 데이터를 가져가서 조리할 수 없음.</span></div>
+        <div class="line"><span class="k">로컬 에이전트</span><span class="v">사내 PC 환경에서 부서의 고유 데이터와 매뉴얼을 직접 결합하여 맞춤 조리.</span></div>
       </div>
     </div>
   </div>
-  <div class="notes">외부 범용 서비스와 사내 로컬 에이전트 환경의 차이를 명확히 설명합니다.</div>
+  <div class="notes">외부 챗봇 서비스와 사내 로컬 주방 환경의 차이를 설명합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 25: 세 가지 차이
+     SLIDE 24: 3대 질문
      =================================================================== -->
-<section class="slide" data-title="3대 검토 기준">
-  <p class="kicker">업무자동화 도입 시 검토 사항</p>
-  <h2 class="h2">사내 시스템 구축 시 <span class="gradient-text">확인해야 할 3대 질문</span></h2>
+<section class="slide" data-title="3대 질문">
+  <p class="kicker">도입 검토 기준</p>
+  <h2 class="h2">사내 자동화 도입 시 <span class="gradient-text">반드시 던져야 할 3대 질문</span></h2>
   <div class="cols-3" style="margin-top:28px">
     <div class="card">
-      <div class="card-title">1. 데이터 보존 위치</div>
-      <p class="card-desc">사외 서버 전송 없이, <b>사내 인프라 및 로컬 PC</b> 내에서 안전하게 가공되는가?</p>
+      <div class="card-title">1. 데이터 격리</div>
+      <p class="card-desc">외부 클라우드 전송 없이 <b>사내 로컬 PC 인프라</b> 내에서 안전하게 처리되는가?</p>
     </div>
     <div class="card">
-      <div class="card-title">2. 실무 도구 제어권</div>
-      <p class="card-desc">채팅창에 머무르지 않고, <b>사내 파일·엑셀·브라우저</b>를 직접 제어할 수 있는가?</p>
+      <div class="card-title">2. 실무 도구 실행</div>
+      <p class="card-desc">글자 출력에 머무르지 않고, <b>사내 파일·엑셀·웹 브라우저</b>를 직접 제어하는가?</p>
     </div>
     <div class="card">
-      <div class="card-title">3. 조직 자산화 여부</div>
-      <p class="card-desc">개인 활용에 그치지 않고, <b>팀원 및 후임자에게 인수인계</b> 가능한 파일로 보존되는가?</p>
+      <div class="card-title">3. 도메인 지식 축적</div>
+      <p class="card-desc">휘발되지 않고 <b>팀원 및 후임자에게 인수인계</b> 가능한 스킬 자산으로 축적되는가?</p>
     </div>
   </div>
-  <div class="notes">공기업에서 자동화 시스템을 검토할 때 필수적인 3가지 기준입니다.</div>
+  <div class="notes">자동화 도입 시 검토해야 할 3대 질문입니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 26: 3단계 진화
+     SLIDE 25: 3단계 로드맵
      =================================================================== -->
-<section class="slide" data-title="3단계 진화 로드맵">
-  <p class="kicker">업무 자동화 발전 경로</p>
+<section class="slide" data-title="3단계 발전">
+  <p class="kicker">발전 경로</p>
   <h2 class="h2">공기업 업무자동화의 <span class="gradient-text">3단계 발전 로드맵</span></h2>
   <div class="cols-3" style="margin-top:28px">
     <div class="card">
       <div class="pill" style="margin-bottom:12px">1단계 · 질의응답</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">웹 챗봇 활용</h3>
-      <p class="card-desc">웹 포털에 텍스트 복사·붙여넣기. 개인 비서 수준 활용, 자동화 연속성 부재.</p>
+      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">웹 챗봇 단계</h3>
+      <p class="card-desc">웹 포털에 텍스트 복사·붙여넣기. 개인 비서 수준, 자동화의 연속성 부재.</p>
     </div>
     <div class="card">
       <div class="pill" style="margin-bottom:12px">2단계 · 도구 연동</div>
-      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">로컬 CLI 도입</h3>
-      <p class="card-desc">로컬 환경에서 대용량 파일 및 시스템 연동. 처리 속도와 생산성의 비약적 확장.</p>
+      <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">로컬 CLI 단계</h3>
+      <p class="card-desc">로컬 환경에서 대용량 파일 및 내부 시스템 직접 연동. 처리 역량 대폭 확장.</p>
     </div>
     <div class="card highlight">
-      <div class="pill" style="background:#dcfce7;color:#059669;border-color:#bbf7d0;margin-bottom:12px">3단계 · 자산 구축</div>
+      <div class="pill" style="background:#dcfce7;color:#059669;margin-bottom:12px">3단계 · 자산화</div>
       <h3 style="font-size:20px;color:var(--text-1);margin-bottom:8px">부서 스킬 표준화</h3>
-      <p class="card-desc">부서별 업무 매뉴얼(SKILL.md)과 MCP 연계. 담당자가 부재해도 표준 절차 완수.</p>
+      <p class="card-desc">부서 도메인 지식이 담긴 SKILL.md 구축. 사람이 바뀌어도 표준 프로세스 자동 완수.</p>
     </div>
   </div>
-  <div class="notes">대부분 1단계에 머물러 있는 현실을 짚고 2~3단계로 나아가는 경로를 제시합니다.</div>
+  <div class="notes">1단계 챗봇에서 3단계 스킬 자산화로 나아가는 로드맵을 제시합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 27: 설문 ③ (주관식)
+     SLIDE 26: 실무 과제 발굴 (설문 ③)
      =================================================================== -->
-<section class="slide" data-title="실무 과제 발굴">
+<section class="slide" data-title="과제 발굴">
   <span class="quiz-badge">📊 실무 과제 발굴</span>
-  <h2 class="h2">사내 업무 중 반복적인 수작업 소요가 가장 큰 영역은?</h2>
+  <h2 class="h2">우리 부서 업무 중, 도메인 지식은 뻔한데<br>손이 너무 많이 가는 반복 작업은?</h2>
   <div class="open-q">
-    <p style="font-size:24px;color:var(--text-1);font-weight:700">핵심 업무 명칭을 작성해 주십시오</p>
+    <p style="font-size:24px;color:var(--text-1);font-weight:700">업무 명칭을 작성해 주십시오</p>
     <p style="font-size:16px;color:var(--text-3);margin-top:10px">예: 월간 실적 취합 · 민원 회신문 초안 작성 · 점검표 사진 대조 · 규정 신구대조표</p>
   </div>
-  <div class="notes">청중의 실제 업무 과제를 현장에서 즉각 취합하여 다음 시연과 연결합니다.</div>
+  <div class="notes">청중의 실제 업무 과제를 현장에서 접수하여 시연과 연결합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 28: 시연 ⑤ Chrome 브라우저 제어
+     SLIDE 27: 시연 ⑤ 브라우저 자동화
      =================================================================== -->
-<section class="slide" data-title="시연 ⑤ 웹 제어">
-  <span class="quiz-badge">🔴 라이브 시연 ⑤ · 브라우저 자동화</span>
-  <h2 class="h2">웹 브라우저 자동 제어: <span class="gradient-text">포털 및 인트라넷 데이터 연동</span></h2>
+<section class="slide" data-title="시연 ⑤ 브라우저 제어">
+  <span class="quiz-badge">🔴 라이브 시연 ⑤ · 브라우저 제어</span>
+  <h2 class="h2">웹 브라우저 자동화: <span class="gradient-text">사내 포털 및 인트라넷 데이터 연동</span></h2>
   <div class="split" style="grid-template-columns:1.05fr 1fr">
     <div class="txt">
       <div class="analogy" style="margin-top:0">
-        <div class="line"><span class="k">수작업</span><span class="v">시스템 로그인 → 검색 조건 입력 → 엑셀 다운로드 → 수작업 복사 (20분)</span></div>
+        <div class="line"><span class="k">수작업</span><span class="v">시스템 로그인 → 검색 조건 입력 → 엑셀 다운로드 → 수기 취합 (20분)</span></div>
         <div class="line"><span class="k">에이전트</span><span class="v">브라우저 자동 제어 → 데이터 탐색 및 스크랩 → 표준 양식 보고서 생성 (15초)</span></div>
       </div>
       <div class="card highlight" style="margin-top:20px">
         <p style="font-size:16px;color:var(--text-1);font-weight:600">
-          💡 별도의 API가 없는 사내 웹 시스템이라도 사람이 브라우저로 수행하던 클릭과 조회를 그대로 자동화합니다.
+          💡 별도의 전산망 API가 없어도 사람이 브라우저로 하던 클릭과 조회를 에이전트가 완벽히 대행합니다.
         </p>
       </div>
     </div>
@@ -1040,11 +984,11 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
 </section>
 
 <!-- ===================================================================
-     SLIDE 29: 시연 ⑥ 자가 치유
+     SLIDE 28: 시연 ⑥ 자가 치유
      =================================================================== -->
 <section class="slide" data-title="시연 ⑥ 자가 치유">
   <span class="quiz-badge">🔴 라이브 시연 ⑥ · 자가 치유</span>
-  <h2 class="h2">예외 상황 발생 시 <span class="gradient-text">에이전트의 자가 치유(Self-healing)</span></h2>
+  <h2 class="h2">오류 발생 시 <span class="gradient-text">에이전트의 자가 치유(Self-healing)</span></h2>
   <div class="split" style="grid-template-columns:1fr 1.05fr">
     <div class="media" style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)">
       <img src="images/05-log-retry.jpg" alt="자가 치유 일러스트" style="width:100%;height:100%;object-fit:cover">
@@ -1053,65 +997,65 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
       <div class="card highlight">
         <div class="card-title" style="color:var(--good)">Self-healing 루프의 동작 과정</div>
         <p class="card-desc">
-          1. 명령어 실행 또는 파일 파싱 중 예외 에러 발생<br>
-          2. 에이전트가 중단되지 않고 <b>터미널 에러 로그를 분석</b><br>
-          3. 원인 파악 후 수정 코드를 자동 작성하여 <b>재실행</b><br>
-          4. 검증 기준 충족 시 최종 완료 보고
+          1. 명령 실행 중 예외 오류 발생<br>
+          2. 에이전트가 중단되지 않고 <b>터미널 에러 로그를 스스로 분석</b><br>
+          3. 원인 파악 후 수정 코드를 작성하여 <b>스스로 재실행</b><br>
+          4. 합격 조건 충족 시 최종 완료 보고
         </p>
       </div>
       <p style="font-size:16px;color:var(--text-3);margin-top:16px">
-        "사람이 오류를 보고 수동으로 고치는 것이 아니라, 오류를 분석하고 스스로 수정하는 루프를 부여합니다."
+        "사람이 오류를 수동으로 고치는 것이 아니라, 오류를 보고 고치는 루프를 에이전트에게 줍니다."
       </p>
     </div>
   </div>
-  <div class="notes">실패했을 때 스스로 해결하는 에이전트의 루프 능력을 시연합니다.</div>
+  <div class="notes">오류를 스스로 해결하는 에이전트의 자가 치유 루프를 확인합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 30: 퀴즈 ④
+     SLIDE 29: 퀴즈 ④
      =================================================================== -->
 <section class="slide" data-title="퀴즈 ④">
   <span class="quiz-badge">❓ 퀴즈 ④ · 핵심 점검</span>
-  <h2 class="h2">방금 시연에서 에이전트가 실행 실패를 만났을 때 보인 행동은?</h2>
+  <h2 class="h2">방금 시연에서 에이전트가 오류를 만났을 때 보인 행동은?</h2>
   <div class="quiz">
-    <div class="opt a"><div class="sym">▲</div><span>즉시 실행을 멈추고 대기했다</span></div>
-    <div class="opt b"><div class="sym">◆</div><span>사람 담당자에게 조치를 요청했다</span></div>
+    <div class="opt a"><div class="sym">▲</div><span>즉시 실행을 멈추고 사람을 불렀다</span></div>
+    <div class="opt b"><div class="sym">◆</div><span>더 자세한 프롬프트를 요구했다</span></div>
     <div class="opt c"><div class="sym">●</div><span>에러 로그를 분석하고 스스로 수정하여 재실행했다</span></div>
-    <div class="opt d"><div class="sym">■</div><span>오류가 발생한 상태 그대로 종료했다</span></div>
+    <div class="opt d"><div class="sym">■</div><span>오류를 무시하고 엉터리 결과를 출력했다</span></div>
   </div>
   <div class="notes">정답은 ● 에러 로그를 분석하고 스스로 수정하여 재실행했다입니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 31: 시연 ⑦ 바이브코딩 & 사내 웹 디자인
+     SLIDE 30: 시연 ⑦ 바이브코딩
      =================================================================== -->
-<section class="slide" data-title="시연 ⑦ 시각적 목표">
+<section class="slide" data-title="시연 ⑦ 바이브코딩">
   <span class="quiz-badge">🔴 라이브 시연 ⑦ · 바이브코딩</span>
-  <h2 class="h2">모호한 텍스트 대신, <span class="gradient-text">시각적 목표와 합격 기준을 명시</span></h2>
+  <h2 class="h2">모호한 프롬프트 대신, <span class="gradient-text">시각적 목표와 합격 기준을 부여</span></h2>
   <div class="cols-2" style="margin-top:28px">
     <div class="card">
-      <div class="card-title" style="color:var(--warn)">비효율적인 프롬프트 지시</div>
+      <div class="card-title" style="color:var(--warn)">실패하는 프롬프트 방식</div>
       <p class="card-desc">
-        "우리 부서 사내 대시보드 화면 하나 보기 좋게 깔끔하게 만들어 줘."<br><br>
+        "우리 부서 대시보드 화면 하나 보기 좋게 깔끔하게 만들어 줘."<br><br>
         <span style="color:var(--warn)">→ 주관적 형용사는 모델마다 다르게 해석되어 재작업이 반복됩니다.</span>
       </p>
     </div>
     <div class="card highlight">
-      <div class="card-title" style="color:var(--good)">검증 가능한 바이브코딩 방식</div>
+      <div class="card-title" style="color:var(--good)">성공하는 바이브코딩 방식</div>
       <p class="card-desc">
-        <b>1. 완성 형태의 예시(Mockup) 이미지를 먼저 제공합니다.</b><br>
-        <b>2. 필수 데이터 및 합격 조건 3가지를 수치로 제시합니다.</b><br>
+        <b>1. 완성 예시(Mockup) 이미지를 먼저 제공합니다.</b><br>
+        <b>2. 필수 데이터와 3대 합격 기준을 명시합니다.</b><br>
         <b>3. 에이전트가 코드를 작성하고 브라우저에서 직접 검증합니다.</b>
       </p>
     </div>
   </div>
-  <div class="notes">모호한 텍스트 대신 시각적 레퍼런스와 합격 기준을 주는 방식을 설명합니다.</div>
+  <div class="notes">말 대신 시각적 목표와 합격 기준을 주는 바이브코딩의 원리를 설명합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 32: 이미 하던 일
+     SLIDE 31: 이미 하던 일
      =================================================================== -->
-<section class="slide" data-title="실무 프로세스 일치">
+<section class="slide" data-title="실무 프로세스">
   <p class="kicker">친숙한 업무 방식</p>
   <h2 class="h2">완성 예시 · 3대 합격 조건 · <span class="gradient-text">샘플 검수</span></h2>
   <div class="split" style="grid-template-columns:1fr 1fr;margin-top:24px">
@@ -1124,15 +1068,15 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
       <img src="images/06-reference-verify.jpg" alt="검수 프로세스 일러스트" style="width:100%;height:100%;object-fit:cover">
     </div>
   </div>
-  <div class="notes">이 방식은 현업에서 후배 직원에게 업무를 지시하고 검수하는 프로세스와 완전히 같습니다.</div>
+  <div class="notes">현업에서 후배 직원에게 일을 맡기고 검수하던 방식 그대로입니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 33: 하네스 8단계
+     SLIDE 32: 하네스 8단계
      =================================================================== -->
 <section class="slide" data-title="8단계 프로토콜">
   <p class="kicker">체계적 구축 절차</p>
-  <h2 class="h2">에이전트 기반 업무자동화 <span class="gradient-text">8단계 표준 프로토콜</span></h2>
+  <h2 class="h2">에이전트 기반 업무 자산화 <span class="gradient-text">8단계 표준 프로토콜</span></h2>
   <div class="cols-4" style="margin-top:28px">
     <div class="card">
       <div class="pill" style="margin-bottom:8px">1-2단계</div>
@@ -1141,13 +1085,13 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
     </div>
     <div class="card">
       <div class="pill" style="margin-bottom:8px">3-4단계</div>
-      <div style="font-size:18px;font-weight:700;color:var(--text-1)">컨텍스트 주입</div>
-      <p class="card-desc" style="font-size:15px;margin-top:8px">사내 규칙 파일(CLAUDE.md) 사전 로드</p>
+      <div style="font-size:18px;font-weight:700;color:var(--text-1)">도메인 지식 주입</div>
+      <p class="card-desc" style="font-size:15px;margin-top:8px">부서 규칙 파일(CLAUDE.md) 사전 탑재</p>
     </div>
     <div class="card">
       <div class="pill" style="margin-bottom:8px">5-6단계</div>
       <div style="font-size:18px;font-weight:700;color:var(--text-1)">루프 실행 및 검증</div>
-      <p class="card-desc" style="font-size:15px;margin-top:8px">자율 작업 실행 및 오류 자동 수정</p>
+      <p class="card-desc" style="font-size:15px;margin-top:8px">자율 작업 실행 및 오류 자가 치유</p>
     </div>
     <div class="card highlight">
       <div class="pill" style="background:#dcfce7;color:#059669;margin-bottom:8px">7-8단계</div>
@@ -1155,11 +1099,11 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
       <p class="card-desc" style="font-size:15px;margin-top:8px">SKILL.md 저장 및 팀 내 인수인계 완료</p>
     </div>
   </div>
-  <div class="notes">8단계 과정을 거쳐 단발성 작업이 부서의 자산으로 승격됩니다.</div>
+  <div class="notes">8단계 하네스 절차를 거쳐 일회성 작업이 팀의 영구 자산이 됩니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 34: 공기업 현실과 안전선
+     SLIDE 33: 공기업 현실과 안전선
      =================================================================== -->
 <section class="slide" data-title="보안 안전 가이드">
   <p class="kicker">보안 및 규정 가이드라인</p>
@@ -1194,7 +1138,7 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
 </section>
 
 <!-- ===================================================================
-     SLIDE 35: 첫 스킬 후보 3종
+     SLIDE 34: 첫 스킬 후보 3선
      =================================================================== -->
 <section class="slide" data-title="우선 구축 스킬 3선">
   <p class="kicker">부서별 우선 추진 과제</p>
@@ -1223,7 +1167,7 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
 </section>
 
 <!-- ===================================================================
-     SLIDE 36: 지속성 3단계
+     SLIDE 35: 지속성 3단계
      =================================================================== -->
 <section class="slide" data-title="사내 확산 단계">
   <p class="kicker">사내 확산 로드맵</p>
@@ -1249,42 +1193,58 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
 </section>
 
 <!-- ===================================================================
-     SLIDE 37: 실천 다짐 설문
+     SLIDE 36: 실천 과제 확정 (설문 ④)
      =================================================================== -->
-<section class="slide" data-title="실천 과제 확정">
+<section class="slide" data-title="과제 확정">
   <span class="quiz-badge">📊 실천 과제 확정</span>
-  <h2 class="h2">이번 주에 우리 부서에서 가장 먼저<br>표준화하고 싶은 업무는?</h2>
+  <h2 class="h2">이번 주에 우리 부서에서 가장 먼저<br>스킬(SKILL.md)로 만들고 싶은 업무는?</h2>
   <div class="open-q">
     <p style="font-size:24px;color:var(--text-1);font-weight:700">추진할 업무 명칭 하나를 결정해 주십시오</p>
-    <p style="font-size:16px;color:var(--text-3);margin-top:10px">오늘 강의에서 정리한 판단 기준표가 내일 업무 자동화의 든든한 출발점이 됩니다.</p>
+    <p style="font-size:16px;color:var(--text-3);margin-top:10px">오늘 강의에서 정리한 도메인 지식 정의서가 내일 업무 자동화의 든든한 출발점이 됩니다.</p>
   </div>
-  <div class="notes">각자 현업에서 착수할 첫 번째 과제를 확정하도록 안내합니다.</div>
+  <div class="notes">각자 현업에서 착수할 첫 번째 스킬 과제를 확정하도록 안내합니다.</div>
 </section>
 
 <!-- ===================================================================
-     SLIDE 38: 이번 주 실천 과제
+     SLIDE 37: 현업 적용 과제
      =================================================================== -->
-<section class="slide" data-title="현업 적용 과제">
+<section class="slide" data-title="현업 과제">
   <p class="kicker">실행 로드맵</p>
   <h2 class="h2">현업 복귀 후 추진할 <span class="gradient-text">3단계 실천 과제</span></h2>
   <div class="cols-3" style="margin-top:28px">
     <div class="card">
       <div class="num ghost" style="margin-bottom:12px">1</div>
-      <div class="card-title">부서 스킬 초안 작성</div>
+      <div class="card-title">부서 스킬 파일 작성</div>
       <p class="card-desc">핵심 정기 업무 1건을 선정하여 배포자료의 양식에 따라 SKILL.md 작성</p>
     </div>
     <div class="card">
       <div class="num ghost" style="margin-bottom:12px">2</div>
-      <div class="card-title">팀 내 판단 기준 공유</div>
-      <p class="card-desc">오늘 완성한 'AI 활용 판단 기준표'를 팀 회의 안건(10분)으로 상정하여 의견 조율</p>
+      <div class="card-title">팀 내 도메인 지식 공유</div>
+      <p class="card-desc">오늘 작성한 '현장 도메인 지식 정의서'를 팀 회의 안건(10분)으로 상정하여 조율</p>
     </div>
     <div class="card">
       <div class="num ghost" style="margin-bottom:12px">3</div>
-      <div class="card-title">사내 보안 규정 확인</div>
-      <p class="card-desc">사내 AI 활용 보안 지침을 재확인하고 비식별화 절차의 안전성 확보</p>
+      <div class="card-title">사내 보안 가이드 준수</div>
+      <p class="card-desc">사내 AI 활용 지침을 확인하고 비식별화 절차의 안전선 확보</p>
     </div>
   </div>
   <div class="notes">교육 이후 실천할 수 있는 3단계 실행 과제를 정리합니다.</div>
+</section>
+
+<!-- ===================================================================
+     SLIDE 38: 병목과 결론
+     =================================================================== -->
+<section class="slide center tc" data-title="핵심 요약">
+  <p class="kicker" style="align-self:center">마지막 요약</p>
+  <h1 class="h1" style="font-size:52px;margin-top:18px">
+    프롬프트는 기술이 아닙니다.<br>
+    <span class="gradient-text">진짜 병목은 '현장의 암묵지'를 꺼내는 것입니다.</span>
+  </h1>
+  <p class="p" style="max-width:860px;margin:24px auto 0;color:var(--text-2);font-size:20px;line-height:1.6">
+    AI가 아무리 발전해도 한전의 현장 위험과 우선순위는 저절로 알 수 없습니다.<br>
+    여러분의 도메인 지식을 스킬 파일로 기록하는 순간, AI는 최고의 동료가 됩니다.
+  </p>
+  <div class="notes">병목의 본질을 재확인하고 마지막 슬라이드로 연결합니다.</div>
 </section>
 
 <!-- ===================================================================
@@ -1312,7 +1272,7 @@ body[data-current-slide="39"] .deck-header { opacity: 0; pointer-events: none; }
 </div>
 
 <header class="deck-header">
-  <span>한국전력공사 재직자 특강 · 생성형 AI 실무부터 에이전트 자동화까지</span>
+  <span>한국전력공사 재직자 특강 · 프롬프트를 넘어 현장 도메인 지식과 에이전트로</span>
   <span class="slide-number"></span>
 </header>
 <div class="progress-bar"><span></span></div>
