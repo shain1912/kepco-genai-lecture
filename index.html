@@ -9,13 +9,13 @@
 <link rel="stylesheet" href="assets/animations/animations.css">
 <style>
 /* ===================================================================
-   한국전력공사 애플 키노트 스타일 다크모드 (Apple Keynote Dark Mode)
+   한국전력공사 프리미엄 다크 & 빅 타이포그래피 (40장 완성본)
    =================================================================== */
 :root {
   --bg: #070b14;
   --bg-card: rgba(18, 26, 43, 0.85);
   --border: rgba(56, 189, 248, 0.18);
-  --border-strong: rgba(56, 189, 248, 0.4);
+  --border-strong: rgba(56, 189, 248, 0.45);
   --text-1: #ffffff;
   --text-2: #cbd5e1;
   --text-3: #94a3b8;
@@ -30,12 +30,18 @@
   --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 0 0 20px -2px rgba(56, 189, 248, 0.12);
   --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px -5px rgba(56, 189, 248, 0.25);
   --font-sans: 'Pretendard', 'Noto Sans KR', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
 }
 
 html, body {
   background: var(--bg);
   color: var(--text-1);
   font-family: var(--font-sans);
+  word-break: keep-all;
+}
+
+h1, h2, h3, p, .big-title, .big-subtitle, .card-desc, .vn {
+  word-break: keep-all;
 }
 
 .deck { background: var(--bg); }
@@ -97,16 +103,16 @@ html, body {
 }
 .hero-content h1 {
   margin-top: 16px;
-  font-size: 66px;
+  font-size: 64px;
   line-height: 1.15;
   letter-spacing: -.03em;
   color: #ffffff;
 }
 .hero-content p { margin-top: 16px; font-size: 26px; color: #cbd5e1; }
 
-/* Ultra-Big Typography (Apple Keynote Style) */
+/* Ultra-Big Typography */
 .big-title {
-  font-size: 78px;
+  font-size: 76px;
   font-weight: 900;
   line-height: 1.16;
   letter-spacing: -.03em;
@@ -203,52 +209,9 @@ html, body {
 .versus .warn-side { border-top: 5px solid var(--warn); }
 .versus .warn-side .vt { color: var(--warn); }
 
-/* Big Quote */
-.big-quote {
-  font-size: 44px;
-  font-weight: 800;
-  line-height: 1.38;
-  color: var(--text-1);
-  letter-spacing: -.02em;
-  padding-left: 32px;
-  border-left: 6px solid var(--accent);
-}
-
-/* Big Quiz */
-.quiz { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 32px; }
-.quiz .opt {
-  padding: 30px 34px;
-  border-radius: var(--radius);
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  min-height: 110px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-}
-.quiz .opt .sym {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex: none;
-  color: #ffffff;
-}
-.quiz .a { background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); }
-.quiz .b { background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.4); }
-.quiz .c { background: rgba(16, 185, 129, 0.15); border-color: rgba(16, 185, 129, 0.4); }
-.quiz .d { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); }
-
 body[data-current-slide="1"] .deck-header, 
-body[data-current-slide="13"] .deck-header, 
-body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
+body[data-current-slide="15"] .deck-header, 
+body[data-current-slide="40"] .deck-header { opacity: 0; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -265,261 +228,298 @@ body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
         프롬프트를 넘어,<br>
         <span class="gradient-text">현장 도메인 지식과 에이전트 하네스로</span>
       </h1>
-      <p>폴더 구조화 · 레퍼런스 주입 · CLAUDE.md · 적대적 검증으로 완성하는 실무 아키텍처</p>
+      <p>폴더 구조 · 레퍼런스 주입 · CLAUDE.md · 정량 Metric · 적대적 검증으로 완성하는 실무 아키텍처</p>
       <div style="margin-top:24px;font-size:18px;color:#94a3b8">조성호 · KODE KOREA 대표 · 부산대학교 AI융합교육원 강사</div>
     </div>
   </div>
-  <div class="notes">반갑습니다. 프롬프트 작성 요령이 아닌, 진짜 AI 병목을 뚫는 시스템 엔지니어링을 공유합니다.</div>
+  <div class="notes">반갑습니다. 프롬프트 기교가 아닌, 진짜 사내 업무를 자동화하는 시스템 엔지니어링을 공유합니다.</div>
 </section>
 
-<!-- 02. 직설적 질문 -->
+<!-- 02. 문제 제기 (빅 타이포) -->
 <section class="slide center tc" data-title="질문">
-  <p class="kicker">현장의 피로</p>
+  <p class="kicker">현장의 실제 고민</p>
   <h1 class="big-title">
-    프롬프트의 한계.<br>
-    <span class="gradient-text">왜 아무도 쓰지 못하는가.</span>
+    프롬프트 템플릿 복사하기.<br>
+    <span class="gradient-text">언제까지 반복해야 할까요?</span>
   </h1>
-  <p class="big-subtitle">수십 줄의 템플릿을 복사해도, 실제 부서 업무에선 버려지는 이유.</p>
-  <div class="notes">청중이 겪어본 현실적 피로감을 직접 묻습니다.</div>
+  <p class="big-subtitle">수십 줄의 프롬프트를 정성껏 써도, 결국 결과물을 손으로 복사해 옮겨 적어야 하는 현실.</p>
+  <div class="notes">현업에서 매일 겪는 프롬프트 복붙 노동의 피로를 짚습니다.</div>
 </section>
 
-<!-- 03. 현장의 현실 -->
-<section class="slide center tc" data-title="현장의 현실">
-  <p class="kicker">실무의 간극</p>
-  <div class="big-quote" style="max-width:1050px;margin:30px auto;text-align:left">
-    교과서 글짓기.<br>
-    <span class="gradient-cyan">실무와의 거대한 괴리.</span>
+<!-- 03. 챗봇 vs 에이전트 (비주얼 분할) -->
+<section class="slide" data-title="챗봇 vs 에이전트">
+  <div class="split-visual">
+    <div>
+      <p class="kicker">핵심 개념</p>
+      <h1 class="big-title" style="font-size:62px;line-height:1.2">
+        챗봇은 조언자,<br>
+        <span class="gradient-cyan">에이전트는 실행자입니다.</span>
+      </h1>
+      <p class="big-subtitle" style="font-size:24px">
+        <b>챗봇:</b> 대화창에 갇혀 조언만 합니다. 파일 수정도, 전산망 조회도 결국 사람이 직접 해야 합니다.<br><br>
+        <b>에이전트:</b> 도구를 직접 쥡니다. 내 컴퓨터의 파일, 폴더, 브라우저를 스스로 다루며 일을 끝냅니다.
+      </p>
+    </div>
+    <div class="visual-box">
+      <img src="images/01-chatbot-vs-agent.jpg" alt="챗봇 vs 에이전트">
+    </div>
   </div>
-  <p class="big-subtitle">프롬프트 실력의 문제가 아닙니다. 도메인 지식과 검증 체계가 빠져있기 때문입니다.</p>
-  <div class="notes">현업에서 겪는 공통적인 한계를 공유합니다.</div>
+  <div class="notes">말만 하는 챗봇과 직접 일하는 에이전트의 차이를 명확히 구분합니다.</div>
 </section>
 
-<!-- 04. 종말 선언 (비주얼 분할) -->
+<!-- 04. 환경의 차이: 식당 vs 주방 (비주얼 분할) -->
+<section class="slide" data-title="식당 vs 주방">
+  <div class="split-visual">
+    <div>
+      <p class="kicker">환경의 본질</p>
+      <h1 class="big-title" style="font-size:56px;line-height:1.25">
+        정해진 메뉴판의 식당 vs<br>
+        <span class="gradient-text">내 도구를 쓰는 주방</span>
+      </h1>
+      <p class="big-subtitle" style="font-size:24px">
+        외부 클라우드 챗봇은 남의 식당입니다. 정해진 메뉴판 밖의 우리 사내 데이터를 다룰 수 없습니다.<br><br>
+        <b>에이전트는 우리 집 주방입니다.</b> 내 PC의 고유 문서와 규정집을 꺼내 자유롭게 조리합니다.
+      </p>
+    </div>
+    <div class="visual-box">
+      <img src="images/03-saas-vs-agent.jpg" alt="식당 vs 주방">
+    </div>
+  </div>
+  <div class="notes">외부 SaaS와 사내 로컬 환경의 차이를 주방 메타포로 설명합니다.</div>
+</section>
+
+<!-- 05. 프롬프트의 종말 (비주얼 분할) -->
 <section class="slide" data-title="프롬프트 종말">
   <div class="split-visual">
     <div>
-      <p class="kicker">패러다임의 종말</p>
-      <h1 class="big-title" style="font-size:62px;line-height:1.2">
-        프롬프트 엔지니어링.<br>
-        <span class="gradient-text">이미 끝난 시대.</span>
+      <p class="kicker">패러다임의 변화</p>
+      <h1 class="big-title" style="font-size:60px;line-height:1.2">
+        프롬프트 기교의 시대는<br>
+        <span class="gradient-cyan">이미 끝났습니다.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        단발성 프롬프트 기교는 구시대의 유물입니다.<br>
-        이미 <b>멀티턴 대화</b>와 <b>스킬 파일</b>로 기술적으로 해결되었습니다.
+        긴 문장 쓰기 요령은 <b>멀티턴 대화</b>와 <b>스킬 파일</b>로 이미 해결되었습니다.<br>
+        이제 중요한 것은 일하는 구조(Harness)를 짜는 일입니다.
       </p>
     </div>
     <div class="visual-box">
       <img src="images/08-prompt-end.jpg" alt="깨어지는 프롬프트와 연결되는 지능">
     </div>
   </div>
-  <div class="notes">프롬프트 엔지니어링의 종말을 선언합니다.</div>
+  <div class="notes">프롬프트 엔지니어링의 종말과 시스템 설계의 도래를 선언합니다.</div>
 </section>
 
-<!-- 05. 오늘 강연의 3대 핵심 아젠다 -->
+<!-- 06. 수업의 본질: 바이브코딩 (빅 타이포) -->
+<section class="slide center tc" data-title="바이브코딩의 본질">
+  <p class="kicker">오늘 수업의 목적</p>
+  <h1 class="big-title" style="font-size:72px">
+    바이브코딩.<br>
+    <span class="gradient-cyan">글짓기가 아닌, 실제 도구의 제작.</span>
+  </h1>
+  <p class="big-subtitle" style="max-width:980px;margin:26px auto 0">
+    AI와 문장을 주고받는 데서 멈추지 않습니다.<br>
+    우리 팀의 반복 업무를 실제로 대신할 <b>'작동하는 자동화 소프트웨어'</b>를 내 손으로 직접 만듭니다.
+  </p>
+  <div class="notes">오늘 강의가 실제 동작하는 소프트웨어 도구를 직접 제작하는 수업임을 안내합니다.</div>
+</section>
+
+<!-- 07. 강의 아젠다 (3단 카드) -->
 <section class="slide center tc" data-title="오늘의 아젠다">
-  <p class="kicker">강의 핵심 아젠다</p>
+  <p class="kicker">진행 순서</p>
   <h1 class="big-title" style="font-size:62px;line-height:1.25">
-    프롬프트를 넘어,<br>
-    <span class="gradient-cyan">실무 에이전트 하네스로.</span>
+    오늘 함께 다룰<br>
+    <span class="gradient-text">3가지 핵심 과제</span>
   </h1>
   <div class="cols-3" style="max-width:1150px;margin:36px auto 0;text-align:left">
     <div class="card">
       <div class="pill" style="margin-bottom:10px">PART 1</div>
-      <h3 class="card-title" style="font-size:24px">AI의 사내 한계</h3>
-      <p class="card-desc" style="font-size:18px">단순 챗봇이 실제 사내 취합 및 결재 문서를 처리하지 못하는 이유</p>
+      <h3 class="card-title" style="font-size:24px">AI의 한계와 실무</h3>
+      <p class="card-desc" style="font-size:18px">데이터 취합, 사내 맥락, 감사 리스크에서 챗봇이 무너지는 구조적 원인</p>
     </div>
     <div class="card highlight">
       <div class="pill" style="margin-bottom:10px">PART 2</div>
       <h3 class="card-title" style="font-size:24px">7대 실전 하네스</h3>
-      <p class="card-desc" style="font-size:18px">폴더 구조, 레퍼런스, CLAUDE.md, Metric, 그리고 적대적 검증</p>
+      <p class="card-desc" style="font-size:18px">폴더 구조, 레퍼런스, CLAUDE.md, Metric, 그리고 적대적 검증 체계</p>
     </div>
     <div class="card">
       <div class="pill" style="margin-bottom:10px">PART 3</div>
-      <h3 class="card-title" style="font-size:24px">공기업 현업 적용</h3>
-      <p class="card-desc" style="font-size:18px">보안 안전선 준수, 부서별 첫 스킬 파일 자산화 및 실행 실천 과제</p>
+      <h3 class="card-title" style="font-size:24px">바이브코딩 실전</h3>
+      <p class="card-desc" style="font-size:18px">사내 전산 브라우저 연동, 보안 안전선, 부서별 첫 스킬 파일 자산화</p>
     </div>
   </div>
-  <div class="notes">오늘 180분 동안 함께 다룰 3가지 핵심 아젠다를 안내합니다.</div>
+  <div class="notes">오늘 180분 동안 다룰 3개 파트를 안내합니다.</div>
 </section>
 
-<!-- 06. 취합의 현실 -->
+<!-- ===================================================================
+     PART 1: AI의 사내 한계와 실무 도메인 지식
+     =================================================================== -->
+
+<!-- 08. 실무의 현실 (2단 카드) -->
 <section class="slide" data-title="취합의 현실">
-  <p class="kicker">실무의 현실</p>
-  <h2 class="h2" style="font-size:46px">취합의 지옥. 매일 쏟아지는 수십 건의 데이터.</h2>
+  <p class="kicker">실무 현장</p>
+  <h2 class="h2" style="font-size:44px">매일 마주하는 부서와 사업소의 데이터 취합</h2>
   <div class="cols-2" style="margin-top:32px">
     <div class="card">
-      <div class="card-title" style="color:var(--text-3)">실무자가 마주하는 현실</div>
+      <div class="card-title" style="color:var(--text-3)">실무자가 매주 취합하는 원자료</div>
       <p class="card-desc" style="font-size:20px;line-height:1.7">
         · 사업소별 주간 실적 메모 및 엑셀 수치 취합<br>
         · 협력업체 정기 점검 결과서 및 공정률 보고<br>
         · 반복되는 대민 민원 내역 및 현장 특이사항<br>
-        · 상위 부처(기재부·산업부) 요청 긴급 통계 자료
+        · 상위 부처 요청 긴급 통계 자료
       </p>
     </div>
     <div class="card highlight">
-      <div class="card-title" style="color:var(--warn)">단순 AI 요약의 한계</div>
+      <div class="card-title" style="color:var(--warn)">AI에게 그냥 요약시켰을 때</div>
       <p class="card-desc" style="font-size:20px;line-height:1.7">
         "이거 취합해서 보고서 양식으로 요약해 줘."<br><br>
-        <b>결과:</b> 뻔한 인터넷 백과사전식 요약문 출력.<br>
-        → 이번 분기 본부 중점 지표도, 결재권자의 숨은 의도도 반영 불가.
+        <b>결과:</b> 일반론적인 뻔한 보고서 출력.<br>
+        → 이번 분기 본부 중점 관리 지표도, 결재권자의 보고 방향도 전혀 반영하지 못함.
       </p>
     </div>
   </div>
   <div class="notes">실제 공기업 관리자들이 겪는 취합 보고의 문제를 짚습니다.</div>
 </section>
 
-<!-- 07. 병목 ① 텍스트의 함정 (비주얼 분할) -->
+<!-- 09. 한계 ① 텍스트의 함정 (비주얼 분할) -->
 <section class="slide" data-title="도메인 지식 비주얼">
   <div class="split-visual">
     <div>
-      <p class="kicker">진짜 AI 병목 ①</p>
+      <p class="kicker">구조적 한계 ①</p>
       <h1 class="big-title" style="font-size:56px;line-height:1.25">
-        평등한 텍스트.<br>
-        <span class="gradient-text">불평등한 조직 리스크.</span>
+        텍스트는 평등하지만,<br>
+        <span class="gradient-text">조직의 리스크는 다릅니다.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        AI 입장에서 취합된 100줄의 문서는 모두 똑같은 <b>'글자(토큰)'</b>입니다.<br>
-        하지만 실무자는 무엇이 결재의 핵심이고 무엇이 감사 지적 대상인지 압니다.
+        AI에게 취합 문서의 100줄은 모두 똑같은 <b>'글자(토큰)'</b>일 뿐입니다.<br><br>
+        어떤 숫자가 감사 지적 대상이고, 어떤 문장이 상부 보고의 핵심인지는 <b>오직 실무자만이 압니다.</b>
       </p>
     </div>
     <div class="visual-box">
       <img src="images/09-domain-knowledge.jpg" alt="현장 도메인 지식 네트워크">
     </div>
   </div>
-  <div class="notes">텍스트와 현실의 괴리를 대조합니다.</div>
+  <div class="notes">AI의 언어 처리와 실무자의 리스크 판단 사이의 간극을 설명합니다.</div>
 </section>
 
-<!-- 08. 병목 ② 맥락, 파장, 책임의 단절 -->
+<!-- 10. 한계 ② 3대 단절 (3단 카드) -->
 <section class="slide" data-title="AI의 3대 한계">
-  <p class="kicker">진짜 AI 병목 ②</p>
-  <h2 class="h2" style="font-size:44px">사내 맥락 · 감사 리스크 · 책임. AI가 넘지 못하는 세 개의 벽.</h2>
+  <p class="kicker">구조적 한계 ②</p>
+  <h2 class="h2" style="font-size:42px">AI가 혼자서는 결재 문서를 완성할 수 없는 3가지 이유</h2>
   <div class="cols-3" style="margin-top:36px">
     <div class="card" style="border-top:5px solid var(--accent)">
       <div class="pill" style="margin-bottom:12px">한계 1</div>
       <h3 class="card-title">사내 맥락의 부재</h3>
-      <p class="card-desc">이번 분기 본부 중점 사항, 부서 간 이해관계, 결재 라인의 성향은 세상 어떤 AI 학습 데이터에도 없습니다.</p>
+      <p class="card-desc">이번 분기 본부 중점 지표와 결재 라인의 보고 성향은 세상 어떤 AI 학습 데이터에도 없습니다.</p>
     </div>
     <div class="card highlight" style="border-top:5px solid var(--warn)">
       <div class="pill" style="background:rgba(245,158,11,0.2);color:var(--warn);margin-bottom:12px">한계 2</div>
       <h3 class="card-title">감사 리스크 무감각</h3>
-      <p class="card-desc">숫자 하나, 표현 하나가 틀렸을 때 감사원이나 내부 감사에서 어떤 지적을 받는지 AI는 모릅니다.</p>
+      <p class="card-desc">표현 하나, 산술 오차 하나가 감사원이나 내부 감사에서 어떤 지적으로 이어지는지 AI는 모릅니다.</p>
     </div>
     <div class="card" style="border-top:5px solid var(--good)">
       <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">한계 3</div>
-      <h3 class="card-title">책임의 부재</h3>
-      <p class="card-desc">AI는 엉터리 기안을 올려도 감봉당하지 않습니다. 기안에 도장 찍고 최종 책임을 지는 것은 실무자입니다.</p>
+      <h3 class="card-title">책임의 공백</h3>
+      <p class="card-desc">AI는 엉터리 기안을 올려도 책임지지 않습니다. 최종 결재에 도장을 찍고 책임지는 것은 실무자입니다.</p>
     </div>
   </div>
-  <div class="notes">사내 맥락, 감사 리스크, 책임의 부재라는 3가지 근본 한계를 짚습니다.</div>
+  <div class="notes">맥락, 감사, 책임이라는 3대 근본 한계를 짚습니다.</div>
 </section>
 
-<!-- 09. 병목 ③ 규정과 감사: 환각의 공포 -->
+<!-- 11. 한계 ③ 사규와 환각 (단독 카드) -->
 <section class="slide" data-title="사내 규정과 환각">
-  <p class="kicker">감사와 컴플라이언스</p>
-  <h2 class="h2" style="font-size:46px">날조된 사규 조항. 100% 감사 지적의 공포.</h2>
+  <p class="kicker">컴플라이언스</p>
+  <h2 class="h2" style="font-size:44px">지어낸 사규 조항. 감사 지적으로 이어지는 환각의 위험.</h2>
   <div class="card" style="margin-top:28px;padding:36px">
-    <p style="font-size:26px;color:var(--text-1);font-weight:700">
-      "사내 계약 지침에 따른 수의계약 한도와 예외 조항을 정리해 줘.<br>
+    <p style="font-size:24px;color:var(--text-1);font-weight:700">
+      "사내 계약 규정에 따른 수의계약 한도와 예외 조항을 정리해 줘.<br>
       <span style="color:var(--accent)">※ 절대 틀리지 말고, 확실한 사규 조항만 사실대로 답변하세요."</span>
     </p>
   </div>
-  <p class="big-subtitle" style="font-size:26px;margin-top:24px;color:var(--bad);font-weight:700">
-    결과: 존재하지도 않는 제12조 제3항을 지어내고 한도 금액을 날조함 ➔ 감사 지적 100%!
+  <p class="big-subtitle" style="font-size:24px;margin-top:24px;color:var(--bad);font-weight:700">
+    결과: 존재하지도 않는 제14조 제3항을 지어내어 결재 상신 시 심각한 감사 지적 초래.
   </p>
-  <div class="notes">규정과 감사에서 환각이 초래하는 사고를 짚습니다.</div>
+  <div class="notes">규정과 감사에서 환각이 초래하는 실제 업무 리스크를 설명합니다.</div>
 </section>
 
-<!-- 10. 핵심 명제 ① (빅 폰트) -->
+<!-- 12. 핵심 통찰 (빅 타이포) -->
 <section class="slide center tc" data-title="핵심 명제 ①">
-  <p class="kicker">본질의 통찰</p>
+  <p class="kicker">첫 번째 통찰</p>
   <h1 class="big-title" style="font-size:62px;line-height:1.25">
-    AI는 문장 기계.<br>
-    <span class="gradient-text">조직을 지키는 것은 도메인 지식.</span>
+    AI는 문장 도구일 뿐,<br>
+    <span class="gradient-cyan">조직을 지키는 것은 도메인 지식입니다.</span>
   </h1>
   <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
-    프롬프트 기술을 탓하지 마십시오.<br>
-    조직을 지키는 것은 실무자의 도메인 지식과 <b>'시스템 검증 체계'</b>입니다.
+    프롬프트를 화려하게 쓰는 것보다,<br>
+    실무자의 판단 기준과 검증 체계가 시스템에 녹아있어야 합니다.
   </p>
-  <div class="notes">시스템 검증 체계의 필요성으로 연결합니다.</div>
+  <div class="notes">도메인 지식과 검증 체계의 결합을 강조합니다.</div>
 </section>
 
-<!-- 11. 진짜 병목 비주얼 (비주얼 분할) -->
+<!-- 13. 조직의 진짜 병목 (비주얼 분할) -->
 <section class="slide" data-title="진짜 병목 비주얼">
   <div class="split-visual">
     <div>
-      <p class="kicker">조직의 병목</p>
-      <h1 class="big-title" style="font-size:60px;line-height:1.2">
-        진짜 병목.<br>
-        <span class="gradient-cyan">머릿속에 갇힌 암묵지.</span>
+      <p class="kicker">병목의 본질</p>
+      <h1 class="big-title" style="font-size:56px;line-height:1.2">
+        진짜 병목은<br>
+        <span class="gradient-text">사람 머릿속에 갇힌 업무 기준입니다.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        인공지능 모델의 성능 부족이 아닙니다.<br>
-        <b>우리 부서의 일하는 법과 판단 기준이 사람 머릿속에만 갇혀 있는 것</b>이 유일한 병목입니다.
+        AI 모델 성능의 문제가 아닙니다.<br><br>
+        <b>우리 부서가 일하는 방식과 판단 기준이 문서나 규칙으로 자산화되지 못한 것</b>이 유일한 병목입니다.
       </p>
     </div>
     <div class="visual-box">
       <img src="images/10-bottleneck-flow.jpg" alt="운영 병목과 데이터 흐름 메타포">
     </div>
   </div>
-  <div class="notes">병목의 실체를 비주얼과 함께 제시합니다.</div>
+  <div class="notes">암묵지를 형식지로 전환하는 시스템 자산화의 필요성을 짚습니다.</div>
 </section>
 
-<!-- 12. 1부 결론: 질문 던지기 -->
+<!-- 14. 1부 결론: 질문 (빅 타이포) -->
 <section class="slide center tc" data-title="1부 결론">
-  <p class="kicker">새로운 질문</p>
-  <h1 class="big-title" style="font-size:68px">
+  <p class="kicker">다음 단계</p>
+  <h1 class="big-title" style="font-size:66px">
     프롬프트 대신,<br>
-    <span class="gradient-text">무엇으로 일하게 할 것인가.</span>
+    <span class="gradient-cyan">무엇으로 에이전트를 움직여야 할까요?</span>
   </h1>
-  <p class="big-subtitle">말(프롬프트)로 때우지 않고, 시스템으로 통제하는 7대 실전 하네스</p>
-  <div class="notes">2부 실전 기법으로 자연스럽게 전환합니다.</div>
+  <p class="big-subtitle">말(프롬프트)로 때우지 않고, 안전하게 결과를 만들어내는 7가지 실전 하네스 아키텍처</p>
+  <div class="notes">2부 실전 하네스 아키텍처로 자연스럽게 연결합니다.</div>
 </section>
 
 <!-- ===================================================================
-     PART 2: 사용자의 7대 핵심 에이전틱 기법 (Apple Keynote Style)
+     PART 2: 에이전트를 완벽히 통제하는 7대 실전 하네스
      =================================================================== -->
 
-<!-- 13. 2부 전환 표지 (히어로) -->
+<!-- 15. 2부 전환 (히어로) -->
 <section class="slide" data-title="2부 전환">
   <div class="hero">
-    <img src="images/01-chatbot-vs-agent.jpg" alt="작업실과 에이전트 시스템">
+    <img src="images/06-reference-verify.jpg" alt="레퍼런스와 에이전트 검증 시스템">
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <span class="pill">PART 2 · 실전 에이전틱 하네스</span>
       <h1 class="mt-s anim-rise-in" data-anim="rise-in">
         7대 실전 하네스.<br>
-        <span class="gradient-cyan">에이전트를 통제하는 절대 원칙.</span>
+        <span class="gradient-cyan">에이전트를 통제하는 시스템 설계.</span>
       </h1>
-      <p>폴더 구조 · 레퍼런스 · CLAUDE.md · Metric · 자율 루프 · 멀티에이전트 · 적대적 검증</p>
+      <p>폴더 구조 · 레퍼런스 주입 · CLAUDE.md · 정량 Metric · 자가 치유 루프 · 멀티에이전트 · 적대적 검증</p>
     </div>
   </div>
-  <div class="notes">2부에서는 프롬프트를 대체하는 7대 실전 엔지니어링 기법을 본격 전수합니다.</div>
+  <div class="notes">2부에서는 7대 핵심 하네스 아키텍처를 하나씩 구체적으로 소개합니다.</div>
 </section>
 
-<!-- 14. 6대 기법 로드맵 -->
-<section class="slide" data-title="7대 기법 로드맵">
-  <p class="kicker">하네스 로드맵</p>
-  <h2 class="h2" style="font-size:42px">프롬프트 없는 세상. 시스템으로 일하는 7가지 방법.</h2>
-  <div class="cols-3" style="margin-top:32px">
-    <div class="card"><div class="pill" style="margin-bottom:8px">축 1 & 2</div><h3 class="card-title">폴더 구조 & 레퍼런스</h3><p class="card-desc">명확한 디렉토리와 실제 결재 합격 문서 주입</p></div>
-    <div class="card"><div class="pill" style="margin-bottom:8px">축 3 & 4</div><h3 class="card-title">CLAUDE.md & Metric</h3><p class="card-desc">부서 원칙 파일 고정과 3대 정량 합격 채점표</p></div>
-    <div class="card highlight"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">축 5, 6, 7</div><h3 class="card-title">루프 · 멀티에이전트 · 감사관</h3><p class="card-desc">스스로 오류를 고치고, 분업하며, 가혹하게 검증</p></div>
-  </div>
-  <div class="notes">7대 기법의 전체 조망도를 보여줍니다.</div>
-</section>
-
-<!-- 15. 기법 ①: 폴더 구조 정리 (Apple Keynote Style) -->
+<!-- 16. 기법 ①: 폴더 구조 (비주얼 분할) -->
 <section class="slide" data-title="기법 1: 폴더 구조">
   <div class="split-visual">
     <div>
       <p class="kicker">실전 기법 ① · 아키텍처</p>
       <h1 class="big-title" style="font-size:62px;line-height:1.2">
         폴더 구조.<br>
-        <span class="gradient-text">가장 완벽한 질서.</span>
+        <span class="gradient-text">명확한 자리가 만드는 질서.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        프롬프트로 길게 설명할 필요가 없습니다.<br>
-        <b>4개의 표준 디렉토리가 자리를 잡는 순간, 에이전트의 경로 이탈과 환각이 80% 차단됩니다.</b>
+        프롬프트에 매번 긴 규칙을 적지 않습니다.<br><br>
+        <b>디렉토리 구조를 깔끔하게 잡아주는 것만으로</b> 에이전트의 경로 이탈과 환각을 80% 줄입니다.
       </p>
     </div>
     <div class="visual-box">
@@ -529,10 +529,10 @@ body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="notes">말 대신 폴더 구조로 맥락을 잡는 원리를 설명합니다.</div>
 </section>
 
-<!-- 16. 기법 ① 상세: 표준 폴더 아키텍처 -->
+<!-- 17. 기법 ① 상세: 4대 표준 폴더 (4단 카드) -->
 <section class="slide" data-title="표준 폴더 구조">
-  <p class="kicker">표준 폴더 구조</p>
-  <h2 class="h2" style="font-size:42px">4대 표준 디렉토리. rules · references · input · output.</h2>
+  <p class="kicker">표준 폴더 규격</p>
+  <h2 class="h2" style="font-size:42px">실무 자동화를 위한 4대 표준 폴더</h2>
   <div class="cols-4" style="margin-top:32px">
     <div class="card">
       <div class="card-title" style="color:var(--accent)">📂 rules/</div>
@@ -551,164 +551,164 @@ body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
       <p class="card-desc">에이전트가 검증을 거쳐 최종 출력할 표준 규격 결재 기안서</p>
     </div>
   </div>
-  <div class="notes">실제 업무에 적용할 수 있는 4대 폴더 규격을 제시합니다.</div>
+  <div class="notes">실제 사내 적용을 위한 4대 디렉토리 구조를 제시합니다.</div>
 </section>
 
-<!-- 17. 기법 ②: 레퍼런스 잘 주기 (Apple Keynote Style) -->
+<!-- 18. 기법 ②: 레퍼런스 주입 (빅 타이포) -->
 <section class="slide center tc" data-title="기법 2: 레퍼런스">
   <p class="kicker">실전 기법 ② · 레퍼런스</p>
-  <h1 class="big-title" style="font-size:72px">
-    레퍼런스.<br>
-    <span class="gradient-cyan">단 한 장의 확신.</span>
+  <h1 class="big-title" style="font-size:68px">
+    모호한 형용사 대신,<br>
+    <span class="gradient-cyan">통과된 결재 문서 원본을 제시합니다.</span>
   </h1>
   <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
-    주관적 형용사 대신, 과거 결재 문서 원본이 만드는 100%의 정밀도.<br>
-    "깔끔하게 써줘" 대신 <b>"작년 통과 문서 양식 그대로"</b>가 압도적입니다.
+    "깔끔하고 격조 있게 써줘"라는 지시는 실패합니다.<br>
+    <b>"이 폴더에 있는 작년 결재 문서 서식과 문체 그대로 작성해 줘"</b>가 가장 확실합니다.
   </p>
-  <div class="notes">레퍼런스를 직접 던져주는 것의 압도적 효율을 설명합니다.</div>
+  <div class="notes">양질의 통과 문서를 직접 던져주는 것의 효과를 설명합니다.</div>
 </section>
 
-<!-- 18. 기법 ② 비교 (Versus) -->
+<!-- 19. 기법 ② 비교: 말 vs 레퍼런스 (2단 비교) -->
 <section class="slide" data-title="레퍼런스 비교">
-  <p class="kicker">극적인 격차</p>
-  <h2 class="h2" style="font-size:42px">말로 시키기 vs <span class="gradient-text">레퍼런스 던지기</span></h2>
+  <p class="kicker">지시 방식의 차이</p>
+  <h2 class="h2" style="font-size:42px">말로 설명하기 vs <span class="gradient-text">합격 문서 던져주기</span></h2>
   <div class="versus" style="margin-top:32px">
     <div class="card">
-      <div class="vt" style="color:var(--warn)">실패하는 말(프롬프트) 지시</div>
+      <div class="vt" style="color:var(--warn)">말로 설명하는 프롬프트 방식</div>
       <div class="vb">"3문단으로 쓰고, 첫 줄은 개요 쓰고..."</div>
-      <div class="vn">줄바꿈, 폰트 느낌, 특수기호(■, ▶, -)의 규칙이 매번 어긋나 결국 사람이 손으로 재작업.</div>
+      <div class="vn">줄바꿈, 글머리 기호(■, ▶, -), 문체 규칙이 매번 어긋나 결국 수작업 수정 발생.</div>
     </div>
     <div class="card highlight">
-      <div class="vt" style="color:var(--good)">성공하는 레퍼런스 주입</div>
+      <div class="vt" style="color:var(--good)">레퍼런스 문서 제공 방식</div>
       <div class="vb">"references/2025_주간실적.md 참고해"</div>
-      <div class="vn">기존 문서의 문장 길이, 불릿 서식, 결재권자 선호 문체를 100% 복제하여 산출.</div>
+      <div class="vn">기존 통과 문서의 문체, 보고 분량, 서식 규칙을 정확히 파악하여 그대로 복제.</div>
     </div>
   </div>
-  <div class="notes">레퍼런스 기반 작업의 정밀도를 보여줍니다.</div>
+  <div class="notes">레퍼런스 기반 산출물의 높은 일치도를 보여줍니다.</div>
 </section>
 
-<!-- 19. 기법 ③: CLAUDE.md (Apple Keynote Style) -->
+<!-- 20. 기법 ③: CLAUDE.md (빅 타이포) -->
 <section class="slide center tc" data-title="기법 3: CLAUDE.md">
-  <p class="kicker">실전 기법 ③ · 컨텍스트 고정</p>
-  <h1 class="big-title" style="font-size:74px">
+  <p class="kicker">실전 기법 ③ · 컨텍스트 유지</p>
+  <h1 class="big-title" style="font-size:72px">
     CLAUDE.md<br>
-    <span class="gradient-text">영구히 각인된 원칙.</span>
+    <span class="gradient-text">부서의 원칙을 파일로 고정합니다.</span>
   </h1>
   <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
-    새 창을 열 때마다 매번 설명할 필요가 없습니다.<br>
-    부서의 대원칙과 결재선을 단 하나의 파일로 고정합니다 (Context Drift 원천 차단).
+    새 대화창을 열 때마다 부서 규정을 다시 설명할 필요가 없습니다.<br>
+    부서의 전결선, 보고 어조, 금기 사항을 단 하나의 시스템 파일로 고정합니다.
   </p>
   <div class="notes">CLAUDE.md를 통한 컨텍스트 고정 기법을 설명합니다.</div>
 </section>
 
-<!-- 20. 기법 ③ 상세: CLAUDE.md 예시 -->
+<!-- 21. 기법 ③ 상세: CLAUDE.md 실물 (코드 카드) -->
 <section class="slide" data-title="CLAUDE.md 실물">
-  <p class="kicker">부서 헌법 실물</p>
-  <h2 class="h2" style="font-size:42px">CLAUDE.md 실물 예시. 팀원 누구나 공유하는 단 하나의 기준.</h2>
-  <div class="card" style="margin-top:28px;background:rgba(18,26,43,0.95);font-family:var(--font-mono);font-size:20px;line-height:1.75;border-left:5px solid var(--accent)">
-# [기획관리부 에이전트 지침]
-1. 보고서 톤: 공기업 표준 개조식 종결어미 (~함, ~임) 엄격 준수. 구어체 금지.
-2. 수치 검증: 예산 및 실적 수치는 원본 엑셀과 단 1원의 오차도 허용하지 않음.
-3. 보안 대원칙: 사외 전송 금지. 고객 식별정보 발견 시 즉시 작업을 중단하고 마스킹 경고.
-4. 참고 규정: 규정 조항 언급 시 반드시 rules/사규_2026.pdf의 원문 조항 번호를 대조할 것.
+  <p class="kicker">파일 실물 예시</p>
+  <h2 class="h2" style="font-size:40px">부서 전용 지침서 (CLAUDE.md 예시)</h2>
+  <div class="card" style="margin-top:24px;background:rgba(18,26,43,0.95);font-family:var(--font-mono);font-size:19px;line-height:1.75;border-left:5px solid var(--accent)">
+# [기획관리부 실무 에이전트 지침]
+1. 문서 어조: 공기업 표준 개조식 종결어미(~함, ~임) 엄격 준수. 구어체 금지.
+2. 수치 검증: 예산 및 실적 수치는 input/ 자료와 1원의 오차도 없어야 함.
+3. 사규 대조: 규정 조항 인용 시 반드시 rules/ 최신 규정집 번호와 대조할 것.
+4. 보안 원칙: 고객 식별정보 발견 시 작업을 즉시 중단하고 마스킹 처리할 것.
   </div>
-  <p class="big-subtitle" style="font-size:20px;margin-top:20px;color:var(--text-3)">
-    이 파일 하나만 폴더 루트에 두면, 팀원 누가 에이전트를 켜도 똑같은 부서 표준으로 동작합니다.
+  <p class="big-subtitle" style="font-size:19px;margin-top:18px;color:var(--text-3)">
+    이 파일 하나만 폴더 루트에 두면, 팀원 누가 에이전트를 켜도 동일한 부서 기준으로 작동합니다.
   </p>
-  <div class="notes">CLAUDE.md의 실제 내용을 보여주며 영구 자산화의 실체를 확인합니다.</div>
+  <div class="notes">실제 업무 지침 파일의 구조를 보여줍니다.</div>
 </section>
 
-<!-- 21. 기법 ④: Metric의 중요성 (Apple Keynote Style) -->
+<!-- 22. 기법 ④: Metric: 평가 지표 (비주얼 분할) -->
 <section class="slide" data-title="기법 4: Metric">
   <div class="split-visual">
     <div>
       <p class="kicker">실전 기법 ④ · 평가 지표</p>
-      <h1 class="big-title" style="font-size:56px;line-height:1.2">
+      <h1 class="big-title" style="font-size:54px;line-height:1.2">
         Metric의 중요성.<br>
-        <span class="gradient-cyan">합격의 절대 기준.</span>
+        <span class="gradient-cyan">작성 전에 합격선부터 세웁니다.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        "알아서 잘 써줘"는 최악의 지시입니다.<br>
-        <b>정량적 평가 기준이 먼저 확립되어야만, 에이전트가 스스로 검증하고 채점할 수 있습니다.</b>
+        "알아서 잘해줘"는 작동하지 않습니다.<br><br>
+        기안 작성을 시작하기 전에 <b>"이 보고서가 통과되기 위한 구체적인 조건"</b>을 먼저 확정해야 스스로 검증할 수 있습니다.
       </p>
     </div>
     <div class="visual-box">
       <img src="images/15-acceptance-metrics.jpg" alt="합격 평가 지표 스캐너">
     </div>
   </div>
-  <div class="notes">평가 지표를 먼저 수립해야 하는 이유를 설명합니다.</div>
+  <div class="notes">정량적 평가 기준의 사전 확립 필요성을 설명합니다.</div>
 </section>
 
-<!-- 22. 기법 ④ 상세: 3대 합격 채점표 -->
-<section class="slide" data-title="3대 무결점 지표">
-  <p class="kicker">3대 무결점 지표</p>
-  <h2 class="h2" style="font-size:42px">3대 무결점 지표. 누락 0건 · 오차 0% · 사규 준수 100%.</h2>
+<!-- 23. 기법 ④ 상세: 3대 합격 지표 (3단 카드) -->
+<section class="slide" data-title="3대 합격 지표">
+  <p class="kicker">정량적 통과 기준</p>
+  <h2 class="h2" style="font-size:42px">보고서 자동 통과를 위한 3대 평가 기준</h2>
   <div class="cols-3" style="margin-top:36px">
     <div class="card highlight">
-      <div class="pill" style="margin-bottom:12px">지표 1 · 완전성</div>
+      <div class="pill" style="margin-bottom:12px">완전성 지표</div>
       <h3 class="card-title">누락 항목 0건</h3>
-      <p class="card-desc">사업소 5곳의 필수 보고 항목(실적·계획·특이사항)이 단 하나도 빠짐없이 포함되었는가?</p>
+      <p class="card-desc">사업소별 필수 보고 항목(실적, 계획, 특이사항)이 단 하나도 빠짐없이 포함되었는가?</p>
     </div>
     <div class="card highlight">
-      <div class="pill" style="margin-bottom:12px">지표 2 · 정합성</div>
+      <div class="pill" style="margin-bottom:12px">정합성 지표</div>
       <h3 class="card-title">수치 오차 0%</h3>
-      <p class="card-desc">본문 요약에 적힌 수치의 합계가 취합 원본 엑셀의 SUM 수치와 완벽히 일치하는가?</p>
+      <p class="card-desc">본문 요약 수치의 합계가 취합 엑셀의 원본 SUM 수치와 100% 완벽히 일치하는가?</p>
     </div>
     <div class="card highlight">
-      <div class="pill" style="margin-bottom:12px">지표 3 · 적합성</div>
-      <h3 class="card-title">규정 준수 100%</h3>
+      <div class="pill" style="margin-bottom:12px">적합성 지표</div>
+      <h3 class="card-title">사규 준수 100%</h3>
       <p class="card-desc">인용한 사규 조항이 rules/ 폴더의 최신 개정판 조항 번호와 100% 부합하는가?</p>
     </div>
   </div>
-  <div class="notes">구체적인 3대 지표 예시를 제시합니다.</div>
+  <div class="notes">완전성, 정합성, 적합성의 3대 지표를 제시합니다.</div>
 </section>
 
-<!-- 23. 기법 ⑤: 자율 루프 (Apple Keynote Style) -->
+<!-- 24. 기법 ⑤: 자율 루프 (비주얼 분할) -->
 <section class="slide" data-title="기법 5: 자율 루프">
   <div class="split-visual">
     <div>
-      <p class="kicker">실전 기법 ⑤ · 자율 루프</p>
-      <h1 class="big-title" style="font-size:56px;line-height:1.2">
+      <p class="kicker">실전 기법 ⑤ · 자가 치유</p>
+      <h1 class="big-title" style="font-size:52px;line-height:1.25">
         자가 치유 루프.<br>
-        <span class="gradient-text">스스로 도달하는 무결점.</span>
+        <span class="gradient-text">채점표를 보고 스스로 수정합니다.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        사람의 개입 없이 스스로 완주합니다.<br>
-        <b>초안 작성 ➔ Metric 채점 ➔ 결함 발견 ➔ 자체 수정.</b> 100점이 될 때까지 자율적으로 회전합니다.
+        사람이 매번 틀린 곳을 찾아 피드백 주지 않습니다.<br><br>
+        에이전트가 채점표를 확인하며 <b>100점이 될 때까지 스스로 고치고 다시 작성</b>합니다.
       </p>
     </div>
     <div class="visual-box">
       <img src="images/11-self-healing.jpg" alt="자가 치유 에이전트 루프">
     </div>
   </div>
-  <div class="notes">에이전트 자율 루프의 작동 방식을 설명합니다.</div>
+  <div class="notes">에이전트 자율 루프의 메커니즘을 설명합니다.</div>
 </section>
 
-<!-- 24. 기법 ⑤ 상세: 자가 치유 루프 매커니즘 -->
+<!-- 25. 기법 ⑤ 상세: 루프 4단계 (4단 카드) -->
 <section class="slide center tc" data-title="루프 매커니즘">
-  <p class="kicker">자율 루프 4단계</p>
-  <h2 class="h2" style="font-size:42px">자율 루프의 4단계. 생성에서 치유까지.</h2>
+  <p class="kicker">자율 루프 메커니즘</p>
+  <h2 class="h2" style="font-size:42px">스스로 완주하는 자율 루프 4단계</h2>
   <div class="cols-4" style="margin-top:36px;text-align:left">
-    <div class="card"><div class="pill" style="margin-bottom:8px">STEP 1</div><h3 class="card-title">초안 생성</h3><p class="card-desc">input/ 자료와 레퍼런스를 참조해 1차 기안서 작성</p></div>
-    <div class="card"><div class="pill" style="margin-bottom:8px">STEP 2</div><h3 class="card-title">자체 채점</h3><p class="card-desc">사전에 정의한 3대 평가 지표로 1차 초안 검증</p></div>
-    <div class="card highlight"><div class="pill" style="background:rgba(239,68,68,0.2);color:var(--bad);margin-bottom:8px">STEP 3</div><h3 class="card-title">자가 치유</h3><p class="card-desc">"수치 불일치 1건 발견" ➔ 스스로 재계산 후 문장 수정</p></div>
-    <div class="card"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">STEP 4</div><h3 class="card-title">완료 보고</h3><p class="card-desc">3대 지표 100점 충족 시 사람에게 최종 결과물 제출</p></div>
+    <div class="card"><div class="pill" style="margin-bottom:8px">STEP 1</div><h3 class="card-title">초안 작성</h3><p class="card-desc">input 자료와 레퍼런스를 참조해 1차 기안문 작성</p></div>
+    <div class="card"><div class="pill" style="margin-bottom:8px">STEP 2</div><h3 class="card-title">자체 채점</h3><p class="card-desc">사전에 정의된 3대 Metric으로 1차 초안 검증</p></div>
+    <div class="card highlight"><div class="pill" style="background:rgba(239,68,68,0.2);color:var(--bad);margin-bottom:8px">STEP 3</div><h3 class="card-title">자가 수정</h3><p class="card-desc">"수치 오차 1건 발견" ➔ 재계산 후 해당 문장 자체 수정</p></div>
+    <div class="card"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">STEP 4</div><h3 class="card-title">완료 보고</h3><p class="card-desc">모든 지표 100점 통과 확인 후 사람에게 최종 제출</p></div>
   </div>
-  <div class="notes">루프 4단계를 명쾌하게 도식화합니다.</div>
+  <div class="notes">루프 4단계를 도식화하여 보여줍니다.</div>
 </section>
 
-<!-- 25. 기법 ⑥: 멀티에이전트 역할 분담 (Apple Keynote Style) -->
+<!-- 26. 기법 ⑥: 멀티에이전트 팀 (비주얼 분할) -->
 <section class="slide" data-title="기법 6: 멀티에이전트">
   <div class="split-visual">
     <div>
-      <p class="kicker">실전 기법 ⑥ · 멀티에이전트</p>
+      <p class="kicker">실전 기법 ⑥ · 팀 분업</p>
       <h1 class="big-title" style="font-size:56px;line-height:1.2">
         멀티에이전트 팀.<br>
-        <span class="gradient-cyan">분업의 절대적 힘.</span>
+        <span class="gradient-cyan">역할을 분리한 전문 협업.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        단일 프롬프트에 모든 것을 맡기지 마십시오.<br>
-        실제 조직처럼 <b>조사관 · 기안자 · 감독관</b>으로 분리된 전문 서브에이전트 팀이 협업합니다.
+        단일 프롬프트에 조사, 작성, 검증을 모두 맡기면 품질이 무너집니다.<br><br>
+        실제 조직처럼 <b>역할을 명확히 쪼갠 3인 1조 팀</b>으로 운영합니다.
       </p>
     </div>
     <div class="visual-box">
@@ -718,127 +718,147 @@ body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="notes">멀티에이전트 역할 분담의 필요성을 설명합니다.</div>
 </section>
 
-<!-- 26. 기법 ⑥ 상세: 3인 1조 서브에이전트 팀 -->
+<!-- 27. 기법 ⑥ 상세: 3인 1조 팀 구성 (3단 카드) -->
 <section class="slide" data-title="3인 1조 팀 구성">
-  <p class="kicker">3인 1조 분업</p>
-  <h2 class="h2" style="font-size:42px">3인 1조 에이전트 분업. 조사관 · 기안자 · 품질감독관.</h2>
+  <p class="kicker">실전 팀 아키텍처</p>
+  <h2 class="h2" style="font-size:42px">보고서 완성을 위한 3인 1조 분업</h2>
   <div class="cols-3" style="margin-top:36px">
     <div class="card">
-      <div class="pill" style="margin-bottom:12px">에이전트 1 · 조사관</div>
+      <div class="pill" style="margin-bottom:12px">조사관</div>
       <h3 class="card-title">Data Scout</h3>
       <p class="card-desc">사내 파일, 엑셀, 규정집을 뒤져 팩트와 수치만 발라내어 정제된 표로 정리</p>
     </div>
     <div class="card">
-      <div class="pill" style="margin-bottom:12px">에이전트 2 · 기안자</div>
+      <div class="pill" style="margin-bottom:12px">기안자</div>
       <h3 class="card-title">Draft Writer</h3>
-      <p class="card-desc">조사관의 팩트와 references/ 샘플을 바탕으로 부서 규격에 맞춘 1차 결재 기안문 작성</p>
+      <p class="card-desc">조사관의 데이터와 references/ 샘플을 바탕으로 부서 규격에 맞춘 1차 결재 기안문 작성</p>
     </div>
     <div class="card highlight">
-      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">에이전트 3 · 감독관</div>
+      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">검수관</div>
       <h3 class="card-title">Quality Inspector</h3>
-      <p class="card-desc">완성된 기안문이 CLAUDE.md 지침과 평가 지표를 완벽히 통과했는지 최종 검수</p>
+      <p class="card-desc">완성된 기안문이 CLAUDE.md 지침과 평가 지표를 완벽히 통과했는지 최종 확인</p>
     </div>
   </div>
-  <div class="notes">3인 1조 서브에이전트 팀의 역할을 명시합니다.</div>
+  <div class="notes">3인 1조 분업의 역할을 명시합니다.</div>
 </section>
 
-<!-- 27. 기법 ⑦: 적대적 검증 (Apple Keynote Style) -->
+<!-- 28. 기법 ⑦: 적대적 검증 (비주얼 분할) -->
 <section class="slide" data-title="기법 7: 적대적 검증">
   <div class="split-visual">
     <div>
-      <p class="kicker">실전 기법 ⑦ · 적대적 검증</p>
-      <h1 class="big-title" style="font-size:56px;line-height:1.2">
+      <p class="kicker">실전 기법 ⑦ · 품질 보증</p>
+      <h1 class="big-title" style="font-size:52px;line-height:1.25">
         적대적 검증.<br>
-        <span class="gradient-text">가장 가혹한 필터.</span>
+        <span class="gradient-text">결재 전 감사관 관점으로 결점을 찾습니다.</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        작성한 AI에게 잘 썼는지 묻지 마십시오.<br>
-        <b>별도의 감사관 에이전트(Red Team)에게 기안문의 사규 위반과 수치 오류를 결재 전에 가혹하게 난타하게</b> 만듭니다.
+        작성한 AI에게 잘 썼는지 묻지 않습니다.<br><br>
+        별도의 <b>감사관 에이전트(Red Team)에게 기안문의 사규 위반과 수치 오류를 결재 전에 꼼꼼하게 지적</b>하게 만듭니다.
       </p>
     </div>
     <div class="visual-box">
       <img src="images/16-red-team-auditor.jpg" alt="적대적 정밀 감사관 일러스트">
     </div>
   </div>
-  <div class="notes">적대적 검증(Red Teaming)의 폭발적 위력을 설명합니다.</div>
+  <div class="notes">레드팀 관점의 적대적 검증 기법을 설명합니다.</div>
 </section>
 
-<!-- 28. 기법 ⑦ 상세: 적대적 검증의 3단계 공격 -->
+<!-- 29. 기법 ⑦ 상세: 감사관 3단계 사전 검증 (3단 카드) -->
 <section class="slide" data-title="적대적 검증 3단계">
-  <p class="kicker">레드팀 감사 공격</p>
-  <h2 class="h2" style="font-size:42px">레드팀 감사관의 3단계 공격. 사규 위반 · 수치 불일치 · 무결점 방어.</h2>
+  <p class="kicker">사전 필터링</p>
+  <h2 class="h2" style="font-size:42px">결재 상신 전 감사관 에이전트의 3단계 검증</h2>
   <div class="cols-3" style="margin-top:36px">
     <div class="card" style="border-top:5px solid var(--bad)">
-      <div class="pill" style="background:rgba(239,68,68,0.2);color:var(--bad);margin-bottom:12px">공격 1 · 법적 규정</div>
-      <h3 class="card-title">사규 위반 공격</h3>
-      <p class="card-desc">"제12조 계약 예외 조항 적용에 근거 서류가 결여되어 있습니다. 감사 지적 대상입니다."</p>
+      <div class="pill" style="background:rgba(239,68,68,0.2);color:var(--bad);margin-bottom:12px">검증 1 · 법적 규정</div>
+      <h3 class="card-title">사규 위반 점검</h3>
+      <p class="card-desc">"계약 예외 조항 적용에 필수 근거 서류가 결여되어 있습니다. 감사 지적 위험이 있습니다."</p>
     </div>
     <div class="card" style="border-top:5px solid var(--warn)">
-      <div class="pill" style="background:rgba(245,158,11,0.2);color:var(--warn);margin-bottom:12px">공격 2 · 산술 정합성</div>
-      <h3 class="card-title">수치 불일치 공격</h3>
-      <p class="card-desc">"본문 3페이지의 절감액 합계가 1페이지 총괄표와 240만 원 차이납니다. 재검토하세요."</p>
+      <div class="pill" style="background:rgba(245,158,11,0.2);color:var(--warn);margin-bottom:12px">검증 2 · 산술 정합성</div>
+      <h3 class="card-title">수치 불일치 점검</h3>
+      <p class="card-desc">"본문 3페이지의 절감액 합계가 1페이지 총괄표와 240만 원 차이납니다. 재검토가 필요합니다."</p>
     </div>
     <div class="card highlight" style="border-top:5px solid var(--good)">
-      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">최종 방어</div>
-      <h3 class="card-title">공격받고 스스로 수정</h3>
-      <p class="card-desc">기안 에이전트가 감사관의 지적을 수용하여 결재 전 완벽히 무결점 보고서로 수정 완료!</p>
+      <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">최종 보완</div>
+      <h3 class="card-title">사전 자체 수정</h3>
+      <p class="card-desc">기안 에이전트가 감사관의 지적을 반영하여 결재 상신 전 무결점 보고서로 수정 완료.</p>
     </div>
   </div>
-  <div class="notes">적대적 공격과 방어로 완성되는 무결점 프로세스를 보여줍니다.</div>
+  <div class="notes">결재 전 자가 필터링 프로세스를 보여줍니다.</div>
 </section>
 
-<!-- 29. 6대 기법 총괄 다이어그램 -->
-<section class="slide center tc" data-title="6대 기법 총괄">
-  <p class="kicker">하네스 완성</p>
-  <h1 class="big-title" style="font-size:62px">
-    프롬프트 제로.<br>
-    <span class="gradient-text">오직 시스템(Harness)만으로.</span>
+<!-- 30. 7대 하네스 총괄 (빅 타이포 & 3단 요약) -->
+<section class="slide center tc" data-title="7대 하네스 총괄">
+  <p class="kicker">시스템 아키텍처 완성</p>
+  <h1 class="big-title" style="font-size:56px">
+    프롬프트 작성이 아닌,<br>
+    <span class="gradient-cyan">시스템(Harness) 설계를 통한 업무 완성</span>
   </h1>
-  <div class="cols-3" style="margin-top:40px;text-align:left">
-    <div class="card"><h3 class="card-title">1. 구조 & 레퍼런스</h3><p class="card-desc">폴더 정리 + 과거 합격 문서 주입</p></div>
-    <div class="card"><h3 class="card-title">2. 지침 & 평가 지표</h3><p class="card-desc">CLAUDE.md 원칙 고정 + Metric 채점표</p></div>
-    <div class="card highlight"><h3 class="card-title">3. 루프 & 적대적 검증</h3><p class="card-desc">자가 치유 회전 + 가혹한 감사관 검수</p></div>
+  <div class="cols-3" style="max-width:1150px;margin:40px auto 0;text-align:left">
+    <div class="card"><h3 class="card-title" style="font-size:22px">1. 구조와 레퍼런스</h3><p class="card-desc" style="font-size:17px">폴더 구조화 + 실제 결재 통과 샘플 주입</p></div>
+    <div class="card"><h3 class="card-title" style="font-size:22px">2. 원칙과 기준</h3><p class="card-desc" style="font-size:17px">CLAUDE.md 원칙 파일 고정 + 정량 Metric 채점표</p></div>
+    <div class="card highlight"><h3 class="card-title" style="font-size:22px">3. 자율 실행과 검증</h3><p class="card-desc" style="font-size:17px">자가 치유 루프 + 멀티에이전트 + 적대적 검증</p></div>
   </div>
-  <div class="notes">7대 기법이 하나로 맞물리는 아키텍처를 총괄 정리합니다.</div>
+  <div class="notes">7대 하네스 요소가 결합된 아키텍처를 총괄 정리합니다.</div>
 </section>
 
 <!-- ===================================================================
-     PART 3: 실전 환경과 공기업 적용 (Apple Keynote Style)
+     PART 3: 바이브코딩 실전과 공기업 현업 적용
      =================================================================== -->
 
-<!-- 30. 식당 vs 주방 (비주얼 분할) -->
-<section class="slide" data-title="식당 vs 주방">
+<!-- 31. 사내에 남기는 3대 영구 자산 (비주얼 분할) -->
+<section class="slide" data-title="3대 자산">
   <div class="split-visual">
     <div>
-      <p class="kicker">환경의 차이</p>
-      <h1 class="big-title" style="font-size:56px;line-height:1.25">
-        식당 vs 주방.<br>
-        <span class="gradient-cyan">외부 SaaS를 넘어 사내 주방으로.</span>
+      <p class="kicker">업무 자산화</p>
+      <h1 class="big-title" style="font-size:54px;line-height:1.25">
+        일회성 대화 대신 남기는<br>
+        <span class="gradient-text">3대 영구 업무 자산</span>
       </h1>
-      <p class="big-subtitle" style="font-size:24px">
-        정해진 메뉴판만 주문 가능한 외부 클라우드 챗봇에서 벗어나,<br>
-        <b>사내 PC 환경에서 부서의 고유 데이터와 7대 하네스 도구를 직접 결합</b>하여 요리합니다.
-      </p>
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">컨텍스트 (CLAUDE.md)</b>: 부서 대원칙과 보고 지침</div>
+        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">스킬 (SKILL.md)</b>: 도메인 지식이 담긴 실행 매뉴얼</div>
+        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">MCP</b>: 사내 시스템과 데이터를 안전하게 연결하는 표준 도구</div>
+      </div>
     </div>
     <div class="visual-box">
-      <img src="images/03-saas-vs-agent.jpg" alt="식당 vs 주방 일러스트">
+      <img src="images/02-context-skill-mcp.jpg" alt="3대 자산 일러스트">
     </div>
   </div>
-  <div class="notes">외부 SaaS와 사내 로컬 주방의 차이를 시각화합니다.</div>
+  <div class="notes">사내에 영구히 남길 수 있는 3대 자산을 정리합니다.</div>
 </section>
 
-<!-- 31. 브라우저 제어 라이브 시연 (비주얼 분할) -->
+<!-- 32. 스킬 파일의 실전 효과 (2단 비교) -->
+<section class="slide" data-title="스킬의 위력">
+  <p class="kicker">실전 효율</p>
+  <h2 class="h2" style="font-size:42px">매주 프롬프트 복붙하기 vs <span class="gradient-cyan">스킬 파일 한 줄 호출</span></h2>
+  <div class="versus" style="margin-top:32px">
+    <div class="card">
+      <div class="vt" style="color:var(--text-3)">구시대 프롬프트 방식</div>
+      <div class="vb">매주 메모장에서 프롬프트 20줄 복사·붙여넣기</div>
+      <div class="vn">"우리 부서 양식은 3문단이고, 실적 먼저 쓰고, 경어체 쓰고..." 매주 수작업 반복.</div>
+    </div>
+    <div class="card highlight">
+      <div class="vt" style="color:var(--accent)">에이전트 스킬 방식</div>
+      <div class="vb">단 1줄 호출: "주간보고 취합해 줘"</div>
+      <div class="vn">에이전트가 폴더 내 SKILL.md(도메인 매뉴얼)를 읽고 부서 규격 100% 일치 결과물 자동 생성.</div>
+    </div>
+  </div>
+  <div class="notes">스킬 파일 자산화의 실질적 시간 절감 효과를 보여줍니다.</div>
+</section>
+
+<!-- 33. 브라우저 제어 라이브 (비주얼 분할) -->
 <section class="slide" data-title="브라우저 제어">
   <div class="split-visual">
     <div>
-      <p class="kicker">라이브 시연 ①</p>
+      <p class="kicker">실습 시연</p>
       <h1 class="big-title" style="font-size:52px;line-height:1.25">
-        브라우저 제어.<br>
-        <span class="gradient-text">사내 전산망의 자동 연결.</span>
+        브라우저 제어를 통한<br>
+        <span class="gradient-text">사내 전산망 데이터 자동 연결</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        별도의 전산망 API가 없어도 괜찮습니다.<br>
-        사람이 브라우저로 하던 로그인, 조회, 엑셀 다운로드를 <b>에이전트가 완벽히 대행</b>합니다.
+        별도의 전산망 API가 없어도 괜찮습니다.<br><br>
+        사람이 브라우저로 하던 로그인, 조회, 엑셀 다운로드를 <b>에이전트가 화면 조작으로 직접 대행</b>합니다.
       </p>
     </div>
     <div class="visual-box">
@@ -848,143 +868,89 @@ body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
   <div class="notes">브라우저 자동 조작 시연을 연결합니다.</div>
 </section>
 
-<!-- 32. 3대 자산 (비주얼 분할) -->
-<section class="slide" data-title="3대 자산">
-  <div class="split-visual">
-    <div>
-      <p class="kicker">영구 자산화</p>
-      <h1 class="big-title" style="font-size:54px;line-height:1.25">
-        3대 영구 자산.<br>
-        <span class="gradient-cyan">Context · Skill · MCP.</span>
-      </h1>
-      <div style="margin-top:28px;display:flex;flex-direction:column;gap:16px">
-        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">컨텍스트 (CLAUDE.md)</b>: 부서 대원칙과 보고 지침</div>
-        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">스킬 (SKILL.md)</b>: 도메인 지식이 담긴 실행 매뉴얼</div>
-        <div class="card" style="padding:20px 26px"><b style="color:var(--accent)">MCP</b>: 사내 시스템과 데이터를 연결하는 표준 콘센트</div>
-      </div>
-    </div>
-    <div class="visual-box">
-      <img src="images/02-context-skill-mcp.jpg" alt="3대 자산 일러스트">
-    </div>
-  </div>
-  <div class="notes">3대 영구 자산을 시각적으로 정리합니다.</div>
-</section>
-
-<!-- 33. 스킬의 위력 비교 -->
-<section class="slide" data-title="스킬의 위력">
-  <p class="kicker">실전 비교</p>
-  <h2 class="h2" style="font-size:44px">스킬의 위력. 프롬프트 20줄 vs <span class="gradient-text">스킬 파일 1줄.</span></h2>
-  <div class="versus" style="margin-top:32px">
-    <div class="card">
-      <div class="vt" style="color:var(--text-3)">구시대 프롬프트 방식</div>
-      <div class="vb">매주 프롬프트 20줄 복사·붙여넣기</div>
-      <div class="vn">"우리 부서 양식은 3문단이고, 실적 먼저 쓰고, 경어체 쓰고..." 매주 반복 작성.</div>
-    </div>
-    <div class="card highlight">
-      <div class="vt" style="color:var(--accent)">에이전트 스킬 방식</div>
-      <div class="vb">단 1줄 호출: "주간보고 취합해 줘"</div>
-      <div class="vn">에이전트가 폴더 내 SKILL.md(도메인 매뉴얼)를 읽고 부서 규격 100% 일치 결과물 자동 생성.</div>
-    </div>
-  </div>
-  <div class="notes">스킬 파일의 압도적 효율을 대조합니다.</div>
-</section>
-
-<!-- 34. 퀴즈 ② -->
-<section class="slide" data-title="퀴즈 ②">
-  <p class="kicker">개념 점검</p>
-  <h2 class="h2" style="font-size:42px">정기 반복 업무를 자동화할 때 우리 부서에 남겨야 할 자산은?</h2>
-  <div class="quiz">
-    <div class="opt a"><div class="sym">▲</div><span>더 길고 정교한 프롬프트 템플릿</span></div>
-    <div class="opt b"><div class="sym">◆</div><span>현장 도메인 지식이 담긴 스킬 파일(SKILL.md)</span></div>
-    <div class="opt c"><div class="sym">●</div><span>새로운 외부 상용 AI 앱 구독</span></div>
-    <div class="opt d"><div class="sym">■</div><span>담당자 개인의 메모장 요령</span></div>
-  </div>
-  <div class="notes">정답은 ◆ 현장 도메인 지식이 담긴 스킬 파일(SKILL.md)입니다.</div>
-</section>
-
-<!-- 35. 바이브코딩: 시각적 목표 -->
-<section class="slide center tc" data-title="바이브코딩">
-  <p class="kicker">작업 지시의 혁신</p>
-  <h1 class="big-title" style="font-size:64px">
-    바이브코딩.<br>
-    <span class="gradient-cyan">완성 화면과 합격 기준을 던진다.</span>
+<!-- 34. 바이브코딩 실습: 시각적 목표 (빅 타이포) -->
+<section class="slide center tc" data-title="바이브코딩 실습">
+  <p class="kicker">작업 지시의 기준</p>
+  <h1 class="big-title" style="font-size:62px">
+    "예쁘게 만들어 줘" 대신,<br>
+    <span class="gradient-cyan">완성 화면 예시와 합격 기준을 던집니다.</span>
   </h1>
   <p class="big-subtitle" style="max-width:920px;margin:24px auto 0">
-    주관적 형용사는 백날 프롬프트에 써봐야 엉뚱한 결과가 나옵니다.<br>
-    시각적 목표(Mockup)와 3대 합격 기준을 명시하는 것이 바이브코딩의 정석입니다.
+    모호한 말로 설명하지 않고,<br>
+    <b>완성 화면 목업(Mockup) 사진</b>과 <b>3대 합격 지표</b>를 주고 코드를 생성·수정하는 것이 바이브코딩의 정석입니다.
   </p>
-  <div class="notes">바이브코딩의 원리를 설명합니다.</div>
+  <div class="notes">바이브코딩의 실제 작업 지시 원리를 설명합니다.</div>
 </section>
 
-<!-- 36. 실무 프로세스 일치 (비주얼 분할) -->
+<!-- 35. 실무 프로세스와의 일치 (비주얼 분할) -->
 <section class="slide" data-title="실무 프로세스 일치">
   <div class="split-visual">
     <div>
-      <p class="kicker">실무의 본질</p>
-      <h1 class="big-title" style="font-size:54px;line-height:1.25">
-        실무의 본질.<br>
-        <span class="gradient-text">우리가 원래 일하던 방식 그대로.</span>
+      <p class="kicker">일하는 방식</p>
+      <h1 class="big-title" style="font-size:52px;line-height:1.25">
+        후배 직원에게 일을 지시하고<br>
+        <span class="gradient-text">검수하던 방식 그대로</span>
       </h1>
       <p class="big-subtitle" style="font-size:24px">
-        완성 예시 · 3대 합격 기준 · 샘플 검수.<br>
-        새로운 기술이 아닙니다. <b>후배 직원에게 일을 지시하고 검수하던 방식 그대로</b>입니다.
+        모범 샘플 보여주기 ➔ 기준 정하기 ➔ 초안 받아 검수하기.<br><br>
+        새로운 기술이 아닙니다. <b>우리가 원래 현업에서 일하던 방식과 완벽히 일치</b>합니다.
       </p>
     </div>
     <div class="visual-box">
-      <img src="images/06-reference-verify.jpg" alt="레퍼런스 검수 일러스트">
+      <img src="images/05-log-retry.jpg" alt="로그 분석과 자체 수정">
     </div>
   </div>
-  <div class="notes">현업 업무 방식과의 일치성을 강조합니다.</div>
+  <div class="notes">현업 업무 지시 방식과의 구조적 일치성을 강조합니다.</div>
 </section>
 
-<!-- 37. 8단계 프로토콜 -->
+<!-- 36. 8단계 구축 프로토콜 (4단 카드) -->
 <section class="slide" data-title="8단계 프로토콜">
-  <p class="kicker">표준 프로토콜</p>
-  <h2 class="h2" style="font-size:44px">8단계 프로토콜. 설계부터 조직 자산화까지.</h2>
+  <p class="kicker">표준 절차</p>
+  <h2 class="h2" style="font-size:42px">에이전트 기반 업무 자산화 8단계</h2>
   <div class="cols-4" style="margin-top:28px">
-    <div class="card"><div class="pill" style="margin-bottom:8px">1-2단계</div><h3 class="card-title">폴더 & 레퍼런스</h3><p class="card-desc">폴더 구조와 통과된 과거 샘플 주입</p></div>
-    <div class="card"><div class="pill" style="margin-bottom:8px">3-4단계</div><h3 class="card-title">지침 & Metric</h3><p class="card-desc">CLAUDE.md 원칙과 3대 채점표 확정</p></div>
-    <div class="card"><div class="pill" style="margin-bottom:8px">5-6단계</div><h3 class="card-title">루프 & 적대적 검증</h3><p class="card-desc">자율 수정 및 가혹한 감사관 검수</p></div>
-    <div class="card highlight"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">7-8단계</div><h3 class="card-title">스킬 파일 자산화</h3><p class="card-desc">SKILL.md 저장 및 팀 내 인수인계</p></div>
+    <div class="card"><div class="pill" style="margin-bottom:8px">1-2단계</div><h3 class="card-title">폴더 & 레퍼런스</h3><p class="card-desc">폴더 구조 잡기 & 과거 통과 문서 수집</p></div>
+    <div class="card"><div class="pill" style="margin-bottom:8px">3-4단계</div><h3 class="card-title">CLAUDE.md & Metric</h3><p class="card-desc">원칙 파일 작성 & 3대 합격 채점표 확정</p></div>
+    <div class="card"><div class="pill" style="margin-bottom:8px">5-6단계</div><h3 class="card-title">루프 & 적대적 검증</h3><p class="card-desc">자가 치유 회전 & 감사관 에이전트 테스트</p></div>
+    <div class="card highlight"><div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:8px">7-8단계</div><h3 class="card-title">스킬 파일 자산화</h3><p class="card-desc">SKILL.md 매뉴얼 저장 & 팀 내 공유</p></div>
   </div>
   <div class="notes">8단계 구축 프로토콜을 설명합니다.</div>
 </section>
 
-<!-- 38. 공기업 보안 안전선 -->
+<!-- 37. 공기업 보안 안전선 (3단 카드) -->
 <section class="slide" data-title="보안 안전선">
-  <p class="kicker">공기업 보안선</p>
-  <h2 class="h2" style="font-size:44px">공기업 보안선. 명확한 3단계 가이드라인.</h2>
+  <p class="kicker">보안 가이드라인</p>
+  <h2 class="h2" style="font-size:42px">공기업 환경을 위한 3단계 보안 기준</h2>
   <div class="cols-3" style="margin-top:34px">
     <div class="card" style="border-top:5px solid var(--good)">
-      <div class="card-title" style="color:var(--good)">✅ 즉시 가능 영역</div>
-      <p class="card-desc" style="font-size:19px;line-height:1.6">· 공문·보고서 서식 정리<br>· 공개 규정 신구대조표<br>· 비식별 통계 데이터 취합</p>
+      <div class="card-title" style="color:var(--good)">✅ 즉시 활용 가능</div>
+      <p class="card-desc" style="font-size:19px;line-height:1.6">· 공문·보고서 서식 정리<br>· 공개 규정 신구대조<br>· 비식별 통계 데이터 취합</p>
     </div>
     <div class="card highlight" style="border-top:5px solid var(--accent)">
       <div class="card-title" style="color:var(--accent)">🔍 검토 후 도입</div>
-      <p class="card-desc" style="font-size:19px;line-height:1.6">· 사내 전산 규정 봇 (폐쇄망)<br>· 비식별 관리 보고서 요약<br>· 전력 통계 시각화</p>
+      <p class="card-desc" style="font-size:19px;line-height:1.6">· 사내 전산 규정 봇 (폐쇄망)<br>· 비식별 업무 보고서 요약<br>· 전력 통계 시각화</p>
     </div>
     <div class="card" style="border-top:5px solid var(--bad)">
-      <div class="card-title" style="color:var(--bad)">🚫 사외 반출 금지</div>
-      <p class="card-desc" style="font-size:19px;line-height:1.6">· 전력 제어망 SCADA 데이터<br>· 주민번호 등 금융 식별정보<br>· 대외비 감사·인사 원본</p>
+      <div class="card-title" style="color:var(--bad)">🚫 사외 반출 엄금</div>
+      <p class="card-desc" style="font-size:19px;line-height:1.6">· 전력 제어망 SCADA 데이터<br>· 주민번호 등 금융·개인식별정보<br>· 대외비 감사·인사 원본</p>
     </div>
   </div>
-  <div class="notes">공기업 보안 안전 기준선을 안내합니다.</div>
+  <div class="notes">공기업 보안 가이드라인 3단계를 제시합니다.</div>
 </section>
 
-<!-- 39. 우선 구축 스킬 3선 -->
-<section class="slide" data-title="첫 스킬 3선">
-  <p class="kicker">실전 과제 발굴</p>
-  <h2 class="h2" style="font-size:44px">우선 구축 스킬 3선. 주간보고 · 민원 · 규정대조.</h2>
+<!-- 38. 우선 구축 과제 3선 (3단 카드) -->
+<section class="slide" data-title="우선 구축 과제">
+  <p class="kicker">내일 아침 시작할 업무</p>
+  <h2 class="h2" style="font-size:42px">현업 복귀 후 바로 만들 수 있는 첫 과제 3선</h2>
   <div class="cols-3" style="margin-top:34px">
     <div class="card highlight">
       <div class="pill" style="margin-bottom:12px">기획 · 관리</div>
       <h3 class="card-title">주간보고 실적 취합</h3>
-      <p class="card-desc">사업소 메모 5건 → 본부 표준 1장.<br>조건: 3문단, 수치 명시, 표준 경어체.</p>
+      <p class="card-desc">사업소 메모 5건 → 본부 표준 1장.<br>조건: 3문단 요약, 수치 정합성 100%.</p>
     </div>
     <div class="card highlight">
       <div class="pill" style="margin-bottom:12px">고객 · 영업</div>
       <h3 class="card-title">민원 회신문 초안</h3>
-      <p class="card-desc">민원 유형별 필수 안내 항목 매뉴얼화.<br>실무자는 최종 사실관계 검수만.</p>
+      <p class="card-desc">반복 민원 유형별 필수 안내 항목 매뉴얼화.<br>실무자는 최종 사실관계 검수만 진행.</p>
     </div>
     <div class="card highlight">
       <div class="pill" style="margin-bottom:12px">총무 · 감사</div>
@@ -992,89 +958,49 @@ body[data-current-slide="44"] .deck-header { opacity: 0; pointer-events: none; }
       <p class="card-desc">개정 전후 규정 비교 및 변경 표기.<br>검증 조건: 조항 누락 0건.</p>
     </div>
   </div>
-  <div class="notes">부서별 3대 우선 스킬 후보를 소개합니다.</div>
+  <div class="notes">부서별 우선 구축 과제 3선을 제안합니다.</div>
 </section>
 
-<!-- 40. 사내 확산 단계 -->
-<section class="slide center tc" data-title="사내 확산">
-  <p class="kicker">사내 확산</p>
-  <h1 class="big-title" style="font-size:60px">
-    사내 확산.<br>
-    <span class="gradient-text">개인의 도구에서 전사의 자산으로.</span>
-  </h1>
-  <div class="cols-3" style="margin-top:36px;text-align:left">
-    <div class="card"><div class="pill" style="margin-bottom:8px">STEP 1</div><h3 class="card-title">개인 스킬</h3><p class="card-desc">내 PC에서 내 반복 업무를 줄이는 SKILL.md</p></div>
-    <div class="card highlight"><div class="pill" style="margin-bottom:8px">STEP 2</div><h3 class="card-title">팀 표준 매뉴얼</h3><p class="card-desc">팀 공유 폴더 등록, 후임자 인수인계 완료</p></div>
-    <div class="card"><div class="pill" style="margin-bottom:8px">STEP 3</div><h3 class="card-title">전사 공유 자산</h3><p class="card-desc">사업소 간 검증된 스킬 공유, 일하는 방식 혁신</p></div>
-  </div>
-  <div class="notes">스킬이 개인에서 전사로 확산되는 과정을 설명합니다.</div>
-</section>
-
-<!-- 41. 실천 다짐 설문 -->
-<section class="slide" data-title="실천 다짐">
-  <p class="kicker">실천 다짐</p>
-  <h2 class="h2" style="font-size:42px">이번 주에 우리 부서에서 가장 먼저<br>폴더 구조와 레퍼런스를 갖추고 싶은 업무는?</h2>
-  <div class="card" style="margin-top:32px;padding:48px;border:2px dashed var(--border-strong);text-align:center">
-    <p style="font-size:28px;font-weight:800;color:var(--text-1)">업무 명칭 하나를 확정해 주십시오</p>
-    <p style="font-size:20px;color:var(--text-3);margin-top:14px">적어둔 업무 하나가 내일 아침 에이전트 하네스의 출발점이 됩니다.</p>
-  </div>
-  <div class="notes">현업 착수 과제를 스스로 확정하도록 유도합니다.</div>
-</section>
-
-<!-- 42. 현업 복귀 3단계 실천 -->
+<!-- 39. 이번 주 실천 과제 (3단 카드) -->
 <section class="slide" data-title="실천 과제">
-  <p class="kicker">실천 과제</p>
-  <h2 class="h2" style="font-size:44px">현업 복귀 실천 과제. 레퍼런스 · CLAUDE.md · 적대적 검증.</h2>
+  <p class="kicker">현업 실천</p>
+  <h2 class="h2" style="font-size:42px">이번 주에 추진할 3가지 현업 과제</h2>
   <div class="cols-3" style="margin-top:34px">
     <div class="card">
       <div class="pill" style="margin-bottom:12px">과제 1</div>
       <h3 class="card-title">레퍼런스 폴더 구축</h3>
-      <p class="card-desc">핵심 정기 업무 1건의 과거 통과 문서와 엑셀을 references/에 수집</p>
+      <p class="card-desc">우리 팀 반복 업무 1건의 과거 통과 문서와 엑셀을 references/에 수집</p>
     </div>
     <div class="card">
       <div class="pill" style="margin-bottom:12px">과제 2</div>
       <h3 class="card-title">CLAUDE.md 지침 작성</h3>
-      <p class="card-desc">우리 팀만의 전결선과 필수 보고 원칙을 1페이지 규칙 파일로 고정</p>
+      <p class="card-desc">우리 팀 전결 규정과 필수 보고 원칙을 담은 1페이지 규칙 파일 작성</p>
     </div>
     <div class="card highlight">
       <div class="pill" style="background:rgba(16,185,129,0.2);color:var(--good);margin-bottom:12px">과제 3</div>
       <h3 class="card-title">적대적 검증 루프 적용</h3>
-      <p class="card-desc">기안문 작성 후 "감사실 관점 결점 지적" 적대적 에이전트로 결재 전 자가 필터링</p>
+      <p class="card-desc">기안 올리기 전 "감사관 관점 결점 점검" 에이전트로 사전 자가 필터링</p>
     </div>
   </div>
-  <div class="notes">교육 후 즉시 실천할 3과제를 명시합니다.</div>
+  <div class="notes">교육 후 즉시 실천할 3과제를 정리합니다.</div>
 </section>
 
-<!-- 43. 핵심 요약 (빅 폰트) -->
-<section class="slide center tc" data-title="핵심 요약">
-  <p class="kicker">강의 총정리</p>
-  <h1 class="big-title" style="font-size:62px;line-height:1.25">
-    프롬프트를 넘어,<br>
-    <span class="gradient-text">에이전트 하네스로.</span>
-  </h1>
-  <p class="big-subtitle" style="max-width:960px;margin:24px auto 0">
-    여러분의 도메인 지식이 시스템의 지침으로 고정될 때,<br>
-    인공지능은 비로소 실무자의 가장 든든한 현장 대리인이 됩니다.
-  </p>
-  <div class="notes">강의의 가장 핵심적인 메시지를 총정리합니다.</div>
-</section>
-
-<!-- 44. 클로징 & 질의응답 (히어로) -->
+<!-- 40. 클로징 & 질의응답 (히어로) -->
 <section class="slide" data-title="마무리">
   <div class="hero">
     <img src="images/07-towers-dawn.jpg" alt="송전탑과 새벽 여명">
     <div class="hero-scrim"></div>
     <div class="hero-content">
-      <span class="pill">새로운 시작 · 질의응답</span>
-      <h1 class="mt-s anim-rise-in" data-anim="rise-in" style="font-size:56px">
-        새로운 시작.<br>
-        <span class="gradient-cyan">기술이 아닌 시스템의 승리.</span>
+      <span class="pill">강의 마무리 · 질의응답</span>
+      <h1 class="mt-s anim-rise-in" data-anim="rise-in" style="font-size:54px">
+        인공지능이 도구를 쥐는 시대.<br>
+        <span class="gradient-cyan">경쟁력의 본질은 '시스템 하네스'입니다.</span>
       </h1>
-      <p style="margin-top:16px">경청해 주셔서 감사합니다. 자유롭게 질의해 주시기 바랍니다.</p>
+      <p style="margin-top:16px">프롬프트에 매달리지 않고, 도메인 지식을 시스템으로 자산화하는 것.<br>경청해 주셔서 감사합니다. 자유롭게 질의해 주시기 바랍니다.</p>
       <div style="margin-top:20px;font-size:18px;color:#94a3b8">조성호 · KODE KOREA 대표 · seongho.cho@kodekorea.kr · kodekorea.kr</div>
     </div>
   </div>
-  <div class="notes">강의를 닫고 현장 Q&A를 진행합니다.</div>
+  <div class="notes">강의를 닫고 현장 질의응답을 진행합니다.</div>
 </section>
 
 </div>
