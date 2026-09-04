@@ -1,0 +1,133 @@
+/* ===================================================================
+   deck-v2.css — 레이아웃/디자인 보정 + 모션(anime.js) 지원 스타일
+   index.html의 인라인 <style> 뒤에 로드되어 같은 선택자를 덮어쓴다.
+   =================================================================== */
+
+/* ---------- 1. 배경: 평평한 검정 → 은은한 광원 두 개로 공간감 ---------- */
+.slide{
+  background:
+    radial-gradient(ellipse 55% 45% at 84% 10%, rgba(56,189,248,.11), transparent 70%),
+    radial-gradient(ellipse 45% 55% at 6% 96%, rgba(129,140,248,.08), transparent 70%),
+    var(--bg);
+}
+
+/* ---------- 2. 히어로(챕터 간지)는 풀블리드 ----------
+   기존: 슬라이드 패딩 안쪽에 둥근 박스로 들어가 있어 어두운 테두리 띠가 생김 */
+.slide:has(> .hero){ padding:0; }
+.hero{ height:100vh; border-radius:0; border:0; box-shadow:none; }
+.hero img{ will-change:transform; transform-origin:50% 50%; }
+.hero-scrim{
+  background:linear-gradient(to top,
+    rgba(7,11,20,.97) 0%, rgba(7,11,20,.62) 42%, rgba(7,11,20,.18) 100%);
+}
+.hero-content{ left:96px; right:96px; bottom:96px; }
+.hero-content h1{ font-size:72px; }
+.hero .pill{ backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+/* 히어로 슬라이드에서는 상단 헤더 숨김 (슬라이드 번호 하드코딩 대신 구조로 판별) */
+body:has(.deck > .slide.is-active > .hero) .deck-header{ opacity:0; pointer-events:none; }
+
+/* ---------- 3. 가운데 정렬 슬라이드에서 카드 그리드가 콘텐츠 폭으로 쪼그라드는 버그 ----------
+   .slide.center 는 flex-column + align-items:center 라서 자식 grid 가 max-content 폭이 됨
+   (20번 슬라이드: 1920 캔버스에 카드 8장이 780px 폭으로 뭉침) */
+.slide.center > .cols-2,
+.slide.center > .cols-3,
+.slide.center > .cols-4,
+.slide.center > .versus{ width:100%; }
+
+/* ---------- 4. 카드: backdrop-filter 제거 + 위계/가독성 강화 ----------
+   카드 뒤는 단색 배경이라 블러가 보이지 않고 GPU 비용만 든다 (카드·필 76개) */
+.card{
+  backdrop-filter:none; -webkit-backdrop-filter:none;
+  background:rgba(18,26,43,.94);
+  padding:32px 34px;
+  transition:box-shadow .8s ease, border-color .8s ease;
+}
+.pill{ backdrop-filter:none; -webkit-backdrop-filter:none; }
+.card-title{ font-size:26px; margin-bottom:14px; }
+.card-desc{ font-size:20px; line-height:1.6; }
+.cols-4 .card{ padding:26px 26px; }
+.cols-4 .card-title{ font-size:22px; margin-bottom:10px; }
+.cols-4 .card-desc{ font-size:18px; line-height:1.5; }
+/* 카드가 한두 줄 텍스트로 납작해져 1080 캔버스 위아래가 비는 것을 완화 */
+.cols-2 > .card{ min-height:300px; }
+.cols-3 > .card, .versus > div{ min-height:290px; }
+.cols-4 > .card{ min-height:250px; }
+.cols-3 > .card, .cols-4 > .card, .cols-2 > .card{ display:flex; flex-direction:column; }
+.cols-3 > .card > .card-desc, .cols-4 > .card > .card-desc, .cols-2 > .card > .card-desc{ margin:0; }
+/* 강조 카드 글로우 — 모션 마지막에 .glow 클래스가 붙는다 */
+.card.highlight.glow{
+  border-color:rgba(56,189,248,.7);
+  box-shadow:var(--shadow), 0 0 0 1px rgba(56,189,248,.35), 0 0 48px -6px rgba(56,189,248,.45);
+}
+/* 💡 이모지 대신 발광 점으로 "AI에게 이렇게 시킵니다" 표시 */
+.card-title.cue::before{
+  content:""; display:inline-block; width:10px; height:10px; border-radius:50%;
+  background:currentColor; box-shadow:0 0 14px currentColor; margin-right:12px; vertical-align:middle;
+}
+
+/* ---------- 5. 제목 스케일 통일 (인라인 42/40/38px 제거 후 적용) ---------- */
+.slide .h2{ font-size:48px; line-height:1.15; letter-spacing:-.03em; margin:0; }
+.kicker::before{
+  content:""; display:inline-block; width:28px; height:3px; border-radius:2px;
+  background:var(--accent); margin-right:14px; vertical-align:middle;
+}
+.slide.tc .kicker::before{ display:none; }
+
+/* ---------- 6. 헤더/진행바 ---------- */
+.deck-header{ font-size:15px; letter-spacing:.02em; font-weight:600; opacity:.75; }
+.deck-header .slide-number{ font-family:var(--font-mono); font-size:16px; letter-spacing:.06em; }
+.progress-bar{ height:4px; }
+.progress-bar > span{
+  background:linear-gradient(90deg, var(--accent), #818cf8);
+  box-shadow:0 0 12px rgba(56,189,248,.6);
+}
+
+/* ---------- 7. Versus: 대립 구조가 보이게 VS 배지 ---------- */
+.versus{ position:relative; gap:56px; }
+.versus > div{ display:flex; flex-direction:column; justify-content:center; }
+.versus::after{
+  content:"VS"; position:absolute; left:50%; top:50%; width:64px; height:64px; margin:-32px 0 0 -32px;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:20px; letter-spacing:.06em; color:#fff;
+  background:linear-gradient(135deg,#38bdf8,#818cf8);
+  box-shadow:0 0 0 6px var(--bg), 0 8px 24px rgba(56,189,248,.35);
+  z-index:2; transform:scale(0);
+  transition:transform .55s cubic-bezier(.34,1.56,.64,1);
+}
+.versus.vs-in::after{ transform:scale(1); }
+
+/* ---------- 8. Manim 영상 박스 ---------- */
+.visual-box.video{ aspect-ratio:16/9; height:auto; max-height:none; position:relative; background:var(--bg); }
+.visual-box video{ width:100%; height:100%; object-fit:cover; display:block; }
+.video-replay{
+  position:absolute; right:16px; bottom:16px; padding:8px 14px; border-radius:999px;
+  font-size:14px; font-weight:700; color:var(--accent);
+  background:rgba(7,11,20,.75); border:1px solid var(--border-strong);
+  opacity:0; transition:opacity .3s; cursor:pointer; user-select:none;
+}
+.visual-box.video:hover .video-replay,
+.visual-box.video.ended .video-replay{ opacity:1; }
+
+/* ---------- 9. 수식형 슬라이드(컨텍스트 = 자료 + 규칙 + 도구 + 검증 루프) ---------- */
+.cols-4[data-formula]{ gap:44px; position:relative; }
+.formula-op{
+  position:absolute; top:50%; width:36px; height:36px; margin:-18px 0 0 -18px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:22px; line-height:1; color:#fff;
+  background:rgba(56,189,248,.18); border:1px solid var(--border-strong);
+  box-shadow:0 0 0 4px var(--bg); z-index:2; opacity:0;
+}
+.formula-result{ font-size:22px; margin-top:28px; text-align:center; }
+.formula-result .eq{ color:var(--accent); font-weight:900; margin-right:6px; }
+
+/* ---------- 10. 타임라인 커넥터(data-flow) — JS가 SVG를 그린다 ---------- */
+.flow-svg{ position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; overflow:visible; z-index:1; }
+
+/* ---------- 11. 헤드라인 단어 분할 ---------- */
+.w{ display:inline-block; will-change:transform, opacity; }
+
+@media (prefers-reduced-motion: reduce){
+  .w{ will-change:auto; }
+  .versus::after{ transform:scale(1); transition:none; }
+  .formula-op{ opacity:1; }
+}
